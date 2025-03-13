@@ -8,7 +8,7 @@ export function Header() {
           <div className="bg-white text-corporate-700 rounded-md p-1 w-8 h-8 flex items-center justify-center font-bold">
             S
           </div>
-          <span className="text-xl font-bold">SubRise</span>
+          <span className="text-xl font-bold">Subrise</span>
         </div>
         <div className="hidden md:block">
           <MainNav />

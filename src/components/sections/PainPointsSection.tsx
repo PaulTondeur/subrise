@@ -26,7 +26,7 @@ export function PainPointsSection() {
               <PainPoint text="Kan ik deze uren schrijven op het WBSO project?" />
             </ul>
             <p className="text-gray-500 mt-6 bg-white p-5 rounded-xl shadow-sm">
-              Dat is precies waarom we SubRise hebben ontwikkeld. Ons platform neemt de complexiteit weg, zodat jij
+              Dat is precies waarom we Subrise hebben ontwikkeld. Ons platform neemt de complexiteit weg, zodat jij
               je kunt focussen op waar het echt om draait: innovatie. Wij hebben als ondernemers al veel met de WBSO
               te maken gehad en weten daarom precies wat belangrijk is voor jou.
             </p>

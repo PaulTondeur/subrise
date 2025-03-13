@@ -8,7 +8,7 @@ export function Footer() {
               <div className="bg-white text-corporate-700 rounded-md p-1 w-8 h-8 flex items-center justify-center font-bold">
                 S
               </div>
-              <span className="text-xl font-bold">SubRise</span>
+              <span className="text-xl font-bold">Subrise</span>
             </div>
             <p className="text-corporate-200 text-sm">
               Maak WBSO-aanvragen eenvoudiger dan ooit met ons AI-ondersteund platform.
@@ -67,7 +67,7 @@ export function Footer() {
         </div>
         <div className="border-t border-corporate-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-center text-sm leading-loose text-corporate-300 md:text-left">
-            © {new Date().getFullYear()} SubRise. Alle rechten voorbehouden.
+            © {new Date().getFullYear()} Subrise. Alle rechten voorbehouden.
           </p>
           <div className="flex gap-4 mt-4 md:mt-0">
             <a href="#" className="text-sm font-medium text-corporate-300 hover:text-white transition-colors">

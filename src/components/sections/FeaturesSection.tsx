@@ -5,7 +5,7 @@ export function FeaturesSection() {
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
           <div className="space-y-2">
             <div className="inline-block px-3 py-1 rounded-full bg-corporate-100 text-corporate-700 text-sm font-medium mb-2">
-              Waarom SubRise?
+              Waarom Subrise?
             </div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-gray-900">Voordelen</h2>
             <div className="w-20 h-1 bg-corporate-500 mx-auto rounded-full"></div>

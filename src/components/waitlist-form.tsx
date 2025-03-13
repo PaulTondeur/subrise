@@ -475,7 +475,7 @@ export function WaitlistForm() {
 
               <div className="space-y-2">
                 <label className="text-sm font-medium leading-none text-corporate-800 block mb-2">
-                  Welke aspecten van SubRise interesseren je het meest? (meerdere opties mogelijk)
+                  Welke aspecten van Subrise interesseren je het meest? (meerdere opties mogelijk)
                 </label>
 
                 <div className="space-y-2">
