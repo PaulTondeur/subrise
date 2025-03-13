@@ -12,10 +12,10 @@ export function PainPointsSection() {
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
           <div className="space-y-6">
             <div className="inline-block px-3 py-1 rounded-full bg-corporate-200 text-corporate-700 text-sm font-medium mb-2">
-              Veelvoorkomende uitdagingen
+              Veelvoorkomende WBSO-uitdagingen
             </div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-gray-900">
-              Uitdagingen bij WBSO
+              Herkenbaar?
             </h2>
             <div className="w-20 h-1 bg-corporate-500 rounded-full"></div>
             <ul className="space-y-4 mt-6">
@@ -25,11 +25,6 @@ export function PainPointsSection() {
               <PainPoint text="We zouden graag meer inzicht hebben in onze subsidieaanvraag en of we nog op schema zitten." />
               <PainPoint text="Kan ik deze uren schrijven op het WBSO project?" />
             </ul>
-            <p className="text-gray-500 mt-6 bg-white p-5 rounded-xl shadow-sm">
-              Dat is precies waarom we Subrise hebben ontwikkeld. Ons platform neemt de complexiteit weg, zodat jij
-              je kunt focussen op waar het echt om draait: innovatie. Wij hebben als ondernemers al veel met de WBSO
-              te maken gehad en weten daarom precies wat belangrijk is voor jou.
-            </p>
           </div>
           <div className="flex justify-center">
             <div className="relative">
@@ -45,6 +40,14 @@ export function PainPointsSection() {
               </div>
             </div>
           </div>
+        </div>
+        
+        <div className="mt-16 max-w-3xl mx-auto text-center">
+          <p className="text-gray-700 text-xl leading-relaxed italic">
+            Dat is precies waarom we Subrise hebben ontwikkeld. Ons platform neemt de complexiteit weg, zodat jij
+            je kunt focussen op waar het echt om draait: <span className="font-semibold text-corporate-600">innovatie</span>. 
+            Wij hebben als ondernemers al veel met de WBSO te maken gehad en weten daarom precies wat belangrijk is voor jou.
+          </p>
         </div>
       </div>
     </section>
