@@ -31,7 +31,7 @@ export function PainPointsSection() {
               <div className="absolute -inset-1 bg-gradient-to-r from-corporate-400 to-accent2-400 rounded-3xl blur opacity-30"></div>
               <div className="relative bg-white rounded-3xl shadow-xl overflow-hidden">
                 <Image
-                  src="/images/frustrated-business.jpg"
+                  src="/images/paper.jpg"
                   alt="Frustrated business person with paperwork"
                   width={600}
                   height={400}
