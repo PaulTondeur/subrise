@@ -37,10 +37,10 @@ export default function LandingPage() {
                 <div className="inline-block px-3 py-1 rounded-full bg-corporate-100 text-corporate-700 text-sm font-medium mb-2">
                   WBSO-subsidie vereenvoudigd
                 </div>
-                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-corporate-900">
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-gray-900">
                   WBSO-aanvragen eenvoudiger dan ooit
                 </h1>
-                <p className="max-w-[600px] text-corporate-800 md:text-xl font-medium">
+                <p className="max-w-[600px] text-gray-700 md:text-xl font-medium">
                   Bespaar tijd. Houd 100% van je subsidie. Alles in eigen beheer.
                 </p>
                 <p className="text-gray-500">
@@ -93,11 +93,11 @@ export default function LandingPage() {
                 </div>
               </div>
               <div className="flex justify-center">
-                <div className="relative animate-float">
+                <div className="relative">
                   <div className="absolute -inset-1 bg-gradient-to-r from-corporate-400 to-accent2-400 rounded-3xl blur opacity-30"></div>
                   <div className="relative bg-white rounded-3xl shadow-xl overflow-hidden">
                     <Image
-                      src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                      src="/images/team-working.jpg"
                       alt="Team working on innovation projects"
                       width={600}
                       height={400}
@@ -131,7 +131,7 @@ export default function LandingPage() {
                 <div className="inline-block px-3 py-1 rounded-full bg-corporate-100 text-corporate-700 text-sm font-medium mb-2">
                   Waarom SubRise?
                 </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl gradient-text">Voordelen</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-gray-900">Voordelen</h2>
                 <div className="w-20 h-1 bg-corporate-500 mx-auto rounded-full"></div>
               </div>
             </div>
@@ -153,7 +153,7 @@ export default function LandingPage() {
                     <polyline points="22 4 12 14.01 9 11.01" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-corporate-800">Volledige controle</h3>
+                <h3 className="text-xl font-bold text-gray-900">Volledige controle</h3>
                 <p className="text-gray-500">Je regelt je WBSO-aanvraag zelf, zonder afhankelijkheid van derden.</p>
               </div>
               <div className="feature-card flex flex-col items-start space-y-4 p-6 rounded-xl transition-all hover:shadow-lg border border-gray-100 bg-white">
@@ -174,7 +174,7 @@ export default function LandingPage() {
                     <line x1="6" y1="20" x2="6" y2="14" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-corporate-800">Maximaal voordeel</h3>
+                <h3 className="text-xl font-bold text-gray-900">Maximaal voordeel</h3>
                 <p className="text-gray-500">Geen bemiddelingskosten, jij behoudt 100% van je subsidie.</p>
               </div>
               <div className="feature-card flex flex-col items-start space-y-4 p-6 rounded-xl transition-all hover:shadow-lg border border-gray-100 bg-white">
@@ -195,7 +195,7 @@ export default function LandingPage() {
                     <line x1="12" y1="22.08" x2="12" y2="12" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-corporate-800">Slimme AI-assistentie</h3>
+                <h3 className="text-xl font-bold text-gray-900">Slimme AI-assistentie</h3>
                 <p className="text-gray-500">
                   Ondersteuning bij het schrijven van je aanvraag en naleving van de WBSO-regels.
                 </p>
@@ -218,7 +218,7 @@ export default function LandingPage() {
                     <line x1="6" y1="20" x2="6" y2="14" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-corporate-800">Altijd inzicht in je voortgang</h3>
+                <h3 className="text-xl font-bold text-gray-900">Altijd inzicht in je voortgang</h3>
                 <p className="text-gray-500">
                   Direct overzicht van je aanvraagstatus, real-time rapportages en controle-checks.
                 </p>
@@ -239,7 +239,7 @@ export default function LandingPage() {
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-corporate-800">Veilig en compliant</h3>
+                <h3 className="text-xl font-bold text-gray-900">Veilig en compliant</h3>
                 <p className="text-gray-500">
                   Gehost in de EU, privacyvriendelijke AI, volledig GDPR-proof. Jouw data blijft binnen Europa en lekt
                   niet naar derden.
@@ -262,7 +262,7 @@ export default function LandingPage() {
                     <polyline points="12 6 12 12 16 14" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-corporate-800">24 uur per dag</h3>
+                <h3 className="text-xl font-bold text-gray-900">24 uur per dag</h3>
                 <p className="text-gray-500">Toegang tot advies, zonder te wachten, voor iedereen binnen je team.</p>
               </div>
             </div>
@@ -282,7 +282,7 @@ export default function LandingPage() {
                 <div className="inline-block px-3 py-1 rounded-full bg-corporate-200 text-corporate-700 text-sm font-medium mb-2">
                   Veelvoorkomende uitdagingen
                 </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-corporate-800">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-gray-900">
                   Uitdagingen bij WBSO
                 </h2>
                 <div className="w-20 h-1 bg-corporate-500 rounded-full"></div>
@@ -303,7 +303,7 @@ export default function LandingPage() {
                       <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                       <polyline points="22 4 12 14.01 9 11.01" />
                     </svg>
-                    <span>"Het kost ons te veel tijd en moeite om de WBSO-administratie bij te houden."</span>
+                    <span>&ldquo;Het kost ons te veel tijd en moeite om de WBSO-administratie bij te houden.&rdquo;</span>
                   </li>
                   <li className="flex items-start bg-white p-5 rounded-xl shadow-sm transition-all hover:shadow-md">
                     <svg
@@ -322,7 +322,7 @@ export default function LandingPage() {
                       <polyline points="22 4 12 14.01 9 11.01" />
                     </svg>
                     <span>
-                      "We schakelen een adviseur in, maar verliezen daardoor een flink deel van onze subsidie."
+                      &ldquo;We schakelen een adviseur in, maar verliezen daardoor een flink deel van onze subsidie.&rdquo;
                     </span>
                   </li>
                   <li className="flex items-start bg-white p-5 rounded-xl shadow-sm transition-all hover:shadow-md">
@@ -341,7 +341,7 @@ export default function LandingPage() {
                       <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                       <polyline points="22 4 12 14.01 9 11.01" />
                     </svg>
-                    <span>"We willen zelf aanvragen, maar weten niet zeker of we het goed doen."</span>
+                    <span>&ldquo;We willen zelf aanvragen, maar weten niet zeker of we het goed doen.&rdquo;</span>
                   </li>
                   <li className="flex items-start bg-white p-5 rounded-xl shadow-sm transition-all hover:shadow-md">
                     <svg
@@ -360,7 +360,7 @@ export default function LandingPage() {
                       <polyline points="22 4 12 14.01 9 11.01" />
                     </svg>
                     <span>
-                      "We zouden graag meer inzicht hebben in onze subsidieaanvraag en of we nog op schema zitten."
+                      &ldquo;We zouden graag meer inzicht hebben in onze subsidieaanvraag en of we nog op schema zitten.&rdquo;
                     </span>
                   </li>
                   <li className="flex items-start bg-white p-5 rounded-xl shadow-sm transition-all hover:shadow-md">
@@ -379,7 +379,7 @@ export default function LandingPage() {
                       <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                       <polyline points="22 4 12 14.01 9 11.01" />
                     </svg>
-                    <span>"Kan ik deze uren schrijven op het WBSO project?"</span>
+                    <span>&ldquo;Kan ik deze uren schrijven op het WBSO project?&rdquo;</span>
                   </li>
                 </ul>
                 <p className="text-gray-500 mt-6 bg-white p-5 rounded-xl shadow-sm">
@@ -393,7 +393,7 @@ export default function LandingPage() {
                   <div className="absolute -inset-1 bg-gradient-to-r from-corporate-400 to-accent2-400 rounded-3xl blur opacity-30"></div>
                   <div className="relative bg-white rounded-3xl shadow-xl overflow-hidden">
                     <Image
-                      src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                      src="/images/frustrated-business.jpg"
                       alt="Frustrated business person with paperwork"
                       width={600}
                       height={400}
@@ -414,7 +414,7 @@ export default function LandingPage() {
                 <div className="inline-block px-3 py-1 rounded-full bg-corporate-100 text-corporate-700 text-sm font-medium mb-2">
                   Stap voor stap
                 </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl gradient-text">Hoe werkt het?</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-gray-900">Hoe werkt het?</h2>
                 <div className="w-20 h-1 bg-corporate-500 mx-auto rounded-full"></div>
               </div>
             </div>
@@ -425,7 +425,7 @@ export default function LandingPage() {
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-corporate-600 text-white font-bold text-lg">
                       1
                     </div>
-                    <h3 className="ml-4 text-2xl font-bold text-corporate-800">Eenvoudig je aanvraag opstellen</h3>
+                    <h3 className="ml-4 text-2xl font-bold text-gray-900">Eenvoudig je aanvraag opstellen</h3>
                   </div>
                   <p className="text-gray-500 bg-corporate-50 p-6 rounded-xl text-lg">
                     Onze AI-gebaseerde begeleiding helpt je stap voor stap bij het schrijven van een sterke
@@ -439,7 +439,7 @@ export default function LandingPage() {
                     <div className="absolute -inset-1 bg-gradient-to-r from-corporate-400 to-accent2-400 rounded-3xl blur opacity-30"></div>
                     <div className="relative bg-white rounded-3xl shadow-xl overflow-hidden">
                       <Image
-                        src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                        src="/images/ai-assisted.jpg"
                         alt="AI-assisted application process"
                         width={500}
                         height={350}
@@ -456,7 +456,7 @@ export default function LandingPage() {
                     <div className="absolute -inset-1 bg-gradient-to-r from-corporate-400 to-accent2-400 rounded-3xl blur opacity-30"></div>
                     <div className="relative bg-white rounded-3xl shadow-xl overflow-hidden">
                       <Image
-                        src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                        src="/images/real-time-progress.jpg"
                         alt="Real-time progress reporting"
                         width={500}
                         height={350}
@@ -470,7 +470,7 @@ export default function LandingPage() {
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-corporate-600 text-white font-bold text-lg">
                       2
                     </div>
-                    <h3 className="ml-4 text-2xl font-bold text-corporate-800">
+                    <h3 className="ml-4 text-2xl font-bold text-gray-900">
                       Automatische voortgangsrapportage & compliance-checks
                     </h3>
                   </div>
@@ -488,7 +488,7 @@ export default function LandingPage() {
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-corporate-600 text-white font-bold text-lg">
                       3
                     </div>
-                    <h3 className="ml-4 text-2xl font-bold text-corporate-800">
+                    <h3 className="ml-4 text-2xl font-bold text-gray-900">
                       Urenregistratie en documentatie gekoppeld
                     </h3>
                   </div>
@@ -502,7 +502,7 @@ export default function LandingPage() {
                     <div className="absolute -inset-1 bg-gradient-to-r from-corporate-400 to-accent2-400 rounded-3xl blur opacity-30"></div>
                     <div className="relative bg-white rounded-3xl shadow-xl overflow-hidden">
                       <Image
-                        src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                        src="/images/time-tracking.jpg"
                         alt="Time tracking integration"
                         width={500}
                         height={350}
@@ -519,7 +519,7 @@ export default function LandingPage() {
                     <div className="absolute -inset-1 bg-gradient-to-r from-corporate-400 to-accent2-400 rounded-3xl blur opacity-30"></div>
                     <div className="relative bg-white rounded-3xl shadow-xl overflow-hidden">
                       <Image
-                        src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                        src="/images/one-click-application.jpg"
                         alt="One-click application and control"
                         width={500}
                         height={350}
@@ -533,7 +533,7 @@ export default function LandingPage() {
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-corporate-600 text-white font-bold text-lg">
                       4
                     </div>
-                    <h3 className="ml-4 text-2xl font-bold text-corporate-800">Aanvraag en controle in één klik</h3>
+                    <h3 className="ml-4 text-2xl font-bold text-gray-900">Aanvraag en controle in één klik</h3>
                   </div>
                   <p className="text-gray-500 bg-corporate-50 p-6 rounded-xl text-lg">
                     Geen gedoe met lange formulieren – ons platform automatiseert een volledige en correcte aanvraag.
@@ -572,7 +572,7 @@ export default function LandingPage() {
                 <div className="inline-block px-3 py-1 rounded-full bg-corporate-200 text-corporate-700 text-sm font-medium mb-2">
                   Beperkte plaatsen
                 </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-corporate-800">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-gray-900">
                   Meld je aan voor de wachtlijst
                 </h2>
                 <div className="w-20 h-1 bg-corporate-500 mx-auto rounded-full"></div>
@@ -596,7 +596,7 @@ export default function LandingPage() {
                 <div className="inline-block px-3 py-1 rounded-full bg-corporate-100 text-corporate-700 text-sm font-medium mb-2">
                   Hulp nodig?
                 </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl gradient-text">Heb je vragen?</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-gray-900">Heb je vragen?</h2>
                 <div className="w-20 h-1 bg-corporate-500 mx-auto rounded-full"></div>
                 <p className="text-gray-500 md:text-xl mt-4">Neem contact met ons op en we helpen je graag verder.</p>
               </div>
