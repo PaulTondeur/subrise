@@ -16,9 +16,14 @@ interface FormData {
   challenges: string[]
   rdBudget: string
   interestAreas: string[]
+  isIntermediary?: boolean
 }
 
-export function WaitlistForm() {
+interface WaitlistFormProps {
+  isIntermediary?: boolean
+}
+
+export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
   const [step, setStep] = useState(1)
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
@@ -32,6 +37,7 @@ export function WaitlistForm() {
     challenges: [],
     rdBudget: "",
     interestAreas: [],
+    isIntermediary,
   })
   const [completedSteps, setCompletedSteps] = useState<number[]>([])
 

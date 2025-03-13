@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 interface NavItem {
   href: string
@@ -9,6 +10,12 @@ interface NavItem {
 }
 
 export function MainNav() {
+  const pathname = usePathname()
+  const isIntermediairPage = pathname === "/intermediair"
+  const highlightColor = isIntermediairPage ? "text-indigo-600" : "text-corporate-600"
+  const hoverColor = isIntermediairPage ? "hover:text-indigo-600" : "hover:text-corporate-600"
+  const indicatorColor = isIntermediairPage ? "bg-indigo-600" : "bg-corporate-600"
+  
   const [activeSection, setActiveSection] = useState<string | null>(null)
   const [indicatorStyle, setIndicatorStyle] = useState({
     left: 0,
@@ -142,7 +149,7 @@ export function MainNav() {
             if (el) itemsRef.current.set(item.href, el)
           }}
           className={`text-sm font-medium transition-colors relative py-1 ${
-            activeSection === item.href.substring(1) ? "text-corporate-600" : "hover:text-corporate-600"
+            activeSection === item.href.substring(1) ? highlightColor : hoverColor
           }`}
         >
           {item.label}
@@ -151,7 +158,7 @@ export function MainNav() {
 
       {/* Animated indicator */}
       <div
-        className="absolute bottom-0 h-0.5 bg-corporate-600 transition-all duration-300 ease-in-out"
+        className={`absolute bottom-0 h-0.5 transition-all duration-300 ease-in-out ${indicatorColor}`}
         style={{
           left: `${indicatorStyle.left}px`,
           width: `${indicatorStyle.width}px`,
