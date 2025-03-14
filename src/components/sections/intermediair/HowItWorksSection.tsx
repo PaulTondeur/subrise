@@ -35,7 +35,7 @@ export function IntermediairHowItWorksSection() {
           <StepItem
             number={3}
             title="Slimme urenregistratie & integratie"
-            description="Door integratie met <a href='https://timiapp.com' target='_blank' rel='noopener noreferrer' className='text-indigo-600 hover:underline'>Timi</a> worden klanturen automatisch gekoppeld aan projectvoortgang en administratieve vereisten."
+            description="Door integratie met <a href='https://timiapp.com' target='_blank' rel='noopener noreferrer' class='text-indigo-600 hover:underline'>Timi</a> worden klanturen automatisch gekoppeld aan projectvoortgang en administratieve vereisten."
             imageSrc="/images/time-tracking.jpg"
             imageAlt="Time tracking integration"
             imageRight={true}

@@ -35,7 +35,7 @@ export function HowItWorksSection() {
           <StepItem
             number={3}
             title="Urenregistratie en documentatie gekoppeld"
-            description="Dankzij de integratie met <a href='https://timiapp.com' target='_blank' rel='noopener noreferrer' className='text-corporate-600 hover:underline'>Timi</a> worden je R&D-uren die binnen je aanvraag passen automatisch gelogd en gekoppeld aan je projectvoortgang."
+            description="Dankzij de integratie met <a href='https://timiapp.com' target='_blank' rel='noopener noreferrer' class='text-corporate-600 hover:underline'>Timi</a> worden je R&D-uren die binnen je aanvraag passen automatisch gelogd en gekoppeld aan je projectvoortgang."
             imageSrc="/images/time-tracking.jpg"
             imageAlt="Time tracking integration"
             imageRight={true}
