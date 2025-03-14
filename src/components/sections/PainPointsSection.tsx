@@ -6,19 +6,19 @@ export function PainPointsSection() {
       id="uitdagingen"
       className="py-20 bg-gradient-to-br from-corporate-50 to-corporate-100 relative overflow-hidden"
     >
-      <div className="absolute top-1/2 left-0 w-1/3 h-1/2 bg-corporate-500/10 blur-3xl rounded-full -ml-20 -mt-20"></div>
-      <div className="absolute bottom-0 right-0 w-1/4 h-1/2 bg-accent2-500/10 blur-3xl rounded-full -mr-20"></div>
       <div className="container mx-auto px-4 md:px-6 relative">
-        <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
+      <div className="space-y-6">
+        <div className="inline-block px-3 py-1 rounded-full bg-corporate-200 text-corporate-700 text-sm font-medium mb-2">
+          Veelvoorkomende WBSO-uitdagingen
+        </div>
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-gray-900">
+          Herkenbaar?
+        </h2>
+        <div className="w-20 h-1 bg-corporate-500 rounded-full"></div>
+        </div>
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-start mt-6">
           <div className="space-y-6">
-            <div className="inline-block px-3 py-1 rounded-full bg-corporate-200 text-corporate-700 text-sm font-medium mb-2">
-              Veelvoorkomende WBSO-uitdagingen
-            </div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-gray-900">
-              Herkenbaar?
-            </h2>
-            <div className="w-20 h-1 bg-corporate-500 rounded-full"></div>
-            <ul className="space-y-4 mt-6">
+            <ul className="space-y-4">
               <PainPoint text="Het kost ons te veel tijd en moeite om de WBSO-administratie bij te houden." />
               <PainPoint text="We schakelen een adviseur in, maar verliezen daardoor een flink deel van onze subsidie." />
               <PainPoint text="We willen zelf aanvragen, maar weten niet zeker of we het goed doen." />
@@ -26,7 +26,7 @@ export function PainPointsSection() {
               <PainPoint text="Kan ik deze uren schrijven op het WBSO project?" />
             </ul>
           </div>
-          <div className="flex justify-center">
+          <div className="flex mx-auto">
             <div className="relative">
               <div className="absolute -inset-1 bg-gradient-to-r from-corporate-400 to-accent2-400 rounded-3xl blur opacity-30"></div>
               <div className="relative bg-white rounded-3xl shadow-xl overflow-hidden">

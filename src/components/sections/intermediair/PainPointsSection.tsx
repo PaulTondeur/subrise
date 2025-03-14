@@ -9,17 +9,18 @@ export function IntermediairPainPointsSection() {
       <div className="absolute top-1/2 left-0 w-1/3 h-1/2 bg-indigo-500/10 blur-3xl rounded-full -ml-20 -mt-20"></div>
       <div className="absolute bottom-0 right-0 w-1/4 h-1/2 bg-amber-500/10 blur-3xl rounded-full -mr-20"></div>
       <div className="container mx-auto px-4 md:px-6 relative">
-        <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
+        <div className="space-y-6">
+          <div className="inline-block px-3 py-1 rounded-full bg-indigo-200 text-indigo-700 text-sm font-medium mb-2">
+            Uitdagingen voor intermediairs
+          </div>
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-gray-900">
+            Herkenbaar?
+          </h2>
+          <div className="w-20 h-1 bg-indigo-500 rounded-full"></div>
+        </div>
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-start mt-6">
           <div className="space-y-6">
-            <div className="inline-block px-3 py-1 rounded-full bg-indigo-200 text-indigo-700 text-sm font-medium mb-2">
-              Uitdagingen voor intermediairs
-            </div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-gray-900">
-              Veelvoorkomende uitdagingen voor intermediairs
-            </h2>
-            <div className="w-20 h-1 bg-indigo-500 rounded-full"></div>
-            <h3 className="text-xl font-semibold mt-4">Herkenbaar?</h3>
-            <ul className="space-y-4 mt-6">
+            <ul className="space-y-4">
               <PainPoint text="We besteden te veel tijd aan handmatige rapportages en controle van klantgegevens." />
               <PainPoint text="We willen klanten een betere ervaring bieden, maar lopen tegen administratieve beperkingen aan." />
               <PainPoint text="We zoeken naar manieren om efficiënter te werken en meer klanten tegelijk te helpen." />
@@ -27,7 +28,7 @@ export function IntermediairPainPointsSection() {
               <PainPoint text="We missen overzicht en directe inzichten in alle lopende aanvragen." />
             </ul>
           </div>
-          <div className="flex justify-center">
+          <div className="flex mx-auto">
             <div className="relative">
               <div className="absolute -inset-1 bg-gradient-to-r from-indigo-400 to-amber-400 rounded-3xl blur opacity-30"></div>
               <div className="relative bg-white rounded-3xl shadow-xl overflow-hidden">
