@@ -9,7 +9,7 @@ export function Header() {
   const isIntermediairMode = pathname.startsWith("/intermediair")
 
   const switchToPath = isIntermediairMode ? "/" : "/intermediair"
-  const switchToText = isIntermediairMode ? "Voor ondernemers" : "Voor intermediairs"
+  const switchToText = isIntermediairMode ? "ondernemers" : "intermediairs"
   const loginPath = isIntermediairMode ? "/intermediair/login" : "/login"
   
   const switchButtonClasses = isIntermediairMode 
@@ -49,23 +49,25 @@ export function Header() {
             S
           </div>
           <span className="text-xl font-bold">Subrise</span>
-          {isIntermediairMode ? <span className="hidden md:inline-block text-xs border-l pl-2">intermediair</span> : null}
+          {isIntermediairMode ? <span className="hidden sm:inline-block text-xs border-l pl-2">intermediair</span> : null}
         </Link>
         <div className="hidden lg:block">
           <MainNav />
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           <Link
             href={loginPath}
             className={loginButtonClasses}
           >
-            Inloggen
+            <span className="sm:hidden">Login</span>
+            <span className="hidden sm:inline-block">Inloggen</span>
           </Link>
           <Link
             href={switchToPath}
             className={switchButtonClasses}
           >
-            {switchToText}
+            <span className="hidden sm:inline-block">Voor</span>
+            <span className="capitalize sm:normal-case">{switchToText}</span>
           </Link>
         </div>
       </div>
