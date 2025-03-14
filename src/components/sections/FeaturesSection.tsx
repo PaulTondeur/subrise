@@ -148,12 +148,12 @@ interface FeatureCardProps {
 
 function FeatureCard({ icon, title, description }: FeatureCardProps) {
   return (
-    <div className="feature-card flex flex-col items-start space-y-4 p-6 rounded-xl transition-all hover:shadow-lg border border-gray-100 bg-white">
-      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-corporate-100 text-corporate-600">
+    <div className="feature-card flex flex-col items-start space-y-4 p-6 rounded-xl transition-all hover:shadow-lg border border-gray-100 bg-white h-full">
+      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-corporate-100 text-corporate-600 mx-auto">
         {icon}
       </div>
-      <h3 className="text-xl font-bold text-gray-900">{title}</h3>
-      <p className="text-gray-500">{description}</p>
+      <h3 className="text-xl font-bold text-gray-900 text-center w-full">{title}</h3>
+      <p className="text-gray-500 text-center">{description}</p>
     </div>
   )
 } 
