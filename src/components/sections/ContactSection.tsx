@@ -13,7 +13,7 @@ export function ContactSection() {
           </div>
           <div className="flex flex-col sm:flex-row gap-3 mt-6">
             <a
-              href="mailto:info@example.com"
+              href="mailto:info@subrise.eu"
               className="inline-flex items-center justify-center px-6 py-3 border border-corporate-300 hover:bg-corporate-50 text-corporate-700 rounded-full"
             >
               <svg

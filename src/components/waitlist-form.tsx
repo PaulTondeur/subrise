@@ -176,7 +176,7 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
                   onChange={handleInputChange}
                   required
                   className={`flex h-12 w-full rounded-xl border ${primaryBorderInput} bg-white px-4 py-2 text-sm focus:outline-none focus:ring-2 ${primaryRing}`}
-                  placeholder="jouw@email.nl"
+                  placeholder="info@subrise.eu"
                 />
               </div>
 

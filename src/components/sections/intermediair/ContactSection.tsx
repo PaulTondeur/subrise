@@ -15,7 +15,7 @@ export function IntermediairContactSection() {
           </div>
           <div className="flex flex-col sm:flex-row gap-3 mt-6">
             <a
-              href="mailto:intermediair@subrise.nl"
+              href="mailto:info@subrise.eu"
               className="inline-flex items-center justify-center px-6 py-3 border border-indigo-300 hover:bg-indigo-50 text-indigo-700 rounded-full"
             >
               <svg
