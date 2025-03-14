@@ -22,7 +22,7 @@ export function IntermediairHeroSection() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <a
-                href="#waitlist"
+                href="#wachtlijst"
                 className="inline-flex items-center justify-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full"
               >
                 Meld je aan voor de wachtlijst{" "}
@@ -43,7 +43,7 @@ export function IntermediairHeroSection() {
                 </svg>
               </a>
               <a
-                href="#how-it-works"
+                href="#hoe-werkt-het"
                 className="inline-flex items-center justify-center px-6 py-3 border border-indigo-300 hover:bg-indigo-50 text-indigo-700 rounded-full"
               >
                 Hoe werkt het{" "}

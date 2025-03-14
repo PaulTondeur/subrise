@@ -3,7 +3,7 @@ import { WaitlistForm } from "@/components/waitlist-form"
 export function IntermediairWaitlistSection() {
   return (
     <section
-      id="waitlist"
+      id="wachtlijst"
       className="py-20 bg-gradient-to-br from-indigo-50 to-indigo-100 relative overflow-hidden"
     >
       <div className="absolute top-0 right-0 w-1/3 h-1/2 bg-indigo-500/10 blur-3xl rounded-full -mr-20"></div>

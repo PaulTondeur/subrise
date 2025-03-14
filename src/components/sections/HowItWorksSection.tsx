@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export function HowItWorksSection() {
   return (
-    <section id="how-it-works" className="py-20 bg-white">
+    <section id="hoe-werkt-het" className="py-20 bg-white">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
           <div className="space-y-2">

@@ -24,7 +24,7 @@ export function HeroSection() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <a
-                href="#waitlist"
+                href="#wachtlijst"
                 className="inline-flex items-center justify-center px-6 py-3 bg-corporate-600 hover:bg-corporate-700 text-white rounded-full"
               >
                 Plaats mij op de wachtlijst{" "}
@@ -45,7 +45,7 @@ export function HeroSection() {
                 </svg>
               </a>
               <a
-                href="#how-it-works"
+                href="#hoe-werkt-het"
                 className="inline-flex items-center justify-center px-6 py-3 border border-corporate-300 hover:bg-corporate-50 text-corporate-700 rounded-full"
               >
                 Hoe werkt het{" "}

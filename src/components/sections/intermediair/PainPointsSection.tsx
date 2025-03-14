@@ -3,7 +3,7 @@ import Image from "next/image"
 export function IntermediairPainPointsSection() {
   return (
     <section
-      id="pain-points"
+      id="uitdagingen"
       className="py-20 bg-gradient-to-br from-indigo-50 to-indigo-100 relative overflow-hidden"
     >
       <div className="absolute top-1/2 left-0 w-1/3 h-1/2 bg-indigo-500/10 blur-3xl rounded-full -ml-20 -mt-20"></div>

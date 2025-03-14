@@ -30,10 +30,10 @@ export function MainNav() {
   const itemsRef = useRef<Map<string, HTMLAnchorElement>>(new Map())
 
   const navItems: NavItem[] = [
-    { href: `${basePath}#features`, label: "Voordelen" },
-    { href: `${basePath}#pain-points`, label: "Uitdagingen" },
-    { href: `${basePath}#how-it-works`, label: "Hoe werkt het" },
-    { href: `${basePath}#waitlist`, label: "Wachtlijst" },
+    { href: `${basePath}#voordelen`, label: "Voordelen" },
+    { href: `${basePath}#uitdagingen`, label: "Uitdagingen" },
+    { href: `${basePath}#hoe-werkt-het`, label: "Hoe werkt het" },
+    { href: `${basePath}#wachtlijst`, label: "Wachtlijst" },
     { href: `${basePath}#contact`, label: "Contact" },
   ]
 
