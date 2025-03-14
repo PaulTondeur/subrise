@@ -25,18 +25,26 @@ export function Header() {
     : "bg-white text-corporate-700 rounded-md p-1 w-8 h-8 flex items-center justify-center font-bold"
   
   const scrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    })
-
-    e.preventDefault();
+    // Check if we're already on the home page
+    const isOnHomePage = isIntermediairMode 
+      ? pathname === "/intermediair" || pathname === "/intermediair/" || pathname.startsWith("/intermediair#")
+      : pathname === "/" || pathname === "/#" || pathname.startsWith("/#");
+    
+    // Only prevent default and scroll if we're already on the home page
+    if (isOnHomePage) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      e.preventDefault();
+    }
+    // Otherwise, let the default navigation happen
   }
   
   return (
     <header className="border-b sticky top-0 bg-white/80 backdrop-blur-md z-50">
       <div className="container mx-auto px-4 flex h-20 items-center justify-between">
-        <Link href="#home" onClick={scrollToTop} className="flex items-center gap-2 cursor-pointer">
+        <Link href={isIntermediairMode ? "/intermediair#home" : "/#home"} onClick={scrollToTop} className="flex items-center gap-2 cursor-pointer">
           <div className={logoClasses}>
             S
           </div>
