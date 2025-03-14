@@ -49,32 +49,21 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, checked } = e.target
 
-    setFormData((prev) => {
-      if (checked) {
+    if (name === "challenges" || name === "interestAreas") {
+      setFormData((prev) => {
+        const currentValues = prev[name] as string[]
         return {
           ...prev,
-          [name]: [...(prev[name as keyof FormData] as string[]), value],
+          [name]: checked
+            ? [...currentValues, value]
+            : currentValues.filter((v) => v !== value),
         }
-      } else {
-        return {
-          ...prev,
-          [name]: (prev[name as keyof FormData] as string[]).filter((item) => item !== value),
-        }
-      }
-    })
-  }
-
-  const saveFormData = (currentStep: number) => {
-    // In a real application, you would send this data to your backend
-    console.log(`Step ${currentStep} data saved:`, formData)
-
-    if (!completedSteps.includes(currentStep)) {
-      setCompletedSteps((prev) => [...prev, currentStep])
+      })
     }
   }
 
   const handleNext = () => {
-    saveFormData(step)
+    setCompletedSteps((prev) => (prev.includes(step) ? prev : [...prev, step]))
     setStep((prev) => prev + 1)
   }
 
@@ -84,24 +73,33 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    saveFormData(step)
-    // Final submission
-    console.log("Final form submission:", formData)
+    // In a real app, you would send the data to your backend here
+    console.log("Form submitted:", formData)
     alert("Bedankt voor je aanmelding! We nemen binnenkort contact met je op.")
   }
 
+  // Define color variables based on isIntermediary
+  const primaryBg = isIntermediary ? "bg-indigo-600" : "bg-corporate-600"
+  const primaryHoverBg = isIntermediary ? "bg-indigo-700" : "bg-corporate-700"
+  const primaryText = isIntermediary ? "text-indigo-600" : "text-corporate-600"
+  const primaryBorder = isIntermediary ? "border-indigo-100" : "border-corporate-100"
+  const primaryLightBg = isIntermediary ? "bg-indigo-100" : "bg-corporate-100"
+  const primaryDarkText = isIntermediary ? "text-indigo-800" : "text-corporate-800"
+  const primaryBorderInput = isIntermediary ? "border-indigo-200" : "border-corporate-200"
+  const primaryRing = isIntermediary ? "focus:ring-indigo-400" : "focus:ring-corporate-400"
+
   return (
     <div className="w-full max-w-md space-y-4 mt-6">
-      <div className="bg-white p-8 rounded-3xl shadow-lg border border-corporate-100">
+      <div className={`bg-white p-8 rounded-3xl shadow-lg border ${primaryBorder}`}>
         <div className="flex justify-between mb-6">
           {[1, 2, 3, 4].map((stepNumber) => (
             <div
               key={stepNumber}
               className={`flex items-center justify-center w-8 h-8 rounded-full ${
                 stepNumber === step
-                  ? "bg-corporate-600 text-white"
+                  ? `${primaryBg} text-white`
                   : completedSteps.includes(stepNumber)
-                    ? "bg-corporate-100 text-corporate-600"
+                    ? `${primaryLightBg} ${primaryText}`
                     : "bg-gray-100 text-gray-400"
               }`}
             >
@@ -131,11 +129,11 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
           {/* Step 1: Basic Contact Information */}
           {step === 1 && (
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-corporate-800 mb-4">Contactgegevens</h3>
+              <h3 className={`text-lg font-semibold ${primaryDarkText} mb-4`}>Contactgegevens</h3>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label htmlFor="firstName" className="text-sm font-medium leading-none text-corporate-800">
+                  <label htmlFor="firstName" className={`text-sm font-medium leading-none ${primaryDarkText}`}>
                     Voornaam
                   </label>
                   <input
@@ -145,12 +143,12 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
                     value={formData.firstName}
                     onChange={handleInputChange}
                     required
-                    className="flex h-12 w-full rounded-xl border border-corporate-200 bg-white px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-corporate-400"
+                    className={`flex h-12 w-full rounded-xl border ${primaryBorderInput} bg-white px-4 py-2 text-sm focus:outline-none focus:ring-2 ${primaryRing}`}
                     placeholder="Voornaam"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="lastName" className="text-sm font-medium leading-none text-corporate-800">
+                  <label htmlFor="lastName" className={`text-sm font-medium leading-none ${primaryDarkText}`}>
                     Achternaam
                   </label>
                   <input
@@ -160,14 +158,14 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
                     value={formData.lastName}
                     onChange={handleInputChange}
                     required
-                    className="flex h-12 w-full rounded-xl border border-corporate-200 bg-white px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-corporate-400"
+                    className={`flex h-12 w-full rounded-xl border ${primaryBorderInput} bg-white px-4 py-2 text-sm focus:outline-none focus:ring-2 ${primaryRing}`}
                     placeholder="Achternaam"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium leading-none text-corporate-800">
+                <label htmlFor="email" className={`text-sm font-medium leading-none ${primaryDarkText}`}>
                   E-mailadres
                 </label>
                 <input
@@ -177,13 +175,13 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="flex h-12 w-full rounded-xl border border-corporate-200 bg-white px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-corporate-400"
+                  className={`flex h-12 w-full rounded-xl border ${primaryBorderInput} bg-white px-4 py-2 text-sm focus:outline-none focus:ring-2 ${primaryRing}`}
                   placeholder="jouw@email.nl"
                 />
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="companyName" className="text-sm font-medium leading-none text-corporate-800">
+                <label htmlFor="companyName" className={`text-sm font-medium leading-none ${primaryDarkText}`}>
                   Bedrijfsnaam
                 </label>
                 <input
@@ -193,13 +191,13 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
                   value={formData.companyName}
                   onChange={handleInputChange}
                   required
-                  className="flex h-12 w-full rounded-xl border border-corporate-200 bg-white px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-corporate-400"
+                  className={`flex h-12 w-full rounded-xl border ${primaryBorderInput} bg-white px-4 py-2 text-sm focus:outline-none focus:ring-2 ${primaryRing}`}
                   placeholder="Jouw Bedrijf B.V."
                 />
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="phoneNumber" className="text-sm font-medium leading-none text-corporate-800">
+                <label htmlFor="phoneNumber" className={`text-sm font-medium leading-none ${primaryDarkText}`}>
                   Telefoonnummer
                 </label>
                 <input
@@ -209,7 +207,7 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
                   value={formData.phoneNumber}
                   onChange={handleInputChange}
                   required
-                  className="flex h-12 w-full rounded-xl border border-corporate-200 bg-white px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-corporate-400"
+                  className={`flex h-12 w-full rounded-xl border ${primaryBorderInput} bg-white px-4 py-2 text-sm focus:outline-none focus:ring-2 ${primaryRing}`}
                   placeholder="06 12345678"
                 />
               </div>
@@ -217,9 +215,9 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
               <button
                 type="button"
                 onClick={handleNext}
-                className="w-full bg-corporate-600 hover:bg-corporate-700 text-white rounded-xl h-12 mt-4 flex items-center justify-center"
+                className={`w-full ${primaryBg} ${primaryHoverBg} text-white rounded-xl h-12 mt-4 flex items-center justify-center`}
               >
-                Volgende stap{" "}
+                Volgende{" "}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -242,10 +240,10 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
           {/* Step 2: R&D Information */}
           {step === 2 && (
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-corporate-800 mb-4">R&D Informatie</h3>
+              <h3 className={`text-lg font-semibold ${primaryDarkText} mb-4`}>R&D Informatie</h3>
 
               <div className="space-y-2">
-                <label htmlFor="rdEmployees" className="text-sm font-medium leading-none text-corporate-800">
+                <label htmlFor="rdEmployees" className={`text-sm font-medium leading-none ${primaryDarkText}`}>
                   Aantal R&D-medewerkers (WBSO)
                 </label>
                 <select
@@ -254,7 +252,7 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
                   value={formData.rdEmployees}
                   onChange={handleInputChange}
                   required
-                  className="flex h-12 w-full rounded-xl border border-corporate-200 bg-white px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-corporate-400"
+                  className={`flex h-12 w-full rounded-xl border ${primaryBorderInput} bg-white px-4 py-2 text-sm focus:outline-none focus:ring-2 ${primaryRing}`}
                 >
                   <option value="" disabled>
                     Selecteer aantal
@@ -268,7 +266,7 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="currentWbso" className="text-sm font-medium leading-none text-corporate-800">
+                <label htmlFor="currentWbso" className={`text-sm font-medium leading-none ${primaryDarkText}`}>
                   Huidige WBSO-status
                 </label>
                 <select

@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export function Footer() {
   const pathname = usePathname()
-  const isIntermediairPage = pathname === "/intermediair"
+  const isIntermediairPage = pathname.startsWith("/intermediair")
   
   const bgColor = isIntermediairPage ? "bg-indigo-900" : "bg-corporate-900"
   const textColor = isIntermediairPage ? "text-indigo-700" : "text-corporate-700"
@@ -74,6 +74,14 @@ export function Footer() {
                   </a>
                 </li>
               ))}
+              <li>
+                <Link 
+                  href="/login" 
+                  className={`${textLightColor} ${textHoverColor} opacity-80 hover:opacity-100 transition-all`}
+                >
+                  Inloggen
+                </Link>
+              </li>
             </ul>
           </div>
           
@@ -99,6 +107,14 @@ export function Footer() {
                   </a>
                 </li>
               ))}
+              <li>
+                <Link 
+                  href="/intermediair/login" 
+                  className={`${textLightColor} ${textHoverColor} opacity-80 hover:opacity-100 transition-all`}
+                >
+                  Inloggen
+                </Link>
+              </li>
             </ul>
           </div>
           

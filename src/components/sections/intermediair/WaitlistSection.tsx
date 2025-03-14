@@ -15,11 +15,11 @@ export function IntermediairWaitlistSection() {
               Beperkte plaatsen beschikbaar
             </div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-gray-900">
-              Interesse om als eerste gebruik te maken van Subrise?
+              Als een van de eersten Subrise gebruiken?
             </h2>
             <div className="w-20 h-1 bg-indigo-500 mx-auto rounded-full"></div>
             <p className="text-gray-500 md:text-xl mt-4">
-              Plaatsen zijn beperkt beschikbaar. Meld je nu aan voor de wachtlijst en verbeter jouw dienstverlening vandaag nog!
+              We laten mondjesmaat bedrijven toe om Subrise als eerste te gebruiken. Wil jij als een van de eersten profiteren? Meld je dan nu aan voor de wachtlijst!
             </p>
           </div>
           <div className="w-full max-w-md space-y-4 mt-6">

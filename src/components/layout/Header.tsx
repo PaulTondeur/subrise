@@ -6,18 +6,25 @@ import Link from "next/link"
 
 export function Header() {
   const pathname = usePathname()
-  const isIntermediairPage = pathname === "/intermediair"
+  const isIntermediairMode = pathname.startsWith("/intermediair")
 
-  const linkPath = isIntermediairPage ? "/" : "/intermediair"
-  const linkText = isIntermediairPage ? "Voor ondernemers" : "Voor intermediairs"
-  const buttonClasses = isIntermediairPage 
-    ? "inline-flex items-center justify-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full"
-    : "inline-flex items-center justify-center px-4 py-2 bg-corporate-600 hover:bg-corporate-700 text-white rounded-full"
-  const logoClasses = isIntermediairPage
+  const switchToPath = isIntermediairMode ? "/" : "/intermediair"
+  const switchToText = isIntermediairMode ? "Voor ondernemers" : "Voor intermediairs"
+  const loginPath = isIntermediairMode ? "/intermediair/login" : "/login"
+  
+  const switchButtonClasses = isIntermediairMode 
+    ? "inline-flex items-center justify-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full gap-2"
+    : "inline-flex items-center justify-center px-4 py-2 bg-corporate-600 hover:bg-corporate-700 text-white rounded-full gap-2"
+  
+  const loginButtonClasses = isIntermediairMode
+    ? "inline-flex items-center justify-center px-4 py-2 border border-indigo-600 text-indigo-600 hover:bg-indigo-50 rounded-full"
+    : "inline-flex items-center justify-center px-4 py-2 border border-corporate-600 text-corporate-600 hover:bg-corporate-50 rounded-full"
+  
+  const logoClasses = isIntermediairMode
     ? "bg-white text-indigo-700 rounded-md p-1 w-8 h-8 flex items-center justify-center font-bold"
     : "bg-white text-corporate-700 rounded-md p-1 w-8 h-8 flex items-center justify-center font-bold"
   
-  const scrollToTop = (e) => {
+  const scrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
@@ -34,16 +41,23 @@ export function Header() {
             S
           </div>
           <span className="text-xl font-bold">Subrise</span>
+          {isIntermediairMode ? <span className="text-xs border-l pl-2">intermediair</span> : null}
         </Link>
         <div className="hidden md:block">
           <MainNav />
         </div>
         <div className="flex items-center gap-4">
           <Link
-            href={linkPath}
-            className={buttonClasses}
+            href={loginPath}
+            className={loginButtonClasses}
           >
-            {linkText}
+            Inloggen
+          </Link>
+          <Link
+            href={switchToPath}
+            className={switchButtonClasses}
+          >
+            {switchToText}
           </Link>
         </div>
       </div>

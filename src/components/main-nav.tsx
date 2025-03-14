@@ -11,7 +11,10 @@ interface NavItem {
 
 export function MainNav() {
   const pathname = usePathname()
-  const isIntermediairPage = pathname === "/intermediair"
+  const isIntermediairPage = pathname.startsWith("/intermediair")
+  const isLoginPage = pathname.includes("/login")
+  const basePath = isIntermediairPage ? "/intermediair" : "/"
+  
   const highlightColor = isIntermediairPage ? "text-indigo-600" : "text-corporate-600"
   const hoverColor = isIntermediairPage ? "hover:text-indigo-600" : "hover:text-corporate-600"
   const indicatorColor = isIntermediairPage ? "bg-indigo-600" : "bg-corporate-600"
@@ -27,17 +30,17 @@ export function MainNav() {
   const itemsRef = useRef<Map<string, HTMLAnchorElement>>(new Map())
 
   const navItems: NavItem[] = [
-    { href: "#features", label: "Voordelen" },
-    { href: "#pain-points", label: "Uitdagingen" },
-    { href: "#how-it-works", label: "Hoe werkt het" },
-    { href: "#waitlist", label: "Wachtlijst" },
-    { href: "#contact", label: "Contact" },
+    { href: `${basePath}#features`, label: "Voordelen" },
+    { href: `${basePath}#pain-points`, label: "Uitdagingen" },
+    { href: `${basePath}#how-it-works`, label: "Hoe werkt het" },
+    { href: `${basePath}#waitlist`, label: "Wachtlijst" },
+    { href: `${basePath}#contact`, label: "Contact" },
   ]
 
   // Update indicator position when active section changes
   useEffect(() => {
-    if (!activeSection) {
-      // Hide indicator when no active section
+    if (!activeSection || isLoginPage) {
+      // Hide indicator when no active section or on login page
       setIndicatorStyle({
         left: 0,
         width: 0,
@@ -46,7 +49,7 @@ export function MainNav() {
       return
     }
 
-    const activeItem = itemsRef.current.get(`#${activeSection}`)
+    const activeItem = itemsRef.current.get(`${basePath}#${activeSection}`)
     if (!activeItem || !navRef.current) return
 
     const navRect = navRef.current.getBoundingClientRect()
@@ -57,9 +60,12 @@ export function MainNav() {
       width: activeRect.width,
       opacity: 1,
     })
-  }, [activeSection])
+  }, [activeSection, basePath, isLoginPage])
 
   useEffect(() => {
+    // Only run this effect on the main pages, not on login pages
+    if (isLoginPage) return
+
     // Get all sections that should be observed
     const sections = document.querySelectorAll("section[id]")
     if (sections.length === 0) return
@@ -137,7 +143,7 @@ export function MainNav() {
       document.removeEventListener("click", handleClick)
       window.removeEventListener("resize", determineActiveSection)
     }
-  }, [])
+  }, [isLoginPage])
 
   return (
     <nav className="relative flex gap-8" ref={navRef}>
@@ -149,7 +155,7 @@ export function MainNav() {
             if (el) itemsRef.current.set(item.href, el)
           }}
           className={`text-sm font-medium transition-colors relative py-1 ${
-            activeSection === item.href.substring(1) ? highlightColor : hoverColor
+            activeSection === item.href.substring(item.href.indexOf('#') + 1) ? highlightColor : hoverColor
           }`}
         >
           {item.label}
