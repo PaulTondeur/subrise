@@ -1,6 +1,7 @@
 "use client"
 
 import { usePathname } from "next/navigation"
+import Link from "next/link"
 
 export function Footer() {
   const pathname = usePathname()
@@ -13,10 +14,32 @@ export function Footer() {
   const borderColor = isIntermediairPage ? "border-indigo-700" : "border-corporate-700"
   const iconColor = isIntermediairPage ? "text-indigo-300" : "text-corporate-300"
   
+  // Link items for both columns
+  const linkItems = [
+    { href: "#features", label: "Voordelen" },
+    { href: "#how-it-works", label: "Hoe werkt het" },
+    { href: "#waitlist", label: "Wachtlijst" },
+    { href: "#contact", label: "Contact" }
+  ]
+  
+  // Function to handle link clicks
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    // If the link is for the current page type (intermediair or not), let it behave normally
+    const isIntermediairLink = path.startsWith('/intermediair')
+    if ((isIntermediairPage && isIntermediairLink) || (!isIntermediairPage && !isIntermediairLink)) {
+      // Let the default behavior happen for same-page hash links
+      return
+    }
+    
+    // For links to different page types, prevent default and navigate programmatically
+    e.preventDefault();
+    window.location.href = path
+  }
+  
   return (
-    <footer className={`py-12 ${bgColor} text-white`}>
+    <footer className={`pt-12 pb-6 ${bgColor} text-white`}>
       <div className="container mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
               <div className={`bg-white ${textColor} rounded-md p-1 w-8 h-8 flex items-center justify-center font-bold`}>
@@ -28,31 +51,57 @@ export function Footer() {
               Maak WBSO-aanvragen eenvoudiger dan ooit met ons AI-ondersteund platform.
             </p>
           </div>
+          
+          {/* Ondernemers Links Column */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Links</h3>
+            <h3 className="text-lg font-semibold mb-4">
+              <Link 
+                href="/" 
+                className={`opacity-100 hover:opacity-90 ${textHoverColor} transition-all`}
+              >
+                Voor Ondernemers
+              </Link>
+            </h3>
             <ul className="space-y-2">
-              <li>
-                <a href="#features" className={`${textLightColor} ${textHoverColor} transition-colors`}>
-                  Voordelen
-                </a>
-              </li>
-              <li>
-                <a href="#how-it-works" className={`${textLightColor} ${textHoverColor} transition-colors`}>
-                  Hoe werkt het
-                </a>
-              </li>
-              <li>
-                <a href="#waitlist" className={`${textLightColor} ${textHoverColor} transition-colors`}>
-                  Wachtlijst
-                </a>
-              </li>
-              <li>
-                <a href="#contact" className={`${textLightColor} ${textHoverColor} transition-colors`}>
-                  Contact
-                </a>
-              </li>
+              {linkItems.map((item, index) => (
+                <li key={`ondernemer-${index}`}>
+                  <a 
+                    href={`/${item.href}`} 
+                    className={`${textLightColor} ${textHoverColor} opacity-80 hover:opacity-100 transition-all`}
+                    onClick={(e) => handleLinkClick(e, `/${item.href}`)}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
+          
+          {/* Intermediairs Links Column */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">
+              <Link 
+                href="/intermediair" 
+                className={`opacity-100 hover:opacity-90 ${textHoverColor} transition-all`}
+              >
+                Voor Intermediairs
+              </Link>
+            </h3>
+            <ul className="space-y-2">
+              {linkItems.map((item, index) => (
+                <li key={`intermediair-${index}`}>
+                  <a 
+                    href={`/intermediair${item.href}`} 
+                    className={`${textLightColor} ${textHoverColor} opacity-80 hover:opacity-100 transition-all`}
+                    onClick={(e) => handleLinkClick(e, `/intermediair${item.href}`)}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact</h3>
             <ul className="space-y-2">
@@ -72,25 +121,17 @@ export function Footer() {
                   <rect width="20" height="16" x="2" y="4" rx="2" />
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                 </svg>
-                <a href="mailto:info@example.com" className={`${textLightColor} ${textHoverColor} transition-colors`}>
-                  info@example.com
+                <a href="mailto:info@subrise.eu" className={`${textLightColor} ${textHoverColor} opacity-80 hover:opacity-100 transition-all`}>
+                  info@subrise.eu
                 </a>
               </li>
             </ul>
           </div>
         </div>
-        <div className={`border-t ${borderColor} mt-8 pt-8 flex flex-col md:flex-row justify-between items-center`}>
-          <p className={`text-center text-sm leading-loose ${textLightColor} md:text-left`}>
+        <div className={`border-t ${borderColor} mt-8 pt-8 justify-center items-center`}>
+          <p className={`text-center text-sm leading-loose ${textLightColor}`}>
             © {new Date().getFullYear()} Subrise. Alle rechten voorbehouden.
           </p>
-          <div className="flex gap-4 mt-4 md:mt-0">
-            <a href="#" className={`text-sm font-medium ${textLightColor} ${textHoverColor} transition-colors`}>
-              Algemene voorwaarden
-            </a>
-            <a href="#" className={`text-sm font-medium ${textLightColor} ${textHoverColor} transition-colors`}>
-              Privacy
-            </a>
-          </div>
         </div>
       </div>
     </footer>
