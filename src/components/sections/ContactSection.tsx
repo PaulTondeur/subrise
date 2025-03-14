@@ -16,7 +16,7 @@ export function ContactSection() {
               href="mailto:info@subrise.eu"
               className="inline-flex items-center justify-center px-6 py-3 border border-corporate-300 hover:bg-corporate-50 text-corporate-700 rounded-full"
             >
-              <svg
+                            <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
                 height="16"
@@ -28,11 +28,10 @@ export function ContactSection() {
                 strokeLinejoin="round"
                 className="mr-2 h-4 w-4"
               >
-                <circle cx="12" cy="12" r="10" />
-                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-                <line x1="12" y1="17" x2="12.01" y2="17" />
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
               </svg>{" "}
-              Contact opnemen
+              Stuur ons een e-mail
             </a>
           </div>
         </div>

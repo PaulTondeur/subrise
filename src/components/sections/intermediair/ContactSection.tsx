@@ -36,7 +36,7 @@ export function IntermediairContactSection() {
               Stuur ons een e-mail
             </a>
             <a
-              href="tel:+31612345678"
+              href="tel:+31644924083"
               className="inline-flex items-center justify-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full"
             >
               <svg
