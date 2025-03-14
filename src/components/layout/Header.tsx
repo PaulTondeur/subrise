@@ -49,9 +49,9 @@ export function Header() {
             S
           </div>
           <span className="text-xl font-bold">Subrise</span>
-          {isIntermediairMode ? <span className="text-xs border-l pl-2">intermediair</span> : null}
+          {isIntermediairMode ? <span className="hidden md:inline-block text-xs border-l pl-2">intermediair</span> : null}
         </Link>
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <MainNav />
         </div>
         <div className="flex items-center gap-4">
