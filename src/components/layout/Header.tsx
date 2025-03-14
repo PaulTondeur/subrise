@@ -17,15 +17,24 @@ export function Header() {
     ? "bg-white text-indigo-700 rounded-md p-1 w-8 h-8 flex items-center justify-center font-bold"
     : "bg-white text-corporate-700 rounded-md p-1 w-8 h-8 flex items-center justify-center font-bold"
   
+  const scrollToTop = (e) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+
+    e.preventDefault();
+  }
+  
   return (
     <header className="border-b sticky top-0 bg-white/80 backdrop-blur-md z-50">
       <div className="container mx-auto px-4 flex h-20 items-center justify-between">
-        <div className="flex items-center gap-2">
+        <Link href="#home" onClick={scrollToTop} className="flex items-center gap-2 cursor-pointer">
           <div className={logoClasses}>
             S
           </div>
           <span className="text-xl font-bold">Subrise</span>
-        </div>
+        </Link>
         <div className="hidden md:block">
           <MainNav />
         </div>
