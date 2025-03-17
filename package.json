@@ -6,10 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "setup-notion": "node scripts/setup-notion-database.js"
   },
   "dependencies": {
+    "@notionhq/client": "^2.3.0",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.7",
     "lucide-react": "^0.454.0",
     "next": "15.2.2",
     "react": "^19.0.0",
