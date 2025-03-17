@@ -60,19 +60,32 @@ export async function submitToWaitlist(formData: Record<string, unknown>) {
 }
 
 /**
- * Updates an existing waitlist submission based on ID
+ * Updates an existing waitlist submission based on ID and email
  */
-export async function updateWaitlistSubmission(submissionId: string, formData: Record<string, unknown>) {
+export async function updateWaitlistSubmission(submissionId: string, email: string, formData: Record<string, unknown>) {
     if (!process.env.NOTION_API_KEY || !process.env.NOTION_DATABASE_ID) {
         throw new Error("Missing Notion API key or database ID")
     }
 
     const document = await notion.pages.retrieve({ page_id: submissionId }) as GetPageResponse
     
-    // Log Metadata - eenvoudiger met minder checks
-    type NotionPage = { properties: { Metadata?: { rich_text: Array<{ text: { content: string } }> } } };
-    const metadataContent = (document as unknown as NotionPage).properties?.Metadata?.rich_text?.[0]?.text?.content;
+    // Definieer één type voor de Notion pagina met alle benodigde properties
+    type NotionPage = { 
+        properties: { 
+            Email: { email: string },
+            Metadata: { rich_text: Array<{ text: { content: string } }> }
+        } 
+    };
+    
+    const notionPage = document as unknown as NotionPage;
+    
+    // Controleer of het e-mailadres overeenkomt
+    if (notionPage.properties.Email.email !== email) {
+        throw new Error("Unauthorized")
+    }
 
+    // Verwerk metadata
+    const metadataContent = notionPage.properties.Metadata.rich_text?.[0]?.text?.content;
     const parsedMetadata = JSON.parse(metadataContent || '{}');
 
     await notion.pages.update({

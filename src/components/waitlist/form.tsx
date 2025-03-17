@@ -65,7 +65,7 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
       throw new Error("No submission ID found")
     }
     
-    await updateWaitlistSubmission(submissionId, {
+    await updateWaitlistSubmission(submissionId, formData.email, {
       rdEmployees: formData.rdEmployees
     })
   }
@@ -77,7 +77,7 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
     }
     
     try {
-      await updateWaitlistSubmission(submissionId, {
+      await updateWaitlistSubmission(submissionId, formData.email, {
         comments: formData.comments
       })
       console.log('Submission successful!', formData)
@@ -118,7 +118,7 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
         throw new Error("No submission ID found")
       }
       
-      await updateWaitlistSubmission(submissionId, {
+      await updateWaitlistSubmission(submissionId, formData.email, {
         rdEmployees: value
       })
       setCurrentStep(3)
