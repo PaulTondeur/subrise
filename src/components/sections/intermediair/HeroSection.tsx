@@ -12,13 +12,13 @@ export function IntermediairHeroSection() {
               Subrise voor Intermediairs
             </div>
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-gray-900">
-              Ondersteun je klanten efficiënter met slimme AI-technologie
+              Subsidieaanvragen veel efficiënter met AI-oplossingen
             </h1>
             <p className="max-w-[600px] text-gray-700 md:text-xl font-medium">
-              Maak WBSO-aanvragen eenvoudiger dan ooit en versterk je dienstverlening.
+              Doe alles omtrent een WBSO aanvraag eenvoudiger dan ooit en versterk en versnel je dienstverlening tot wel 10x.
             </p>
             <p className="text-gray-500">
-              Met Subrise bied je jouw klanten een gebruiksvriendelijk, AI-gedreven platform waarmee je sneller en effectiever WBSO-aanvragen verzorgt.
+              Subrise kan je ondersteunen en ervoor zorgen dat je klanten sneller en effectiever WBSO-aanvragen kunnen indienen.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <a

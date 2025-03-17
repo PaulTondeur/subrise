@@ -21,10 +21,10 @@ export function IntermediairPainPointsSection() {
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-start mt-6">
           <div className="space-y-6">
             <ul className="space-y-4">
-              <PainPoint text="We besteden te veel tijd aan handmatige rapportages en controle van klantgegevens." />
-              <PainPoint text="We willen klanten een betere ervaring bieden, maar lopen tegen administratieve beperkingen aan." />
-              <PainPoint text="We zoeken naar manieren om efficiënter te werken en meer klanten tegelijk te helpen." />
-              <PainPoint text="Compliance-controles kosten ons onnodig veel tijd en energie." />
+              <PainPoint text="We besteden te veel tijd aan het schrijven van WBSO aanvragen." />
+              <PainPoint text="We willen klanten een betere ervaring bieden, maar hebben te weinig tijd." />
+              <PainPoint text="We zoeken naar manieren om efficiënter te werken en meer klanten te helpen." />
+              <PainPoint text="Aanvraagcontroles kosten ons onnodig veel tijd en energie." />
               <PainPoint text="We missen overzicht en directe inzichten in alle lopende aanvragen." />
             </ul>
           </div>

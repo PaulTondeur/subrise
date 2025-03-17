@@ -7,7 +7,7 @@ export function IntermediairFeaturesSection() {
             <div className="inline-block px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-sm font-medium mb-2">
               Voor intermediairs
             </div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-gray-900">Waarom kiezen intermediairs voor Subrise?</h2>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-gray-900">Waarom kiezen WBSO intermediairs voor Subrise?</h2>
             <div className="w-20 h-1 bg-indigo-500 mx-auto rounded-full"></div>
           </div>
         </div>
@@ -29,7 +29,7 @@ export function IntermediairFeaturesSection() {
               </svg>
             }
             title="Verhoog je efficiëntie"
-            description="Werk slimmer, niet harder. Onze AI-gebaseerde assistentie versnelt het aanvraagproces, waardoor je meer klanten kunt bedienen in minder tijd."
+            description="Werk slimmer, niet harder. Onze AI-gebaseerde assistentie versnelt het schrijven van de aanvraag, waardoor je meer klanten kunt bedienen in minder tijd."
           />
           <FeatureCard
             icon={
@@ -68,7 +68,7 @@ export function IntermediairFeaturesSection() {
                 <polyline points="22 4 12 14.01 9 11.01" />
               </svg>
             }
-            title="Altijd compliant"
+            title="Altijd RVO compliant"
             description="Onze slimme compliance-checks geven real-time inzicht en zekerheid dat elke aanvraag voldoet aan de RVO-eisen."
           />
           <FeatureCard
@@ -111,7 +111,7 @@ export function IntermediairFeaturesSection() {
               </svg>
             }
             title="Veilig en betrouwbaar"
-            description="Volledig GDPR-proof, gehost binnen de EU. Jouw data en die van je klanten blijven veilig en beschermd."
+            description="Volledig versleuteld en GDPR-proof, gehost binnen de EU. Jouw data en die van je klanten blijven veilig en beschermd."
           />
         </div>
       </div>
