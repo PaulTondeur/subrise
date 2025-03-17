@@ -1,6 +1,7 @@
 "use server"
 
 import { Client } from "@notionhq/client"
+import { GetPageResponse } from "@notionhq/client/build/src/api-endpoints"
 
 const notion = new Client({
     auth: process.env.NOTION_API_KEY,
@@ -11,7 +12,6 @@ const notion = new Client({
  */
 export async function submitToWaitlist(formData: Record<string, unknown>) {
     if (!process.env.NOTION_API_KEY || !process.env.NOTION_DATABASE_ID) {
-        console.error("Missing Notion API key or database ID", process.env.NOTION_API_KEY, process.env.NOTION_DATABASE_ID)
         throw new Error("Missing Notion API key or database ID")
     }
     console.log("Creating new waitlist submission:", formData)
@@ -47,7 +47,12 @@ export async function submitToWaitlist(formData: Record<string, unknown>) {
           },
           Intermediair: {
             checkbox: Boolean(formData.isIntermediary)
-          }
+          },
+          'Aangemeld op': {
+            date: {
+              start: new Date().toISOString(),
+            },
+          },
         },
       })
   
@@ -58,9 +63,26 @@ export async function submitToWaitlist(formData: Record<string, unknown>) {
  * Updates an existing waitlist submission based on ID
  */
 export async function updateWaitlistSubmission(submissionId: string, formData: Record<string, unknown>) {
-    console.log(`Updating submission ${submissionId} with:`, formData)
+    if (!process.env.NOTION_API_KEY || !process.env.NOTION_DATABASE_ID) {
+        throw new Error("Missing Notion API key or database ID")
+    }
 
-    // Just log the update and return success
-    console.log(`Updated submission ${submissionId}`)
-    return { success: true, submissionId }
+    const document = await notion.pages.retrieve({ page_id: submissionId }) as GetPageResponse
+    
+    // Log Metadata - eenvoudiger met minder checks
+    type NotionPage = { properties: { Metadata?: { rich_text: Array<{ text: { content: string } }> } } };
+    const metadataContent = (document as unknown as NotionPage).properties?.Metadata?.rich_text?.[0]?.text?.content;
+
+    const parsedMetadata = JSON.parse(metadataContent || '{}');
+
+    await notion.pages.update({
+        page_id: submissionId,
+        properties: {
+            Metadata: {
+                rich_text: [{ text: { content: JSON.stringify({...parsedMetadata, ...formData})} }]
+            }
+        }
+    })
+    
+    return { success: true }
 } 
