@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
-// import { submitToNotion } from "@/lib/notion"
+import { submitToWaitlist, updateWaitlistSubmission } from "./actions"
 
 export interface FormData {
   firstName: string
@@ -24,6 +24,7 @@ type FormStep = 1 | 2 | 3 | "complete"
 export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
   const [currentStep, setCurrentStep] = useState<FormStep>(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submissionId, setSubmissionId] = useState<string | null>(null)
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -42,18 +43,43 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
 
   const handlePartialSubmit = async () => {
     console.log('Partial submit:', formData)
-    // Here you would typically save the partial data to your backend
+    const result = await submitToWaitlist({
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      companyName: formData.companyName,
+      phoneNumber: formData.phoneNumber,
+      isIntermediary,
+    })
+    
+    if (result.success) {
+      setSubmissionId(result.id)
+    } else {
+      throw new Error("Failed to create submission")
+    }
   }
 
   const handleUnpartialSubmit = async () => {
     console.log('Un-partial submit:', formData)
-    // Here you would typically update the partial data in your backend
+    if (!submissionId) {
+      throw new Error("No submission ID found")
+    }
+    
+    await updateWaitlistSubmission(submissionId, {
+      rdEmployees: formData.rdEmployees
+    })
   }
 
   const handleFinalSubmit = async () => {
     console.log('Final submit:', formData)
+    if (!submissionId) {
+      throw new Error("No submission ID found")
+    }
+    
     try {
-      // await submitToNotion(formData)
+      await updateWaitlistSubmission(submissionId, {
+        comments: formData.comments
+      })
       console.log('Submission successful!', formData)
       setCurrentStep("complete")
     } catch (error) {
@@ -88,7 +114,13 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
     setFormData((prev) => ({ ...prev, rdEmployees: value }))
     setIsSubmitting(true)
     try {
-      await handleUnpartialSubmit()
+      if (!submissionId) {
+        throw new Error("No submission ID found")
+      }
+      
+      await updateWaitlistSubmission(submissionId, {
+        rdEmployees: value
+      })
       setCurrentStep(3)
     } catch (error) {
       console.error("Error updating R&D employees:", error)
@@ -318,18 +350,18 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="ml-2 h-4 w-4"
-                      >
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                        <polyline points="22 4 12 14.01 9 11.01" />
-                      </svg>
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="ml-2 h-4 w-4"
+                        >
+                          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                          <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
                       )}
                     </>
                   )}
@@ -341,5 +373,4 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
       </div>
     </div>
   )
-}
-
+} 

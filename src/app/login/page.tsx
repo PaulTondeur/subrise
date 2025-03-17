@@ -1,7 +1,7 @@
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import { LoginForm } from "@/components/login-form"
-import { WaitlistForm } from "@/components/waitlist-form"
+import { WaitlistForm } from "@/components/waitlist"
 
 export default function LoginPage() {
   return (

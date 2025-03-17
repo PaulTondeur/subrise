@@ -1,4 +1,4 @@
-import { FormData } from '@/components/waitlist-form'
+import { FormData } from '@/components/waitlist'
 
 export async function submitToNotion(formData: FormData) {
   try {

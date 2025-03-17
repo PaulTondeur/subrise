@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { Client } from '@notionhq/client'
-import { FormData } from '@/components/waitlist-form'
+import { FormData } from '@/components/waitlist'
 
 // Initialize the Notion client
 const notion = new Client({

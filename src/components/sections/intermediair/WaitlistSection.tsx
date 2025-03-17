@@ -1,4 +1,4 @@
-import { WaitlistForm } from "@/components/waitlist-form"
+import { WaitlistForm } from "@/components/waitlist"
 
 export function IntermediairWaitlistSection() {
   return (
