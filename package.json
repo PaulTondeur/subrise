@@ -6,9 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "setup-notion": "node scripts/setup-notion-database.js",
-    "create-test-contact": "node scripts/create-test-contact.js"
+    "lint": "next lint"
   },
   "dependencies": {
     "@notionhq/client": "^2.3.0",
