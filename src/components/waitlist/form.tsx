@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { submitToWaitlist, updateWaitlistSubmission } from "./actions"
 
 export interface FormData {
@@ -21,10 +21,31 @@ interface WaitlistFormProps {
 
 type FormStep = 1 | 2 | 3 | "complete"
 
+// Definieer types voor de submissions
+type CreateSubmission = {
+  type: 'create';
+  data: Omit<FormData, 'rdEmployees' | 'comments'>;
+}
+
+type UpdateSubmission = {
+  type: 'update';
+  data: {
+    id: string;
+    email: string;
+    data: Partial<FormData>;
+  }
+}
+
+type PendingSubmission = CreateSubmission | UpdateSubmission;
+
+// Genereer een tijdelijke ID voor optimistic updates
+const generateTempId = () => `temp_${Math.random().toString(36).substring(2, 15)}`;
+
 export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
   const [currentStep, setCurrentStep] = useState<FormStep>(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submissionId, setSubmissionId] = useState<string | null>(null)
+  const [pendingSubmissions, setPendingSubmissions] = useState<PendingSubmission[]>([])
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -36,6 +57,34 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
     isIntermediary,
   })
 
+  // Effect om background submissions te verwerken
+  useEffect(() => {
+    const processPendingSubmissions = async () => {
+      if (pendingSubmissions.length === 0) return;
+      
+      const [currentSubmission, ...remainingSubmissions] = pendingSubmissions;
+      
+      try {
+        if (currentSubmission.type === 'create') {
+          const result = await submitToWaitlist(currentSubmission.data);
+          if (result.success) {
+            setSubmissionId(result.id);
+          }
+        } else if (currentSubmission.type === 'update') {
+          const { id, email, data } = currentSubmission.data;
+          await updateWaitlistSubmission(id, email, data);
+        }
+      } catch (error) {
+        console.error("Background submission failed:", error);
+        // Bij een fout gaan we niet terug, we blijven op de huidige stap
+      } finally {
+        setPendingSubmissions(remainingSubmissions);
+      }
+    };
+    
+    processPendingSubmissions();
+  }, [pendingSubmissions]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
@@ -43,20 +92,25 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
 
   const handlePartialSubmit = async () => {
     console.log('Partial submit:', formData)
-    const result = await submitToWaitlist({
+    
+    // Optimistic update: genereer een tijdelijke ID en ga direct door
+    const tempId = generateTempId();
+    setSubmissionId(tempId);
+    
+    // Voeg de echte submission toe aan de wachtrij
+    const submissionData = {
       firstName: formData.firstName,
       lastName: formData.lastName,
       email: formData.email,
       companyName: formData.companyName,
       phoneNumber: formData.phoneNumber,
       isIntermediary,
-    })
+    };
     
-    if (result.success) {
-      setSubmissionId(result.id)
-    } else {
-      throw new Error("Failed to create submission")
-    }
+    setPendingSubmissions(prev => [...prev, { 
+      type: 'create', 
+      data: submissionData 
+    }]);
   }
 
   const handleUnpartialSubmit = async () => {
@@ -65,9 +119,17 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
       throw new Error("No submission ID found")
     }
     
-    await updateWaitlistSubmission(submissionId, formData.email, {
-      rdEmployees: formData.rdEmployees
-    })
+    // Optimistic update: ga direct door naar de volgende stap
+    
+    // Voeg de update toe aan de wachtrij
+    setPendingSubmissions(prev => [...prev, { 
+      type: 'update', 
+      data: {
+        id: submissionId,
+        email: formData.email,
+        data: { rdEmployees: formData.rdEmployees }
+      }
+    }]);
   }
 
   const handleFinalSubmit = async () => {
@@ -76,16 +138,18 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
       throw new Error("No submission ID found")
     }
     
-    try {
-      await updateWaitlistSubmission(submissionId, formData.email, {
-        comments: formData.comments
-      })
-      console.log('Submission successful!', formData)
-      setCurrentStep("complete")
-    } catch (error) {
-      console.error("Error submitting form:", error)
-      alert("Er is een fout opgetreden bij het verzenden van je aanmelding. Probeer het later opnieuw.")
-    }
+    // Optimistic update: ga direct door naar de bedankpagina
+    setCurrentStep("complete");
+    
+    // Voeg de update toe aan de wachtrij
+    setPendingSubmissions(prev => [...prev, { 
+      type: 'update', 
+      data: {
+        id: submissionId,
+        email: formData.email,
+        data: { comments: formData.comments }
+      }
+    }]);
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -113,15 +177,24 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
   const handleRdEmployeesChange = async (value: string) => {
     setFormData((prev) => ({ ...prev, rdEmployees: value }))
     setIsSubmitting(true)
+    
     try {
       if (!submissionId) {
         throw new Error("No submission ID found")
       }
       
-      await updateWaitlistSubmission(submissionId, formData.email, {
-        rdEmployees: value
-      })
-      setCurrentStep(3)
+      // Optimistic update: ga direct door naar de volgende stap
+      setCurrentStep(3);
+      
+      // Voeg de update toe aan de wachtrij
+      setPendingSubmissions(prev => [...prev, { 
+        type: 'update', 
+        data: {
+          id: submissionId,
+          email: formData.email,
+          data: { rdEmployees: value }
+        }
+      }]);
     } catch (error) {
       console.error("Error updating R&D employees:", error)
       alert("Er is een fout opgetreden. Probeer het later opnieuw.")
