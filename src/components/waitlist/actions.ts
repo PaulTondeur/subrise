@@ -92,7 +92,7 @@ export async function updateWaitlistSubmission(submissionId: string, email: stri
         page_id: submissionId,
         properties: {
             Metadata: {
-                rich_text: [{ text: { content: JSON.stringify({...parsedMetadata, ...formData})} }]
+                rich_text: [{ text: { content: JSON.stringify({...parsedMetadata, ...formData}, null, 2)} }]
             }
         }
     })

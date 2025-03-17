@@ -13,13 +13,29 @@ export interface FormData {
   rdEmployees: string
   comments: string
   isIntermediary?: boolean
+  numberOfClients?: string
+  servicesOffered?: string[]
+  expertiseAreas?: string[]
+  rdFocus?: string
+  innovationStage?: string
+  projectTimeline?: string
 }
 
 interface WaitlistFormProps {
   isIntermediary?: boolean
 }
 
-type FormStep = 1 | 2 | 3 | "complete"
+type FormStep = 
+  | "contact" 
+  | "clients"      // For intermediaries
+  | "services"     // For intermediaries
+  | "sectors"      // For intermediaries
+  | "rd_employees" // For entrepreneurs
+  | "rd_focus"     // For entrepreneurs
+  | "innovation"   // For entrepreneurs
+  | "timeline"     // For entrepreneurs
+  | "comments" 
+  | "complete"
 
 // Definieer types voor de submissions
 type CreateSubmission = {
@@ -42,7 +58,7 @@ type PendingSubmission = CreateSubmission | UpdateSubmission;
 const generateTempId = () => `temp_${Math.random().toString(36).substring(2, 15)}`;
 
 export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
-  const [currentStep, setCurrentStep] = useState<FormStep>(1)
+  const [currentStep, setCurrentStep] = useState<FormStep>("contact")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submissionId, setSubmissionId] = useState<string | null>(null)
   const [pendingSubmissions, setPendingSubmissions] = useState<PendingSubmission[]>([])
@@ -55,6 +71,12 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
     rdEmployees: "",
     comments: "",
     isIntermediary,
+    numberOfClients: "",
+    servicesOffered: [],
+    expertiseAreas: [],
+    rdFocus: "",
+    innovationStage: "",
+    projectTimeline: "",
   })
 
   // Effect om background submissions te verwerken
@@ -88,68 +110,69 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
+
+    // Automatically proceed to next step for single-question steps when an answer is selected
+    if (currentStep !== "contact" && currentStep !== "comments" && currentStep !== "services" && currentStep !== "sectors") {
+      handleAutoSubmit(name, value)
+    }
   }
 
-  const handlePartialSubmit = async () => {
-    console.log('Partial submit:', formData)
-    
-    // Optimistic update: genereer een tijdelijke ID en ga direct door
-    const tempId = generateTempId();
-    setSubmissionId(tempId);
-    
-    // Voeg de echte submission toe aan de wachtrij
-    const submissionData = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
-      companyName: formData.companyName,
-      phoneNumber: formData.phoneNumber,
-      isIntermediary,
-    };
-    
-    setPendingSubmissions(prev => [...prev, { 
-      type: 'create', 
-      data: submissionData 
-    }]);
+  const handleAutoSubmit = async (name: string, value: string | string[]) => {
+    try {
+      setIsSubmitting(true)
+      
+      if (currentStep === "clients" && name === "numberOfClients" && typeof value === "string") {
+        await handleStepSubmit("services", {
+          numberOfClients: value,
+        })
+      } else if (currentStep === "services" && name === "servicesOffered" && Array.isArray(value)) {
+        await handleStepSubmit("sectors", {
+          servicesOffered: value,
+        })
+      } else if (currentStep === "sectors" && name === "expertiseAreas" && Array.isArray(value)) {
+        await handleStepSubmit("comments", {
+          expertiseAreas: value,
+        })
+      } else if (currentStep === "rd_employees" && name === "rdEmployees" && typeof value === "string") {
+        await handleStepSubmit("rd_focus", {
+          rdEmployees: value,
+        })
+      } else if (currentStep === "rd_focus" && name === "rdFocus" && typeof value === "string") {
+        await handleStepSubmit("innovation", {
+          rdFocus: value,
+        })
+      } else if (currentStep === "innovation" && name === "innovationStage" && typeof value === "string") {
+        await handleStepSubmit("timeline", {
+          innovationStage: value,
+        })
+      } else if (currentStep === "timeline" && name === "projectTimeline" && typeof value === "string") {
+        await handleStepSubmit("comments", {
+          projectTimeline: value,
+        })
+      }
+    } catch (error) {
+      console.error("Error handling auto submission:", error)
+      alert("Er is een fout opgetreden. Probeer het later opnieuw.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
-  const handleUnpartialSubmit = async () => {
-    console.log('Un-partial submit:', formData)
+  const handleStepSubmit = async (nextStep: FormStep, data: Partial<FormData>) => {
     if (!submissionId) {
       throw new Error("No submission ID found")
     }
     
-    // Optimistic update: ga direct door naar de volgende stap
-    
-    // Voeg de update toe aan de wachtrij
     setPendingSubmissions(prev => [...prev, { 
       type: 'update', 
       data: {
         id: submissionId,
         email: formData.email,
-        data: { rdEmployees: formData.rdEmployees }
+        data
       }
     }]);
-  }
-
-  const handleFinalSubmit = async () => {
-    console.log('Final submit:', formData)
-    if (!submissionId) {
-      throw new Error("No submission ID found")
-    }
     
-    // Optimistic update: ga direct door naar de bedankpagina
-    setCurrentStep("complete");
-    
-    // Voeg de update toe aan de wachtrij
-    setPendingSubmissions(prev => [...prev, { 
-      type: 'update', 
-      data: {
-        id: submissionId,
-        email: formData.email,
-        data: { comments: formData.comments }
-      }
-    }]);
+    setCurrentStep(nextStep)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -157,14 +180,30 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
     setIsSubmitting(true)
     
     try {
-      if (currentStep === 1) {
-        await handlePartialSubmit()
-        setCurrentStep(2)
-      } else if (currentStep === 2) {
-        await handleUnpartialSubmit()
-        setCurrentStep(3)
-      } else {
-        await handleFinalSubmit()
+      if (currentStep === "contact") {
+        // Create initial submission
+        const tempId = generateTempId();
+        setSubmissionId(tempId);
+        
+        const submissionData = {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          companyName: formData.companyName,
+          phoneNumber: formData.phoneNumber,
+          isIntermediary,
+        };
+        
+        setPendingSubmissions(prev => [...prev, { 
+          type: 'create', 
+          data: submissionData 
+        }]);
+        
+        setCurrentStep(isIntermediary ? "clients" : "rd_employees")
+      } else if (currentStep === "comments") {
+        await handleStepSubmit("complete", {
+          comments: formData.comments,
+        })
       }
     } catch (error) {
       console.error("Error handling form submission:", error)
@@ -174,33 +213,15 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
     }
   }
 
-  const handleRdEmployeesChange = async (value: string) => {
-    setFormData((prev) => ({ ...prev, rdEmployees: value }))
-    setIsSubmitting(true)
-    
-    try {
-      if (!submissionId) {
-        throw new Error("No submission ID found")
-      }
+  const handleMultiSelect = (name: keyof FormData, value: string) => {
+    setFormData(prev => {
+      const currentValues = prev[name] as string[] || []
+      const newValues = currentValues.includes(value)
+        ? currentValues.filter(v => v !== value)
+        : [...currentValues, value]
       
-      // Optimistic update: ga direct door naar de volgende stap
-      setCurrentStep(3);
-      
-      // Voeg de update toe aan de wachtrij
-      setPendingSubmissions(prev => [...prev, { 
-        type: 'update', 
-        data: {
-          id: submissionId,
-          email: formData.email,
-          data: { rdEmployees: value }
-        }
-      }]);
-    } catch (error) {
-      console.error("Error updating R&D employees:", error)
-      alert("Er is een fout opgetreden. Probeer het later opnieuw.")
-    } finally {
-      setIsSubmitting(false)
-    }
+      return { ...prev, [name]: newValues }
+    })
   }
 
   // Define color variables based on isIntermediary
@@ -242,7 +263,7 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
     </div>
   )
 
-  const renderStep1 = () => (
+  const renderContactStep = () => (
     <div className="space-y-4">
       <h3 className={`text-lg font-semibold ${primaryDarkText} mb-4`}>Contactgegevens</h3>
 
@@ -330,9 +351,163 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
     </div>
   )
 
-  const renderStep2 = () => (
-    <div className="space-y-4">
-      <h3 className={`text-lg font-semibold ${primaryDarkText} mb-4`}>Aantal R&D-medewerkers</h3>
+  const renderClientsStep = () => (
+    <div className="space-y-6">
+      <h3 className={`text-lg font-semibold ${primaryDarkText} mb-4`}>
+        Hoeveel klanten begeleidt u bij WBSO?
+      </h3>
+      <div className="space-y-2">
+        {[
+          { value: "1-5", label: "1-5 klanten" },
+          { value: "6-15", label: "6-15 klanten" },
+          { value: "16-30", label: "16-30 klanten" },
+          { value: "31-50", label: "31-50 klanten" },
+          { value: "50+", label: "Meer dan 50 klanten" }
+        ].map((option) => (
+          <label
+            key={option.value}
+            className={`flex items-center w-full rounded-xl border ${primaryBorderInput} px-4 py-3 cursor-pointer transition-colors ${
+              formData.numberOfClients === option.value
+                ? `${primaryBgLight} ${primaryText} border`
+                : "bg-white hover:bg-gray-50"
+            }`}
+          >
+            <input
+              type="radio"
+              name="numberOfClients"
+              value={option.value}
+              checked={formData.numberOfClients === option.value}
+              onChange={handleInputChange}
+              className="sr-only"
+            />
+            <span className="flex-grow text-sm">{option.label}</span>
+            {formData.numberOfClients === option.value && (
+              <span className={`${primaryText}`}>
+                {renderCheckIcon()}
+              </span>
+            )}
+          </label>
+        ))}
+      </div>
+    </div>
+  )
+
+  const renderServicesStep = () => (
+    <div className="space-y-6">
+      <h3 className={`text-lg font-semibold ${primaryDarkText} mb-4`}>
+        Welke diensten biedt u aan?
+      </h3>
+      <div className="space-y-2">
+        {[
+          { value: "wbso-aanvragen", label: "WBSO-aanvragen" },
+          { value: "innovatiebox", label: "Innovatiebox" },
+          { value: "fiscaal-advies", label: "Fiscaal advies" },
+          { value: "innovatie-advies", label: "Innovatie advies" },
+          { value: "overige-subsidies", label: "Overige subsidies" }
+        ].map((option) => (
+          <label
+            key={option.value}
+            className={`flex items-center w-full rounded-xl border ${primaryBorderInput} px-4 py-3 cursor-pointer transition-colors ${
+              formData.servicesOffered?.includes(option.value)
+                ? `${primaryBgLight} border ${primaryText}`
+                : "bg-white hover:bg-gray-50"
+            }`}
+          >
+            <div className={`flex h-5 w-5 items-center justify-center rounded border ${
+              formData.servicesOffered?.includes(option.value)
+                ? `${primaryText} border ${primaryBorderInput}`
+                : "border-gray-300"
+            }`}>
+              {formData.servicesOffered?.includes(option.value) && (
+                <svg className="h-3 w-3" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </div>
+            <input
+              type="checkbox"
+              name="servicesOffered"
+              value={option.value}
+              checked={formData.servicesOffered?.includes(option.value)}
+              onChange={() => handleMultiSelect('servicesOffered', option.value)}
+              className="sr-only"
+            />
+            <span className="ml-3 flex-grow text-sm">{option.label}</span>
+          </label>
+        ))}
+      </div>
+      <button
+        type="button"
+        onClick={() => handleStepSubmit("sectors", { servicesOffered: formData.servicesOffered })}
+        disabled={!formData.servicesOffered?.length}
+        className={`w-full ${primaryBg} hover:${primaryHoverBg} text-white rounded-xl h-12 mt-6 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed`}
+      >
+        Volgende
+      </button>
+    </div>
+  )
+
+  const renderSectorsStep = () => (
+    <div className="space-y-6">
+      <h3 className={`text-lg font-semibold ${primaryDarkText} mb-4`}>
+        In welke sectoren heeft u expertise?
+      </h3>
+      <div className="space-y-2">
+        {[
+          { value: "software-it", label: "Software & IT" },
+          { value: "maakindustrie", label: "Maakindustrie" },
+          { value: "agri-food", label: "Agri & Food" },
+          { value: "health-life-sciences", label: "Health & Life Sciences" },
+          { value: "energy-sustainability", label: "Energie & Duurzaamheid" },
+          { value: "chemistry-materials", label: "Chemie & Materialen" }
+        ].map((option) => (
+          <label
+            key={option.value}
+            className={`flex items-center w-full rounded-xl border ${primaryBorderInput} px-4 py-3 cursor-pointer transition-colors ${
+              formData.expertiseAreas?.includes(option.value)
+                ? `${primaryBgLight} border ${primaryText}`
+                : "bg-white hover:bg-gray-50"
+            }`}
+          >
+            <div className={`flex h-5 w-5 items-center justify-center rounded border ${
+              formData.expertiseAreas?.includes(option.value)
+                ? `${primaryText} border ${primaryBorderInput}`
+                : "border-gray-300"
+            }`}>
+              {formData.expertiseAreas?.includes(option.value) && (
+                <svg className="h-3 w-3" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </div>
+            <input
+              type="checkbox"
+              name="expertiseAreas"
+              value={option.value}
+              checked={formData.expertiseAreas?.includes(option.value)}
+              onChange={() => handleMultiSelect('expertiseAreas', option.value)}
+              className="sr-only"
+            />
+            <span className="ml-3 flex-grow text-sm">{option.label}</span>
+          </label>
+        ))}
+      </div>
+      <button
+        type="button"
+        onClick={() => handleStepSubmit("comments", { expertiseAreas: formData.expertiseAreas })}
+        disabled={!formData.expertiseAreas?.length}
+        className={`w-full ${primaryBg} hover:${primaryHoverBg} text-white rounded-xl h-12 mt-6 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed`}
+      >
+        Volgende
+      </button>
+    </div>
+  )
+
+  const renderRdEmployeesStep = () => (
+    <div className="space-y-6">
+      <h3 className={`text-lg font-semibold ${primaryDarkText} mb-4`}>
+        Hoeveel R&D-medewerkers heeft uw bedrijf?
+      </h3>
       <div className="space-y-2">
         {[
           { value: "1-5", label: "1-5 medewerkers" },
@@ -345,17 +520,16 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
             key={option.value}
             className={`flex items-center w-full rounded-xl border ${primaryBorderInput} px-4 py-3 cursor-pointer transition-colors ${
               formData.rdEmployees === option.value
-                ? `${primaryBgLight} ${primaryText} border-2`
+                ? `${primaryBgLight} ${primaryText} border`
                 : "bg-white hover:bg-gray-50"
             }`}
-            onClick={() => handleRdEmployeesChange(option.value)}
           >
             <input
               type="radio"
               name="rdEmployees"
               value={option.value}
               checked={formData.rdEmployees === option.value}
-              onChange={() => {}}
+              onChange={handleInputChange}
               className="sr-only"
             />
             <span className="flex-grow text-sm">{option.label}</span>
@@ -370,7 +544,129 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
     </div>
   )
 
-  const renderStep3 = () => (
+  const renderRdFocusStep = () => (
+    <div className="space-y-6">
+      <h3 className={`text-lg font-semibold ${primaryDarkText} mb-4`}>
+        Wat is de primaire focus van uw R&D activiteiten?
+      </h3>
+      <div className="space-y-2">
+        {[
+          { value: "software-development", label: "Software ontwikkeling" },
+          { value: "hardware-development", label: "Hardware ontwikkeling" },
+          { value: "process-innovation", label: "Proces innovatie" },
+          { value: "product-innovation", label: "Product innovatie" },
+          { value: "scientific-research", label: "Wetenschappelijk onderzoek" }
+        ].map((option) => (
+          <label
+            key={option.value}
+            className={`flex items-center w-full rounded-xl border ${primaryBorderInput} px-4 py-3 cursor-pointer transition-colors ${
+              formData.rdFocus === option.value
+                ? `${primaryBgLight} ${primaryText} border`
+                : "bg-white hover:bg-gray-50"
+            }`}
+          >
+            <input
+              type="radio"
+              name="rdFocus"
+              value={option.value}
+              checked={formData.rdFocus === option.value}
+              onChange={handleInputChange}
+              className="sr-only"
+            />
+            <span className="flex-grow text-sm">{option.label}</span>
+            {formData.rdFocus === option.value && (
+              <span className={`${primaryText}`}>
+                {renderCheckIcon()}
+              </span>
+            )}
+          </label>
+        ))}
+      </div>
+    </div>
+  )
+
+  const renderInnovationStep = () => (
+    <div className="space-y-6">
+      <h3 className={`text-lg font-semibold ${primaryDarkText} mb-4`}>
+        In welke fase bevindt uw innovatie zich?
+      </h3>
+      <div className="space-y-2">
+        {[
+          { value: "idea-phase", label: "Idee fase" },
+          { value: "concept-development", label: "Concept ontwikkeling" },
+          { value: "prototype-phase", label: "Prototype fase" },
+          { value: "testing-validation", label: "Test & Validatie" },
+          { value: "market-introduction", label: "Marktintroductie" }
+        ].map((option) => (
+          <label
+            key={option.value}
+            className={`flex items-center w-full rounded-xl border ${primaryBorderInput} px-4 py-3 cursor-pointer transition-colors ${
+              formData.innovationStage === option.value
+                ? `${primaryBgLight} ${primaryText} border`
+                : "bg-white hover:bg-gray-50"
+            }`}
+          >
+            <input
+              type="radio"
+              name="innovationStage"
+              value={option.value}
+              checked={formData.innovationStage === option.value}
+              onChange={handleInputChange}
+              className="sr-only"
+            />
+            <span className="flex-grow text-sm">{option.label}</span>
+            {formData.innovationStage === option.value && (
+              <span className={`${primaryText}`}>
+                {renderCheckIcon()}
+              </span>
+            )}
+          </label>
+        ))}
+      </div>
+    </div>
+  )
+
+  const renderTimelineStep = () => (
+    <div className="space-y-6">
+      <h3 className={`text-lg font-semibold ${primaryDarkText} mb-4`}>
+        Wat is de verwachte duur van uw project?
+      </h3>
+      <div className="space-y-2">
+        {[
+          { value: "0-6", label: "0-6 maanden" },
+          { value: "6-12", label: "6-12 maanden" },
+          { value: "12-24", label: "1-2 jaar" },
+          { value: "24+", label: "Meer dan 2 jaar" }
+        ].map((option) => (
+          <label
+            key={option.value}
+            className={`flex items-center w-full rounded-xl border ${primaryBorderInput} px-4 py-3 cursor-pointer transition-colors ${
+              formData.projectTimeline === option.value
+                ? `${primaryBgLight} ${primaryText} border`
+                : "bg-white hover:bg-gray-50"
+            }`}
+          >
+            <input
+              type="radio"
+              name="projectTimeline"
+              value={option.value}
+              checked={formData.projectTimeline === option.value}
+              onChange={handleInputChange}
+              className="sr-only"
+            />
+            <span className="flex-grow text-sm">{option.label}</span>
+            {formData.projectTimeline === option.value && (
+              <span className={`${primaryText}`}>
+                {renderCheckIcon()}
+              </span>
+            )}
+          </label>
+        ))}
+      </div>
+    </div>
+  )
+
+  const renderCommentsStep = () => (
     <div className="space-y-4">
       <h3 className={`text-lg font-semibold ${primaryDarkText} mb-4`}>Vragen of opmerkingen</h3>
       <p className="text-sm text-left text-gray-600 mb-2">
@@ -397,12 +693,19 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
           renderThankYou()
         ) : (
           <form onSubmit={handleSubmit}>
-            <div className="space-y-8  text-left">
-              {currentStep === 1 && renderStep1()}
-              {currentStep === 2 && renderStep2()}
-              {currentStep === 3 && renderStep3()}
+            <div className="space-y-8 text-left">
+              {currentStep === "contact" && renderContactStep()}
+              {currentStep === "clients" && isIntermediary && renderClientsStep()}
+              {currentStep === "services" && isIntermediary && renderServicesStep()}
+              {currentStep === "sectors" && isIntermediary && renderSectorsStep()}
+              {currentStep === "rd_employees" && !isIntermediary && renderRdEmployeesStep()}
+              {currentStep === "rd_focus" && !isIntermediary && renderRdFocusStep()}
+              {currentStep === "innovation" && !isIntermediary && renderInnovationStep()}
+              {currentStep === "timeline" && !isIntermediary && renderTimelineStep()}
+              {currentStep === "comments" && renderCommentsStep()}
 
-              {currentStep !== 2 && (
+              {/* Only show submit button for contact and comments steps */}
+              {(currentStep === "contact" || currentStep === "comments") && (
                 <button
                   type="submit"
                   className={`w-full ${primaryBg} hover:${primaryHoverBg} text-white rounded-xl h-12 mt-6 flex items-center justify-center`}
@@ -418,8 +721,8 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
                     </>
                   ) : (
                     <>
-                      {currentStep === 3 ? "Aanmelding afronden" : "Aanmelden voor wachtlijst"}{" "}
-                      {currentStep === 3 && (
+                      {currentStep === "comments" ? "Aanmelding afronden" : "Volgende"}{" "}
+                      {currentStep === "comments" && (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
