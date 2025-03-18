@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import Script from 'next/script'
+import { SmoothScrollProvider } from '@/components/SmoothScrollProvider'
 
 export const metadata: Metadata = {
   title: 'Subrise | WBSO-aanvragen eenvoudiger dan ooit',
@@ -36,7 +37,11 @@ export default function RootLayout({
           {`window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }`}
         </Script>
       </head>
-      <body>{children}</body>
+      <body>
+        <SmoothScrollProvider options={{ headerSelector: 'header', additionalOffset: 0 }}>
+          {children}
+        </SmoothScrollProvider>
+      </body>
     </html>
   )
 }

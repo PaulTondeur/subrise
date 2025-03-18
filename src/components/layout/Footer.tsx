@@ -22,9 +22,9 @@ export function Footer() {
     { href: "#contact", label: "Contact" }
   ]
   
-  // Function to handle link clicks
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
-    // If the link is for the current page type (intermediair or not), let it behave normally
+  // Function to handle link clicks - only needed for cross-page navigation
+  const handleCrossPageNavigation = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    // If the link is for the current page type (intermediair or not), let SmoothScrollProvider handle it
     const isIntermediairLink = path.startsWith('/intermediair')
     if ((isIntermediairPage && isIntermediairLink) || (!isIntermediairPage && !isIntermediairLink)) {
       // Let the default behavior happen for same-page hash links
@@ -71,7 +71,7 @@ export function Footer() {
                   <a 
                     href={`/${item.href}`} 
                     className={`${textLightColor} ${textHoverColor} opacity-80 hover:opacity-100 transition-all`}
-                    onClick={(e) => handleLinkClick(e, `/${item.href}`)}
+                    onClick={(e) => handleCrossPageNavigation(e, `/${item.href}`)}
                   >
                     {item.label}
                   </a>
@@ -104,7 +104,7 @@ export function Footer() {
                   <a 
                     href={`/intermediair${item.href}`} 
                     className={`${textLightColor} ${textHoverColor} opacity-80 hover:opacity-100 transition-all`}
-                    onClick={(e) => handleLinkClick(e, `/intermediair${item.href}`)}
+                    onClick={(e) => handleCrossPageNavigation(e, `/intermediair${item.href}`)}
                   >
                     {item.label}
                   </a>

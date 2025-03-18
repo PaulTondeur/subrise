@@ -106,41 +106,16 @@ export function MainNav() {
       setActiveSection(currentSection)
     }
 
-    // Handle smooth scrolling
-    const handleClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement
-      const link = target.closest("a")
-
-      if (link && link.hash) {
-        e.preventDefault()
-        const targetId = link.hash
-        const targetElement = document.querySelector(targetId)
-
-        if (targetElement) {
-          const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY
-          window.scrollTo({
-            top: targetPosition - headerHeight,
-            behavior: "smooth",
-          })
-
-          // Update URL without scrolling
-          window.history.pushState(null, "", targetId)
-        }
-      }
-    }
-
     // Initial check
     determineActiveSection()
 
     // Add event listeners
     window.addEventListener("scroll", determineActiveSection)
-    document.addEventListener("click", handleClick)
     window.addEventListener("resize", determineActiveSection)
 
     // Cleanup
     return () => {
       window.removeEventListener("scroll", determineActiveSection)
-      document.removeEventListener("click", handleClick)
       window.removeEventListener("resize", determineActiveSection)
     }
   }, [isLoginPage])
