@@ -3,6 +3,7 @@ import { Footer } from "@/components/layout/Footer"
 import { IntermediairHeroSection } from "@/components/sections/intermediair/HeroSection"
 import { IntermediairValuePropositionSection } from "@/components/sections/intermediair/ValuePropositionSection"
 import { IntermediairFeaturesSection } from "@/components/sections/intermediair/FeaturesSection"
+import { IntermediairPrivacySection } from "@/components/sections/intermediair/PrivacySection"
 import { IntermediairPainPointsSection } from "@/components/sections/intermediair/PainPointsSection"
 import { IntermediairHowItWorksSection } from "@/components/sections/intermediair/HowItWorksSection"
 import { IntermediairResultSection } from "@/components/sections/intermediair/ResultSection"
@@ -17,6 +18,7 @@ export default function IntermediairPage() {
         <IntermediairHeroSection />
         <IntermediairValuePropositionSection />
         <IntermediairFeaturesSection />
+        <IntermediairPrivacySection />
         <IntermediairPainPointsSection />
         <IntermediairHowItWorksSection />
         <IntermediairResultSection />

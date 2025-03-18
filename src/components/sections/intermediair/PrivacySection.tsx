@@ -1,29 +1,29 @@
 import Link from "next/link";
 import { CheckCircle } from "lucide-react";
 
-export function PrivacySection() {
+export function IntermediairPrivacySection() {
   return (
     <section id="privacy" className="py-20 bg-white">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
           <div className="space-y-2">
             <div className="inline-block px-3 py-1 rounded-full bg-corporate-100 text-corporate-700 text-sm font-medium mb-2">
-              AI-ondersteuning, veilige & beschermde
+              Veilig werken met klantgegevens
             </div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-gray-900">
-              Bescherm uw Innovatie
+              Privacy Gegarandeerd
             </h2>
             <div className="w-20 h-1 bg-corporate-500 mx-auto rounded-full"></div>
           </div>
         </div>
         <div className="flex flex-col gap-4 mx-auto max-w-4xl">
           <p className="max-w-[600px] text-gray-700 md:text-xl font-medium">
-            Uw Innovaties, onze beveiliging. 100% binnen de EU.
+            Bescherm de innovaties van uw klanten met onze EU-gecertificeerde
+            beveiliging
           </p>
           <p className="max-w-[600px] text-gray-500">
-            Bij Subrise begrijpen we dat innovatieve bedrijven maximale controle
-            en veiligheid over hun gegevens willen. Daarom maken is Subrise
-            gemaakt met &quot;
+            Als intermediair werkt u met vertrouwelijke informatie van uw
+            klanten. Subrise is gebouwd met &quot;
             <Link
               href="https://madewithsunrise.com"
               target="_blank"
@@ -31,8 +31,8 @@ export function PrivacySection() {
             >
               Made With Sunrise
             </Link>
-            &quot;, dat zorgt voor een veilige en afgeschermde AI-omgeving. Dit
-            biedt de volgende voordelen:
+            &quot;, waardoor u met een gerust hart WBSO-aanvragen kunt verwerken
+            in een veilige en afgeschermde AI-omgeving.
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 mt-4">
@@ -40,14 +40,13 @@ export function PrivacySection() {
               <div className="flex items-start mb-3">
                 <CheckCircle className="text-corporate-500 h-6 w-6 mr-2" />
                 <h3 className="font-semibold text-gray-800">
-                  Gegevens blijven 100% binnen de EU
+                  Gescheiden klantomgevingen
                 </h3>
               </div>
               <p className="text-gray-600 text-sm ml-7">
-                Uw vertrouwelijke innovaties worden uitsluitend verwerkt en
-                opgeslagen binnen Europa. Zo voldoen we aan de strengste
-                GDPR-richtlijnen en voorkomt u dat uw gegevens buiten de EU
-                terechtkomen.
+                Elke klant krijgt een eigen afgeschermde omgeving. Zo blijven
+                projecten en innovaties van verschillende klanten strikt
+                gescheiden en veilig.
               </p>
             </div>
 
@@ -55,14 +54,13 @@ export function PrivacySection() {
               <div className="flex items-start mb-3">
                 <CheckCircle className="text-corporate-500 h-6 w-6 mr-2" />
                 <h3 className="font-semibold text-gray-800">
-                  AI draait in onze eigen beveiligde omgeving
+                  Europese dataverwerking
                 </h3>
               </div>
               <p className="text-gray-600 text-sm ml-7">
-                Wij verwerken uw gegevens uitsluitend binnen onze eigen
-                afgeschermde infrastructuur. Dit betekent dat uw data niet wordt
-                gedeeld met externe AI-platformen en niet toegankelijk is voor
-                partijen buiten Subrise.
+                Als intermediair kunt u uw klanten garanderen dat hun gegevens
+                binnen de EU blijven en voldoen aan alle GDPR-richtlijnen.
+                Perfect voor bedrijven die hier strenge eisen aan stellen.
               </p>
             </div>
 
@@ -95,8 +93,9 @@ export function PrivacySection() {
           </div>
 
           <p className="max-w-[600px] text-gray-500 mt-4">
-            Met Subrise kunt u met een gerust hart uw WBSO-aanvragen indienen,
-            wetende dat uw data veilig, privé en volledig binnen Europa blijft.
+            Met Subrise kunt u uw klanten verzekeren dat hun innovaties en
+            bedrijfsgeheimen in veilige handen zijn, terwijl u efficiënt
+            WBSO-aanvragen kunt verwerken.
           </p>
         </div>
       </div>
