@@ -47,7 +47,7 @@ export function Header() {
             alt="Subrise Logo" 
             width={120}
             height={32}
-            className="h-8 w-auto"
+            className="h-8 w-auto object-contain"
             priority
           />
           {isIntermediairMode ? <span className="hidden sm:inline-block text-xs border-l pl-2 mt-1">intermediair</span> : null}
