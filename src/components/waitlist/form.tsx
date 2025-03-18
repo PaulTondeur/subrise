@@ -37,31 +37,18 @@ type FormStep =
   | "comments" 
   | "complete"
 
-// Definieer types voor de submissions
-type CreateSubmission = {
-  type: 'create';
-  data: Omit<FormData, 'rdEmployees' | 'comments'>;
-}
-
-type UpdateSubmission = {
-  type: 'update';
-  data: {
-    id: string;
-    email: string;
-    data: Partial<FormData>;
-  }
-}
-
-type PendingSubmission = CreateSubmission | UpdateSubmission;
-
-// Genereer een tijdelijke ID voor optimistic updates
-const generateTempId = () => `temp_${Math.random().toString(36).substring(2, 15)}`;
-
 export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
   const [currentStep, setCurrentStep] = useState<FormStep>("contact")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submissionId, setSubmissionId] = useState<string | null>(null)
-  const [pendingSubmissions, setPendingSubmissions] = useState<PendingSubmission[]>([])
+  const [submittedData, setSubmittedData] = useState<Partial<FormData>>({})
+  const [pendingUpdates, setPendingUpdates] = useState<Array<{
+    id?: string,
+    data: Partial<FormData>,
+    nextStep?: FormStep
+  }>>([])
+  const [isFinalSubmitting, setIsFinalSubmitting] = useState(false)
+  
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -79,140 +66,202 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
     projectTimeline: "",
   })
 
-  // Effect om background submissions te verwerken
-  useEffect(() => {
-    const processPendingSubmissions = async () => {
-      if (pendingSubmissions.length === 0) return;
-      
-      const [currentSubmission, ...remainingSubmissions] = pendingSubmissions;
-      
-      try {
-        if (currentSubmission.type === 'create') {
-          const result = await submitToWaitlist(currentSubmission.data);
-          if (result.success) {
-            setSubmissionId(result.id);
-          }
-        } else if (currentSubmission.type === 'update') {
-          const { id, email, data } = currentSubmission.data;
-          await updateWaitlistSubmission(id, email, data);
-        }
-      } catch (error) {
-        console.error("Background submission failed:", error);
-        // Bij een fout gaan we niet terug, we blijven op de huidige stap
-      } finally {
-        setPendingSubmissions(remainingSubmissions);
-      }
-    };
-    
-    processPendingSubmissions();
-  }, [pendingSubmissions]);
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
+  }
 
-    // Automatically proceed to next step for single-question steps when an answer is selected
-    if (currentStep !== "contact" && currentStep !== "comments" && currentStep !== "services" && currentStep !== "sectors") {
-      handleAutoSubmit(name, value)
+  // Check if current step data has changed from submitted data and has actual values
+  const hasStepDataChanged = () => {
+    if (currentStep === "contact") {
+      return !submissionId || 
+        (formData.firstName && formData.firstName !== submittedData.firstName) ||
+        (formData.lastName && formData.lastName !== submittedData.lastName) ||
+        (formData.email && formData.email !== submittedData.email) ||
+        (formData.companyName && formData.companyName !== submittedData.companyName) ||
+        (formData.phoneNumber && formData.phoneNumber !== submittedData.phoneNumber)
+    } else if (currentStep === "clients" && isIntermediary) {
+      return formData.numberOfClients && formData.numberOfClients !== submittedData.numberOfClients
+    } else if (currentStep === "services" && isIntermediary) {
+      return formData.servicesOffered?.length && 
+        JSON.stringify(formData.servicesOffered) !== JSON.stringify(submittedData.servicesOffered)
+    } else if (currentStep === "sectors" && isIntermediary) {
+      return formData.expertiseAreas?.length && 
+        JSON.stringify(formData.expertiseAreas) !== JSON.stringify(submittedData.expertiseAreas)
+    } else if (currentStep === "rd_employees" && !isIntermediary) {
+      return formData.rdEmployees && formData.rdEmployees !== submittedData.rdEmployees
+    } else if (currentStep === "rd_focus" && !isIntermediary) {
+      return formData.rdFocus && formData.rdFocus !== submittedData.rdFocus
+    } else if (currentStep === "innovation" && !isIntermediary) {
+      return formData.innovationStage && formData.innovationStage !== submittedData.innovationStage
+    } else if (currentStep === "timeline" && !isIntermediary) {
+      return formData.projectTimeline && formData.projectTimeline !== submittedData.projectTimeline
+    } else if (currentStep === "comments") {
+      return formData.comments && formData.comments !== submittedData.comments
+    }
+    return false
+  }
+
+  // Determine the next step based on current step and whether user is intermediary
+  const getNextStep = (current: FormStep): FormStep => {
+    switch(current) {
+      case "contact":
+        return isIntermediary ? "clients" : "rd_employees"
+      case "clients":
+        return "services"
+      case "services":
+        return "sectors"
+      case "sectors":
+      case "rd_employees":
+        return isIntermediary ? "comments" : "rd_focus"
+      case "rd_focus":
+        return "innovation"
+      case "innovation":
+        return "timeline"
+      case "timeline":
+        return "comments"
+      case "comments":
+        return "complete"
+      default:
+        return "complete"
     }
   }
 
-  const handleAutoSubmit = async (name: string, value: string | string[]) => {
+  // Remove empty values from data before submission
+  const getCleanDataToSubmit = (dirtyData: Partial<FormData>): Partial<FormData> => {
+    const result: Partial<FormData> = {};
+    
+    // Process non-empty values only
+    if (dirtyData.firstName?.trim()) result.firstName = dirtyData.firstName;
+    if (dirtyData.lastName?.trim()) result.lastName = dirtyData.lastName;
+    if (dirtyData.email?.trim()) result.email = dirtyData.email;
+    if (dirtyData.companyName?.trim()) result.companyName = dirtyData.companyName;
+    if (dirtyData.phoneNumber?.trim()) result.phoneNumber = dirtyData.phoneNumber;
+    if (dirtyData.rdEmployees?.trim()) result.rdEmployees = dirtyData.rdEmployees;
+    if (dirtyData.comments?.trim()) result.comments = dirtyData.comments;
+    if (dirtyData.numberOfClients?.trim()) result.numberOfClients = dirtyData.numberOfClients;
+    if (dirtyData.rdFocus?.trim()) result.rdFocus = dirtyData.rdFocus;
+    if (dirtyData.innovationStage?.trim()) result.innovationStage = dirtyData.innovationStage;
+    if (dirtyData.projectTimeline?.trim()) result.projectTimeline = dirtyData.projectTimeline;
+    
+    if (dirtyData.servicesOffered?.length) result.servicesOffered = dirtyData.servicesOffered;
+    if (dirtyData.expertiseAreas?.length) result.expertiseAreas = dirtyData.expertiseAreas;
+    
+    if (dirtyData.isIntermediary !== undefined) result.isIntermediary = dirtyData.isIntermediary;
+    
+    return result;
+  }
+
+  // Process the pending update queue
+  const processPendingUpdates = async () => {
+    if (isSubmitting || pendingUpdates.length === 0) return
+    
+    setIsSubmitting(true)
+    
     try {
-      setIsSubmitting(true)
+      const update = pendingUpdates[0]
+      const cleanData = getCleanDataToSubmit(update.data)
       
-      if (currentStep === "clients" && name === "numberOfClients" && typeof value === "string") {
-        await handleStepSubmit("services", {
-          numberOfClients: value,
-        })
-      } else if (currentStep === "services" && name === "servicesOffered" && Array.isArray(value)) {
-        await handleStepSubmit("sectors", {
-          servicesOffered: value,
-        })
-      } else if (currentStep === "sectors" && name === "expertiseAreas" && Array.isArray(value)) {
-        await handleStepSubmit("comments", {
-          expertiseAreas: value,
-        })
-      } else if (currentStep === "rd_employees" && name === "rdEmployees" && typeof value === "string") {
-        await handleStepSubmit("rd_focus", {
-          rdEmployees: value,
-        })
-      } else if (currentStep === "rd_focus" && name === "rdFocus" && typeof value === "string") {
-        await handleStepSubmit("innovation", {
-          rdFocus: value,
-        })
-      } else if (currentStep === "innovation" && name === "innovationStage" && typeof value === "string") {
-        await handleStepSubmit("timeline", {
-          innovationStage: value,
-        })
-      } else if (currentStep === "timeline" && name === "projectTimeline" && typeof value === "string") {
-        await handleStepSubmit("comments", {
-          projectTimeline: value,
-        })
+      if (Object.keys(cleanData).length === 0) {
+        // Skip empty updates
+        setPendingUpdates(prev => prev.slice(1))
+        setIsSubmitting(false)
+        return
       }
+      
+      if (submissionId) {
+        // Update existing submission
+        await updateWaitlistSubmission(submissionId, formData.email, cleanData)
+        setSubmittedData(prev => ({ ...prev, ...cleanData }))
+      } else if (update.data.firstName && update.data.lastName && update.data.email) {
+        // Create new submission (must have required fields)
+        const result = await submitToWaitlist(cleanData)
+        setSubmissionId(result.id)
+        setSubmittedData(cleanData)
+      }
+      
+      // Remove processed update from queue
+      setPendingUpdates(prev => prev.slice(1))
     } catch (error) {
-      console.error("Error handling auto submission:", error)
-      alert("Er is een fout opgetreden. Probeer het later opnieuw.")
+      console.error("Error processing form updates:", error)
+      // Keep the update in the queue to retry
     } finally {
       setIsSubmitting(false)
     }
   }
 
-  const handleStepSubmit = async (nextStep: FormStep, data: Partial<FormData>) => {
-    if (!submissionId) {
-      throw new Error("No submission ID found")
+  // Queue an update for backend processing
+  const queueUpdate = (data: Partial<FormData>, nextStep?: FormStep) => {
+    const cleanData = getCleanDataToSubmit(data)
+    
+    if (Object.keys(cleanData).length > 0) {
+      setPendingUpdates(prev => [...prev, { data: cleanData, nextStep }])
+    }
+  }
+
+  // Handle submission of a specific step (optimistic UI approach)
+  const handleStepSubmit = (nextStep?: FormStep, additionalData?: Partial<FormData>) => {
+    const dataToSubmit = {
+      ...formData,
+      ...additionalData
     }
     
-    setPendingSubmissions(prev => [...prev, { 
-      type: 'update', 
-      data: {
-        id: submissionId,
-        email: formData.email,
-        data
-      }
-    }]);
+    // Queue the update for background processing
+    queueUpdate(dataToSubmit, nextStep)
     
-    setCurrentStep(nextStep)
+    // Optimistically update UI immediately
+    if (nextStep) {
+      setCurrentStep(nextStep)
+    } else {
+      setCurrentStep(getNextStep(currentStep))
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsSubmitting(true)
     
-    try {
-      if (currentStep === "contact") {
-        // Create initial submission
-        const tempId = generateTempId();
-        setSubmissionId(tempId);
-        
-        const submissionData = {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          companyName: formData.companyName,
-          phoneNumber: formData.phoneNumber,
-          isIntermediary,
-        };
-        
-        setPendingSubmissions(prev => [...prev, { 
-          type: 'create', 
-          data: submissionData 
-        }]);
-        
-        setCurrentStep(isIntermediary ? "clients" : "rd_employees")
-      } else if (currentStep === "comments") {
-        await handleStepSubmit("complete", {
-          comments: formData.comments,
-        })
+    if (currentStep === "contact") {
+      // Validate required fields for contact step
+      if (!formData.firstName || !formData.lastName || !formData.email || !formData.companyName) {
+        alert("Vul alle verplichte velden in.")
+        return
       }
-    } catch (error) {
-      console.error("Error handling form submission:", error)
-      alert("Er is een fout opgetreden. Probeer het later opnieuw.")
-    } finally {
-      setIsSubmitting(false)
+      
+      handleStepSubmit()
+    } else if (currentStep === "comments") {
+      setIsFinalSubmitting(true)
+      handleStepSubmit("complete")
+      
+      // Direct submission for final step to ensure completion before showing thank you
+      const cleanData = getCleanDataToSubmit({...formData, comments: formData.comments})
+      try {
+        if (submissionId) {
+          await updateWaitlistSubmission(submissionId, formData.email, cleanData)
+        }
+        // After successful submission, move to thank you
+        setCurrentStep("complete")
+      } catch (error) {
+        console.error("Error finalizing form submission:", error)
+        alert("Er is een fout opgetreden. Probeer het later opnieuw.")
+      } finally {
+        setIsFinalSubmitting(false)
+      }
     }
   }
 
+  // Handle radio button change with optimistic UI
+  const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>, nextStep?: FormStep) => {
+    const { name, value } = e.target
+    
+    // Update local form data first (optimistic UI)
+    setFormData(prev => ({ ...prev, [name]: value }))
+    
+    // Queue the update for processing
+    const dataToSubmit = { [name]: value }
+    handleStepSubmit(nextStep, dataToSubmit)
+  }
+
+  // Special handler for multiselect options with optimistic UI
   const handleMultiSelect = (name: keyof FormData, value: string) => {
     setFormData(prev => {
       const currentValues = prev[name] as string[] || []
@@ -223,6 +272,30 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
       return { ...prev, [name]: newValues }
     })
   }
+
+  // Process pending updates whenever queue changes or submission state changes
+  useEffect(() => {
+    if (!isSubmitting && pendingUpdates.length > 0) {
+      processPendingUpdates()
+    }
+  }, [pendingUpdates, isSubmitting, submissionId])
+
+  // Auto-submit after certain steps with changed data
+  useEffect(() => {
+    const autoSubmitSteps: FormStep[] = [
+      "rd_employees", "rd_focus", "innovation", "timeline",
+      "clients"
+    ]
+    
+    if (autoSubmitSteps.includes(currentStep) && hasStepDataChanged()) {
+      // We use a small timeout to allow UI to update first
+      const timer = setTimeout(() => {
+        handleStepSubmit()
+      }, 300)
+      
+      return () => clearTimeout(timer)
+    }
+  }, [formData, currentStep])
 
   // Define color variables based on isIntermediary
   const primaryBg = isIntermediary ? "bg-indigo-600" : "bg-corporate-600"
@@ -377,7 +450,7 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
               name="numberOfClients"
               value={option.value}
               checked={formData.numberOfClients === option.value}
-              onChange={handleInputChange}
+              onChange={(e) => handleRadioChange(e, "services")}
               className="sr-only"
             />
             <span className="flex-grow text-sm">{option.label}</span>
@@ -529,7 +602,7 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
               name="rdEmployees"
               value={option.value}
               checked={formData.rdEmployees === option.value}
-              onChange={handleInputChange}
+              onChange={(e) => handleRadioChange(e, "rd_focus")}
               className="sr-only"
             />
             <span className="flex-grow text-sm">{option.label}</span>
@@ -570,7 +643,7 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
               name="rdFocus"
               value={option.value}
               checked={formData.rdFocus === option.value}
-              onChange={handleInputChange}
+              onChange={(e) => handleRadioChange(e, "innovation")}
               className="sr-only"
             />
             <span className="flex-grow text-sm">{option.label}</span>
@@ -611,7 +684,7 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
               name="innovationStage"
               value={option.value}
               checked={formData.innovationStage === option.value}
-              onChange={handleInputChange}
+              onChange={(e) => handleRadioChange(e, "timeline")}
               className="sr-only"
             />
             <span className="flex-grow text-sm">{option.label}</span>
@@ -651,7 +724,7 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
               name="projectTimeline"
               value={option.value}
               checked={formData.projectTimeline === option.value}
-              onChange={handleInputChange}
+              onChange={(e) => handleRadioChange(e, "comments")}
               className="sr-only"
             />
             <span className="flex-grow text-sm">{option.label}</span>
@@ -709,9 +782,9 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
                 <button
                   type="submit"
                   className={`w-full ${primaryBg} hover:${primaryHoverBg} text-white rounded-xl h-12 mt-6 flex items-center justify-center`}
-                  disabled={isSubmitting}
+                  disabled={currentStep === "contact" ? isSubmitting : isFinalSubmitting}
                 >
-                  {isSubmitting ? (
+                  {(currentStep === "contact" && isSubmitting) || (currentStep === "comments" && isFinalSubmitting) ? (
                     <>
                       <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
