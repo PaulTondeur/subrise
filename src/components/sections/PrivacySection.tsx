@@ -1,5 +1,6 @@
 import { MWSText } from "../ui/MWSText"
 import Link from "next/link"
+import { CheckCircle } from "lucide-react"
 
 export function PrivacySection() {
   return (
@@ -19,50 +20,50 @@ export function PrivacySection() {
             Uw Innovaties, onze beveiliging. 100% binnen de EU.
           </p>
           <p className="max-w-[600px] text-gray-500">
-            Bij Subrise begrijpen we dat innovatieve bedrijven maximale controle en veiligheid over hun gegevens willen. Daarom maken is Subrise <Link href="https://madewithsunrise.com" target="_blank"><MWSText>Made With Sunrise</MWSText></Link>, dat zorgt voor een veilige en afgeschermde AI-omgeving. Dit biedt de volgende voordelen:
+            Bij Subrise begrijpen we dat innovatieve bedrijven maximale controle en veiligheid over hun gegevens willen. Daarom maken is Subrise gemaakt met "<Link href="https://madewithsunrise.com" target="_blank" className='text-indigo-600 hover:underline'>Made With Sunrise</Link>, dat zorgt voor een veilige en afgeschermde AI-omgeving. Dit biedt de volgende voordelen:
           </p>
           
-          <div className="grid md:grid-cols-2 gap-6 mt-4">
-            <div className="bg-gray-50 p-5 rounded-lg border border-gray-100 shadow-sm">
-              <div className="flex items-start mb-3">
-                <span className="text-corporate-500 text-xl mr-2">✅</span>
-                <h3 className="font-semibold text-gray-800">Gegevens blijven 100% binnen de EU</h3>
-              </div>
-              <p className="text-gray-600 text-sm ml-7">
-                Uw vertrouwelijke innovaties worden uitsluitend verwerkt en opgeslagen binnen Europa. Zo voldoen we aan de strengste GDPR-richtlijnen en voorkomt u dat uw gegevens buiten de EU terechtkomen.
-              </p>
-            </div>
+<div className="grid md:grid-cols-2 gap-6 mt-4">
+  <div className="bg-gray-50 p-5 rounded-lg border border-gray-100 shadow-sm">
+    <div className="flex items-start mb-3">
+      <CheckCircle className="text-corporate-500 h-6 w-6 mr-2" />
+      <h3 className="font-semibold text-gray-800">Gegevens blijven 100% binnen de EU</h3>
+    </div>
+    <p className="text-gray-600 text-sm ml-7">
+      Uw vertrouwelijke innovaties worden uitsluitend verwerkt en opgeslagen binnen Europa. Zo voldoen we aan de strengste GDPR-richtlijnen en voorkomt u dat uw gegevens buiten de EU terechtkomen.
+    </p>
+  </div>
 
-            <div className="bg-gray-50 p-5 rounded-lg border border-gray-100 shadow-sm">
-              <div className="flex items-start mb-3">
-                <span className="text-corporate-500 text-xl mr-2">✅</span>
-                <h3 className="font-semibold text-gray-800">AI draait in onze eigen beveiligde omgeving</h3>
-              </div>
-              <p className="text-gray-600 text-sm ml-7">
-                Wij verwerken uw gegevens uitsluitend binnen onze eigen afgeschermde infrastructuur. Dit betekent dat uw data niet wordt gedeeld met externe AI-platformen en niet toegankelijk is voor partijen buiten Subrise.
-              </p>
-            </div>
+  <div className="bg-gray-50 p-5 rounded-lg border border-gray-100 shadow-sm">
+    <div className="flex items-start mb-3">
+      <CheckCircle className="text-corporate-500 h-6 w-6 mr-2" />
+      <h3 className="font-semibold text-gray-800">AI draait in onze eigen beveiligde omgeving</h3>
+    </div>
+    <p className="text-gray-600 text-sm ml-7">
+      Wij verwerken uw gegevens uitsluitend binnen onze eigen afgeschermde infrastructuur. Dit betekent dat uw data niet wordt gedeeld met externe AI-platformen en niet toegankelijk is voor partijen buiten Subrise.
+    </p>
+  </div>
 
-            <div className="bg-gray-50 p-5 rounded-lg border border-gray-100 shadow-sm">
-              <div className="flex items-start mb-3">
-                <span className="text-corporate-500 text-xl mr-2">✅</span>
-                <h3 className="font-semibold text-gray-800">Geen AI-training met uw data</h3>
-              </div>
-              <p className="text-gray-600 text-sm ml-7">
-                In tegenstelling tot commerciële AI-diensten, wordt uw data bij ons niet gebruikt om AI-modellen verder te trainen of te verbeteren. Uw innovaties blijven exclusief van u.
-              </p>
-            </div>
+  <div className="bg-gray-50 p-5 rounded-lg border border-gray-100 shadow-sm">
+    <div className="flex items-start mb-3">
+      <CheckCircle className="text-corporate-500 h-6 w-6 mr-2" />
+      <h3 className="font-semibold text-gray-800">Geen AI-training met uw data</h3>
+    </div>
+    <p className="text-gray-600 text-sm ml-7">
+      In tegenstelling tot commerciële AI-diensten, wordt uw data bij ons niet gebruikt om AI-modellen verder te trainen of te verbeteren. Uw innovaties blijven exclusief van u.
+    </p>
+  </div>
 
-            <div className="bg-gray-50 p-5 rounded-lg border border-gray-100 shadow-sm">
-              <div className="flex items-start mb-3">
-                <span className="text-corporate-500 text-xl mr-2">✅</span>
-                <h3 className="font-semibold text-gray-800">End-to-end encryptie</h3>
-              </div>
-              <p className="text-gray-600 text-sm ml-7">
-                Uw data is altijd versleuteld, zowel tijdens verzending als opslag, zodat deze niet toegankelijk is voor onbevoegden.
-              </p>
-            </div>
-          </div>
+  <div className="bg-gray-50 p-5 rounded-lg border border-gray-100 shadow-sm">
+    <div className="flex items-start mb-3">
+      <CheckCircle className="text-corporate-500 h-6 w-6 mr-2" />
+      <h3 className="font-semibold text-gray-800">End-to-end encryptie</h3>
+    </div>
+    <p className="text-gray-600 text-sm ml-7">
+      Uw data is altijd versleuteld, zowel tijdens verzending als opslag, zodat deze niet toegankelijk is voor onbevoegden.
+    </p>
+  </div>
+</div>
 
           <p className="max-w-[600px] text-gray-500 mt-4">
             Met Subrise kunt u met een gerust hart uw WBSO-aanvragen indienen, wetende dat uw data veilig, privé en volledig binnen Europa blijft.
