@@ -1,4 +1,3 @@
-import { MWSText } from "../ui/MWSText"
 import Link from "next/link"
 import { CheckCircle } from "lucide-react"
 
@@ -20,7 +19,7 @@ export function PrivacySection() {
             Uw Innovaties, onze beveiliging. 100% binnen de EU.
           </p>
           <p className="max-w-[600px] text-gray-500">
-            Bij Subrise begrijpen we dat innovatieve bedrijven maximale controle en veiligheid over hun gegevens willen. Daarom maken is Subrise gemaakt met "<Link href="https://madewithsunrise.com" target="_blank" className='text-indigo-600 hover:underline'>Made With Sunrise</Link>, dat zorgt voor een veilige en afgeschermde AI-omgeving. Dit biedt de volgende voordelen:
+            Bij Subrise begrijpen we dat innovatieve bedrijven maximale controle en veiligheid over hun gegevens willen. Daarom maken is Subrise gemaakt met &quot;<Link href="https://madewithsunrise.com" target="_blank" className='text-indigo-600 hover:underline'>Made With Sunrise</Link>&quot;, dat zorgt voor een veilige en afgeschermde AI-omgeving. Dit biedt de volgende voordelen:
           </p>
           
 <div className="grid md:grid-cols-2 gap-6 mt-4">
