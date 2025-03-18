@@ -127,31 +127,6 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
     }
   }
 
-  // Remove empty values from data before submission
-  const getCleanDataToSubmit = (dirtyData: Partial<FormData>): Partial<FormData> => {
-    const result: Partial<FormData> = {};
-    
-    // Process non-empty values only
-    if (dirtyData.firstName?.trim()) result.firstName = dirtyData.firstName;
-    if (dirtyData.lastName?.trim()) result.lastName = dirtyData.lastName;
-    if (dirtyData.email?.trim()) result.email = dirtyData.email;
-    if (dirtyData.companyName?.trim()) result.companyName = dirtyData.companyName;
-    if (dirtyData.phoneNumber?.trim()) result.phoneNumber = dirtyData.phoneNumber;
-    if (dirtyData.rdEmployees?.trim()) result.rdEmployees = dirtyData.rdEmployees;
-    if (dirtyData.comments?.trim()) result.comments = dirtyData.comments;
-    if (dirtyData.numberOfClients?.trim()) result.numberOfClients = dirtyData.numberOfClients;
-    if (dirtyData.rdFocus?.trim()) result.rdFocus = dirtyData.rdFocus;
-    if (dirtyData.innovationStage?.trim()) result.innovationStage = dirtyData.innovationStage;
-    if (dirtyData.projectTimeline?.trim()) result.projectTimeline = dirtyData.projectTimeline;
-    
-    if (dirtyData.servicesOffered?.length) result.servicesOffered = dirtyData.servicesOffered;
-    if (dirtyData.expertiseAreas?.length) result.expertiseAreas = dirtyData.expertiseAreas;
-    
-    if (dirtyData.isIntermediary !== undefined) result.isIntermediary = dirtyData.isIntermediary;
-    
-    return result;
-  }
-
   // Process the pending update queue
   const processPendingUpdates = async () => {
     if (isSubmitting || pendingUpdates.length === 0) return
@@ -160,7 +135,7 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
     
     try {
       const update = pendingUpdates[0]
-      const cleanData = getCleanDataToSubmit(update.data)
+      const cleanData = getCleanDataToSubmit(update.data, submissionId !== null)
       
       if (Object.keys(cleanData).length === 0) {
         // Skip empty updates
@@ -190,9 +165,38 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
     }
   }
 
+  // Remove empty values from data before submission
+  // isUpdate parameter indicates if this is for an update operation (vs. initial submission)
+  const getCleanDataToSubmit = (dirtyData: Partial<FormData>, isUpdate: boolean = false): Partial<FormData> => {
+    const result: Partial<FormData> = {};
+    
+    // Process non-empty values only
+    // If this is an update operation, exclude contact information
+    if (!isUpdate) {
+      if (dirtyData.firstName?.trim()) result.firstName = dirtyData.firstName;
+      if (dirtyData.lastName?.trim()) result.lastName = dirtyData.lastName;
+      if (dirtyData.email?.trim()) result.email = dirtyData.email;
+      if (dirtyData.companyName?.trim()) result.companyName = dirtyData.companyName;
+      if (dirtyData.phoneNumber?.trim()) result.phoneNumber = dirtyData.phoneNumber;
+      if (dirtyData.isIntermediary !== undefined) result.isIntermediary = dirtyData.isIntermediary;
+    }
+    
+    if (dirtyData.rdEmployees?.trim()) result.rdEmployees = dirtyData.rdEmployees;
+    if (dirtyData.comments?.trim()) result.comments = dirtyData.comments;
+    if (dirtyData.numberOfClients?.trim()) result.numberOfClients = dirtyData.numberOfClients;
+    if (dirtyData.rdFocus?.trim()) result.rdFocus = dirtyData.rdFocus;
+    if (dirtyData.innovationStage?.trim()) result.innovationStage = dirtyData.innovationStage;
+    if (dirtyData.projectTimeline?.trim()) result.projectTimeline = dirtyData.projectTimeline;
+    
+    if (dirtyData.servicesOffered?.length) result.servicesOffered = dirtyData.servicesOffered;
+    if (dirtyData.expertiseAreas?.length) result.expertiseAreas = dirtyData.expertiseAreas;
+    
+    return result;
+  }
+
   // Queue an update for backend processing
   const queueUpdate = (data: Partial<FormData>, nextStep?: FormStep) => {
-    const cleanData = getCleanDataToSubmit(data)
+    const cleanData = getCleanDataToSubmit(data, submissionId !== null)
     
     if (Object.keys(cleanData).length > 0) {
       setPendingUpdates(prev => [...prev, { data: cleanData, nextStep }])
@@ -233,7 +237,7 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
       handleStepSubmit("complete")
       
       // Direct submission for final step to ensure completion before showing thank you
-      const cleanData = getCleanDataToSubmit({...formData, comments: formData.comments})
+      const cleanData = getCleanDataToSubmit({...formData, comments: formData.comments}, submissionId !== null)
       try {
         if (submissionId) {
           await updateWaitlistSubmission(submissionId, formData.email, cleanData)
