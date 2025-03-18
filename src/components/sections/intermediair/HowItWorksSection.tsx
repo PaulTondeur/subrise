@@ -69,7 +69,7 @@ function StepItem({ number, title, description, imageSrc, imageAlt, imageRight }
     <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
       <div className={`order-2 ${imageRight ? 'lg:order-1' : ''}`}>
         <div className="flex items-center mb-6">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-indigo-600 text-white font-bold text-lg">
+          <div className="flex h-12 w-12 min-w-[3rem] flex-shrink-0 items-center justify-center rounded-full bg-indigo-600 text-white text-xl shadow-md ring-2 ring-indigo-500/20">
             {number}
           </div>
           <h3 className="ml-4 text-2xl font-bold text-gray-900">{title}</h3>
