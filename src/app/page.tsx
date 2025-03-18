@@ -6,6 +6,7 @@ import { FeaturesSection } from "@/components/sections/FeaturesSection"
 import { PainPointsSection } from "@/components/sections/PainPointsSection"
 import { HowItWorksSection } from "@/components/sections/HowItWorksSection"
 import { ResultSection } from "@/components/sections/ResultSection"
+import { PrivacySection } from "@/components/sections/PrivacySection"
 import { WaitlistSection } from "@/components/sections/WaitlistSection"
 import { ContactSection } from "@/components/sections/ContactSection"
 
@@ -20,6 +21,7 @@ export default function LandingPage() {
         <PainPointsSection />
         <HowItWorksSection />
         <ResultSection />
+        <PrivacySection />
         <WaitlistSection />
         <ContactSection />
       </main>

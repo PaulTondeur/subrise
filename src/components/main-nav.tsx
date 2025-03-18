@@ -33,6 +33,7 @@ export function MainNav() {
     { href: `${basePath}#voordelen`, label: "Voordelen" },
     { href: `${basePath}#uitdagingen`, label: "Uitdagingen" },
     { href: `${basePath}#hoe-werkt-het`, label: "Hoe werkt het" },
+    { href: `${basePath}#privacy`, label: "Privacy" },
     { href: `${basePath}#wachtlijst`, label: "Wachtlijst" },
     { href: `${basePath}#contact`, label: "Contact" },
   ]
