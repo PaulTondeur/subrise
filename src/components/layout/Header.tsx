@@ -14,8 +14,8 @@ export function Header() {
   const loginPath = isIntermediairMode ? "/intermediair/login" : "/login"
   
   const switchButtonClasses = isIntermediairMode 
-    ? "inline-flex items-center justify-center px-4 py-2 bg-corporate-600 hover:bg-corporate-700 text-white rounded-full gap-2"
-    : "inline-flex items-center justify-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full gap-2"
+    ? "inline-flex items-center justify-center px-4 py-2 bg-corporate-600 hover:bg-corporate-700 text-white rounded-full"
+    : "inline-flex items-center justify-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full"
   
   const loginButtonClasses = isIntermediairMode
     ? "inline-flex items-center justify-center px-4 py-2 border border-indigo-600 text-indigo-600 hover:bg-indigo-50 rounded-full"
@@ -67,7 +67,7 @@ export function Header() {
             href={switchToPath}
             className={switchButtonClasses}
           >
-            <span className="hidden sm:inline-block">Voor</span>
+            <span className="hidden sm:inline-block">Voor&nbsp;</span>
             <span className="capitalize sm:normal-case">{switchToText}</span>
           </Link>
         </div>
