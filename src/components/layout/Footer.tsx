@@ -2,13 +2,13 @@
 
 import { usePathname } from "next/navigation"
 import Link from "next/link"
+import Image from "next/image"
 
 export function Footer() {
   const pathname = usePathname()
   const isIntermediairPage = pathname.startsWith("/intermediair")
   
   const bgColor = isIntermediairPage ? "bg-indigo-900" : "bg-corporate-900"
-  const textColor = isIntermediairPage ? "text-indigo-700" : "text-corporate-700"
   const textLightColor = isIntermediairPage ? "text-indigo-200" : "text-corporate-200"
   const textHoverColor = isIntermediairPage ? "hover:text-indigo-50" : "hover:text-white"
   const borderColor = isIntermediairPage ? "border-indigo-700" : "border-corporate-700"
@@ -42,10 +42,13 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className={`bg-white ${textColor} rounded-md p-1 w-8 h-8 flex items-center justify-center font-bold`}>
-                S
-              </div>
-              <span className="text-xl font-bold">Subrise</span>
+              <Image 
+                src="/logo-white.png" 
+                alt="Subrise Logo" 
+                width={120}
+                height={32}
+                className="h-8 w-auto"
+              />
             </div>
             <p className={`${textLightColor} text-sm`}>
               Maak WBSO-aanvragen eenvoudiger dan ooit met ons AI-ondersteund platform.

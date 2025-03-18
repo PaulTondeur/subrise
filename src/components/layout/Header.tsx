@@ -3,6 +3,7 @@
 import { MainNav } from "@/components/main-nav"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
+import Image from "next/image"
 
 export function Header() {
   const pathname = usePathname()
@@ -19,10 +20,6 @@ export function Header() {
   const loginButtonClasses = isIntermediairMode
     ? "inline-flex items-center justify-center px-4 py-2 border border-indigo-600 text-indigo-600 hover:bg-indigo-50 rounded-full"
     : "inline-flex items-center justify-center px-4 py-2 border border-corporate-600 text-corporate-600 hover:bg-corporate-50 rounded-full"
-  
-  const logoClasses = isIntermediairMode
-    ? "bg-white text-indigo-700 rounded-md p-1 w-8 h-8 flex items-center justify-center font-bold"
-    : "bg-white text-corporate-700 rounded-md p-1 w-8 h-8 flex items-center justify-center font-bold"
   
   const scrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
     // Check if we're already on the home page
@@ -45,11 +42,15 @@ export function Header() {
     <header className="border-b sticky top-0 bg-white/80 backdrop-blur-md z-50">
       <div className="container mx-auto px-4 flex h-20 items-center justify-between">
         <Link href={isIntermediairMode ? "/intermediair#home" : "/#home"} onClick={scrollToTop} className="flex items-center gap-2 cursor-pointer">
-          <div className={logoClasses}>
-            S
-          </div>
-          <span className="text-xl font-bold">Subrise</span>
-          {isIntermediairMode ? <span className="hidden sm:inline-block text-xs border-l pl-2">intermediair</span> : null}
+          <Image 
+            src="/logo.png" 
+            alt="Subrise Logo" 
+            width={120}
+            height={32}
+            className="h-8 w-auto"
+            priority
+          />
+          {isIntermediairMode ? <span className="hidden sm:inline-block text-xs border-l pl-2 mt-1">intermediair</span> : null}
         </Link>
         <div className="hidden lg:block">
           <MainNav />
