@@ -1,14 +1,14 @@
 export function IntermediairContactSection() {
   return (
-    <section id="contact" className="py-20 bg-gradient-to-br from-corporate-50 to-white relative overflow-hidden">
+    <section id="contact" className="py-20 bg-gradient-to-br from-indigo-50 to-white relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-6 relative">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
-            <div className="inline-block px-3 py-1 rounded-full bg-corporate-100 text-corporate-700 text-sm font-medium mb-2">
+            <div className="inline-block px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-sm font-medium mb-2">
               Hulp nodig?
             </div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-gray-900">Neem contact op</h2>
-            <div className="w-20 h-1 bg-corporate-500 mx-auto rounded-full"></div>
+            <div className="w-20 h-1 bg-indigo-500 mx-auto rounded-full"></div>
             <p className="text-gray-500 md:text-xl mt-4">
               Heb je vragen? We helpen je graag verder.
             </p>
@@ -16,7 +16,7 @@ export function IntermediairContactSection() {
           <div className="flex flex-col sm:flex-row gap-3 mt-6">
             <a
               href="mailto:info@subrise.eu"
-              className="inline-flex items-center justify-center px-6 py-3 border border-corporate-300 hover:bg-corporate-50 text-corporate-700 rounded-full"
+              className="inline-flex items-center justify-center px-6 py-3 border border-indigo-300 hover:bg-indigo-50 text-indigo-700 rounded-full"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@ export function IntermediairContactSection() {
             </a>
             <a
               href="tel:+31649754806"
-              className="inline-flex items-center justify-center px-6 py-3 bg-corporate-600 hover:bg-corporate-700 text-white rounded-full"
+              className="inline-flex items-center justify-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

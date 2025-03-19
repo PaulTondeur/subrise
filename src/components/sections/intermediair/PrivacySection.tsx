@@ -3,17 +3,17 @@ import { CheckCircle } from "lucide-react";
 
 export function IntermediairPrivacySection() {
   return (
-    <section id="privacy" className="py-20 bg-gradient-to-br from-corporate-50 to-white relative overflow-hidden">
+    <section id="privacy" className="py-20 bg-gradient-to-br from-indigo-50 to-white relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-6 relative">
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-6">
           <div className="space-y-2">
-            <div className="inline-block px-3 py-1 rounded-full bg-corporate-100 text-corporate-700 text-sm font-medium mb-2">
+            <div className="inline-block px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-sm font-medium mb-2">
               Veilig werken met klantgegevens
             </div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-gray-900">
               Privacy Gegarandeerd
             </h2>
-            <div className="w-20 h-1 bg-corporate-500 mx-auto rounded-full"></div>
+            <div className="w-20 h-1 bg-indigo-500 mx-auto rounded-full"></div>
             <p className="text-gray-500 text-lg md:text-xl">
               Bescherm de innovaties van uw klanten met onze EU-gecertificeerde beveiliging
             </p>
@@ -40,7 +40,7 @@ export function IntermediairPrivacySection() {
           <div className="grid md:grid-cols-2 gap-6 mt-2">
             <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm transition-all hover:shadow-md">
               <div className="flex items-start mb-3">
-                <CheckCircle className="text-corporate-500 h-6 w-6 mr-2" />
+                <CheckCircle className="text-indigo-500 h-6 w-6 mr-2" />
                 <h3 className="font-semibold text-gray-800">
                   Gescheiden klantomgevingen
                 </h3>
@@ -54,7 +54,7 @@ export function IntermediairPrivacySection() {
 
             <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm transition-all hover:shadow-md">
               <div className="flex items-start mb-3">
-                <CheckCircle className="text-corporate-500 h-6 w-6 mr-2" />
+                <CheckCircle className="text-indigo-500 h-6 w-6 mr-2" />
                 <h3 className="font-semibold text-gray-800">
                   Europese dataverwerking
                 </h3>
@@ -68,7 +68,7 @@ export function IntermediairPrivacySection() {
 
             <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm transition-all hover:shadow-md">
               <div className="flex items-start mb-3">
-                <CheckCircle className="text-corporate-500 h-6 w-6 mr-2" />
+                <CheckCircle className="text-indigo-500 h-6 w-6 mr-2" />
                 <h3 className="font-semibold text-gray-800">
                   Geen AI-training met uw data
                 </h3>
@@ -82,7 +82,7 @@ export function IntermediairPrivacySection() {
 
             <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm transition-all hover:shadow-md">
               <div className="flex items-start mb-3">
-                <CheckCircle className="text-corporate-500 h-6 w-6 mr-2" />
+                <CheckCircle className="text-indigo-500 h-6 w-6 mr-2" />
                 <h3 className="font-semibold text-gray-800">
                   End-to-end encryptie
                 </h3>
