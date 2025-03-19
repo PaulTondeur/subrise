@@ -15,10 +15,10 @@ export function IntermediairHeroSection() {
               Subsidieaanvragen veel efficiënter met AI-oplossingen
             </h1>
             <p className="max-w-[600px] text-gray-700 text-lg md:text-xl font-medium">
-              Doe alles omtrent een WBSO aanvraag eenvoudiger dan ooit en versterk en versnel je dienstverlening tot wel 10x.
+              Bespaar tijd, investeer meer in je klanten.
             </p>
             <p className="text-gray-500">
-              Subrise kan je ondersteunen en ervoor zorgen dat je klanten sneller en effectiever WBSO-aanvragen kunnen indienen.
+              WBSO aanvragen is meer dan aanvragen indienen. Het draait om sterke klantrelaties en een diep begrip van hun innovaties. Subrise automatiseert het repetitieve werk, zodat jij je kunt focussen op wat écht telt: je klanten adviseren en de relatie versterken.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <a
