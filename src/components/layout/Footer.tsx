@@ -17,7 +17,9 @@ export function Footer() {
   // Link items for both columns
   const linkItems = [
     { href: "#voordelen", label: "Voordelen" },
+    { href: "#uitdagingen", label: "Uitdagingen" },
     { href: "#hoe-werkt-het", label: "Hoe werkt het" },
+    { href: "#privacy", label: "Privacy" },
     { href: "#wachtlijst", label: "Wachtlijst" },
     { href: "#contact", label: "Contact" }
   ]
