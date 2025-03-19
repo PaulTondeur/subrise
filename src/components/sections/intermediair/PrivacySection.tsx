@@ -96,9 +96,7 @@ export function IntermediairPrivacySection() {
 
           <div className="mt-12 max-w-xl mx-auto text-center">
             <p className="text-gray-700 text-xl leading-relaxed italic">
-              Met Subrise kunt u uw klanten verzekeren dat hun innovaties en
-              bedrijfsgeheimen in veilige handen zijn, terwijl u efficiënt
-              WBSO-aanvragen kunt verwerken.
+              Met Subrise kunt u zonder zorgen AI inzetten om WBSO-aanvragen efficiënt te verwerken, terwijl uw klanten verzekerd zijn dat hun innovaties en bedrijfsgeheimen in veilige handen blijven.
             </p>
           </div>
         </div>
