@@ -44,12 +44,32 @@ export function IntermediairFeaturesSection() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <line x1="12" y1="1" x2="12" y2="23" />
-                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                <path d="M4 10h12"></path>
+                <path d="M4 14h12"></path>
+                <path d="M19 6a7.7 7.7 0 0 0-5.2-2A7.9 7.9 0 0 0 6 12c0 4.4 3.5 8 7.8 8 2 0 3.8-.8 5.2-2"></path>
               </svg>
             }
             title="Lagere kosten, hogere marges"
             description="Automatiseer tijdrovende taken en beperk administratieve kosten, waardoor je concurrerende tarieven kunt bieden en toch gezonde marges behoudt."
+          />
+          <FeatureCard
+            icon={
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z"></path>
+              </svg>
+            }
+            title="Versterk je klantrelaties"
+            description="Door de tijdsbesparing houd je meer tijd over om te investeren in persoonlijk contact en het opbouwen van een sterke vertrouwensrelatie met je klanten."
           />
           <FeatureCard
             icon={
