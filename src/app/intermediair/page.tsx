@@ -12,14 +12,14 @@ import { IntermediairContactSection } from "@/components/sections/intermediair/C
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: 'WBSO Adviseurs & Intermediairs Platform | Subrise',
+  title: 'AI-ondersteuning voor WBSO Adviseurs & Intermediairs | Subrise',
   description: 'Verhoog de efficiëntie van uw WBSO-dienstverlening als adviseur of intermediair. Ons AI-platform helpt u meer klanten te bedienen, administratie te automatiseren en betere subsidieaanvragen te maken.',
   keywords: 'WBSO voor intermediairs, WBSO adviesbureau software, WBSO dienstverlening verbeteren, adviseur WBSO platform, WBSO administratie automatiseren, WBSO adviseurs, fiscaal adviseur innovatie',
   alternates: {
     canonical: 'https://www.subrise.eu/intermediair',
   },
   openGraph: {
-    title: 'WBSO Adviseurs & Intermediairs Platform | Subrise',
+    title: 'AI-ondersteuning voor WBSO Adviseurs & Intermediairs | Subrise',
     description: 'Verhoog de efficiëntie van uw WBSO-dienstverlening als adviseur of intermediair met ons AI-platform.',
     url: 'https://www.subrise.eu/intermediair',
     type: 'website',
