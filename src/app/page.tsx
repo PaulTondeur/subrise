@@ -9,6 +9,22 @@ import { ResultSection } from "@/components/sections/ResultSection"
 import { PrivacySection } from "@/components/sections/PrivacySection"
 import { WaitlistSection } from "@/components/sections/WaitlistSection"
 import { ContactSection } from "@/components/sections/ContactSection"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: 'Zelf WBSO aanvragen, eenvoudiger dan ooit | Subrise',
+  description: 'Bespaar tijd en geld op uw WBSO-aanvragen met ons AI-platform. Behoud 100% van uw subsidie, geen tussenpersonen nodig. Simpele administratie voor innovatieprojecten.',
+  keywords: 'WBSO aanvraag indienen, WBSO subsidie aanvragen, innovatie subsidie, R&D belastingvoordeel, WBSO administratie vereenvoudigen, technologische innovatie, onderzoek en ontwikkeling subsidie',
+  alternates: {
+    canonical: 'https://www.subrise.eu',
+  },
+  openGraph: {
+    title: 'Zelf WBSO aanvragen, eenvoudiger dan ooit | Subrise',
+    description: 'Bespaar tijd en geld op uw WBSO-aanvragen met ons AI-platform. Behoud 100% van uw subsidie zonder tussenpersonen.',
+    url: 'https://www.subrise.eu',
+    type: 'website',
+  },
+}
 
 export default function LandingPage() {
   return (

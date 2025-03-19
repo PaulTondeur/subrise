@@ -2,6 +2,21 @@ import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import { LoginForm } from "@/components/login-form"
 import { WaitlistForm } from "@/components/waitlist"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: 'WBSO Dashboard Inloggen | Voor ondernemers | Subrise',
+  description: 'Log direct in op het WBSO-dashboard voor ondernemers. Beheer uw innovatieprojecten, administratie en WBSO-aanvragen online.',
+  keywords: 'WBSO dashboard login, WBSO projecten beheren, innovatie administratie, WBSO online platform, inloggen WBSO portal, innovatiesubsidie aanvragen',
+  alternates: {
+    canonical: 'https://www.subrise.eu/login',
+  },
+  openGraph: {
+    title: 'WBSO Dashboard Inloggen | Voor ondernemers | Subrise',
+    description: 'Log direct in op het WBSO-dashboard voor ondernemers. Beheer uw innovatieprojecten en WBSO-aanvragen online.',
+    url: 'https://www.subrise.eu/login',
+  },
+}
 
 export default function LoginPage() {
   return (

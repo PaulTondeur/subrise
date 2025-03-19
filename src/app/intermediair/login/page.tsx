@@ -2,6 +2,21 @@ import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import { LoginForm } from "@/components/login-form"
 import { WaitlistForm } from "@/components/waitlist"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: 'WBSO Adviseur Dashboard Login | Voor intermediairs | Subrise',
+  description: 'Log in op het WBSO adviseur dashboard en beheer efficiënt uw klantenportfolio.',
+  keywords: 'WBSO adviseur login, WBSO intermediair dashboard, WBSO adviesbureau portal, WBSO klantenbeheer, WBSO dienstverlening software, WBSO expert platform',
+  alternates: {
+    canonical: 'https://www.subrise.eu/intermediair/login',
+  },
+  openGraph: {
+    title: 'WBSO Adviseur Dashboard Login | Voor intermediairs | Subrise',
+    description: 'Log in op het WBSO adviseur dashboard en beheer efficiënt uw klantenportfolio met ons geavanceerde platform.',
+    url: 'https://www.subrise.eu/intermediair/login',
+  },
+}
 
 export default function IntermediairLoginPage() {
   return (
