@@ -68,7 +68,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body>
-        <SmoothScrollProvider options={{ headerSelector: 'header', additionalOffset: 0 }}>
+        <SmoothScrollProvider options={{ headerSelector: 'header', additionalOffset: 0, duration: 800 }}>
           {children}
         </SmoothScrollProvider>
       </body>

@@ -21,6 +21,11 @@ interface SmoothScrollProviderProps {
      * Whether to update the URL after scrolling
      */
     updateUrl?: boolean
+    /**
+     * Duration of the scroll animation in milliseconds
+     * If not provided, the browser's default smooth scroll behavior is used
+     */
+    duration?: number
   }
 }
 

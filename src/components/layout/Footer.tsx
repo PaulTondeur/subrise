@@ -35,6 +35,10 @@ export function Footer() {
     
     // For links to different page types, prevent default and navigate programmatically
     e.preventDefault();
+    
+    // Use window.location.href to navigate to the new page
+    // This ensures that when the new page loads, the hash will be handled by the initialHash check
+    // in the useSmoothScroll hook
     window.location.href = path
   }
   

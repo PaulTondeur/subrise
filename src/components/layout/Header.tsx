@@ -29,11 +29,34 @@ export function Header() {
     
     // Only prevent default and scroll if we're already on the home page
     if (isOnHomePage) {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
       e.preventDefault();
+      
+      // Use smooth scroll with the same duration as defined in the SmoothScrollProvider
+      const duration = 800; // Match the duration in layout.tsx
+      
+      // Custom smooth scroll implementation with easeInOutCubic easing
+      const startPosition = window.scrollY;
+      const startTime = performance.now();
+      
+      const animateScroll = (currentTime: number) => {
+        const elapsedTime = currentTime - startTime;
+        
+        if (elapsedTime >= duration) {
+          window.scrollTo(0, 0);
+          return;
+        }
+        
+        // Use easeInOutCubic for smooth animation
+        const progress = elapsedTime / duration;
+        const easeProgress = progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+        
+        window.scrollTo(0, startPosition * (1 - easeProgress));
+        requestAnimationFrame(animateScroll);
+      };
+      
+      requestAnimationFrame(animateScroll);
     }
     // Otherwise, let the default navigation happen
   }
