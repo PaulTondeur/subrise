@@ -9,7 +9,7 @@ export function ContactSection() {
             </div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-gray-900">Heb je vragen?</h2>
             <div className="w-20 h-1 bg-corporate-500 mx-auto rounded-full"></div>
-            <p className="text-gray-500 md:text-xl mt-4">Neem contact met ons op en we helpen je graag verder.</p>
+            <p className="text-gray-500 text-lg md:text-xl mt-4">Neem contact met ons op en we helpen je graag verder.</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 mt-6">
             <a

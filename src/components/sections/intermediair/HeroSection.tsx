@@ -3,18 +3,18 @@ import Image from "next/image"
 export function IntermediairHeroSection() {
   return (
     <section className="py-20 md:py-28 hero-pattern relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-indigo-500/10 blur-3xl rounded-full -mr-20"></div>
-      <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-amber-500/10 blur-3xl rounded-full -ml-20"></div>
+      <div className="absolute top-0 right-0 w-1/3 h-full bg-corporate-500/10 blur-3xl rounded-full -mr-20"></div>
+      <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-accent2-500/10 blur-3xl rounded-full -ml-20"></div>
       <div className="container mx-auto px-4 md:px-6 relative">
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
           <div className="space-y-6">
-            <div className="inline-block px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-sm font-medium mb-2">
+            <div className="inline-block px-3 py-1 rounded-full bg-corporate-100 text-corporate-700 text-sm font-medium mb-2">
               Subrise voor Intermediairs
             </div>
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-gray-900">
               Subsidieaanvragen veel efficiënter met AI-oplossingen
             </h1>
-            <p className="max-w-[600px] text-gray-700 md:text-xl font-medium">
+            <p className="max-w-[600px] text-gray-700 text-lg md:text-xl font-medium">
               Doe alles omtrent een WBSO aanvraag eenvoudiger dan ooit en versterk en versnel je dienstverlening tot wel 10x.
             </p>
             <p className="text-gray-500">
@@ -23,7 +23,7 @@ export function IntermediairHeroSection() {
             <div className="flex flex-col sm:flex-row gap-3">
               <a
                 href="#wachtlijst"
-                className="inline-flex items-center justify-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full"
+                className="inline-flex items-center justify-center px-6 py-3 bg-corporate-600 hover:bg-corporate-700 text-white rounded-full"
               >
                 Meld je aan voor de wachtlijst{" "}
                 <svg
@@ -44,7 +44,7 @@ export function IntermediairHeroSection() {
               </a>
               <a
                 href="#hoe-werkt-het"
-                className="inline-flex items-center justify-center px-6 py-3 border border-indigo-300 hover:bg-indigo-50 text-indigo-700 rounded-full"
+                className="inline-flex items-center justify-center px-6 py-3 border border-corporate-300 hover:bg-corporate-50 text-corporate-700 rounded-full"
               >
                 Hoe werkt het{" "}
                 <svg
@@ -66,7 +66,7 @@ export function IntermediairHeroSection() {
           </div>
           <div className="flex justify-center">
             <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-indigo-400 to-amber-400 rounded-3xl blur opacity-30"></div>
+              <div className="absolute -inset-1 bg-gradient-to-r from-corporate-400 to-accent2-400 rounded-3xl blur opacity-30"></div>
               <div className="relative bg-white rounded-3xl shadow-xl overflow-hidden">
                 <Image
                   src="/images/whiteboard.jpg"

@@ -3,9 +3,9 @@ import { CheckCircle } from "lucide-react";
 
 export function IntermediairPrivacySection() {
   return (
-    <section id="privacy" className="py-20 bg-white">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
+    <section id="privacy" className="py-20 bg-gradient-to-br from-corporate-50 to-white relative overflow-hidden">
+      <div className="container mx-auto px-4 md:px-6 relative">
+        <div className="flex flex-col items-center justify-center space-y-4 text-center mb-6">
           <div className="space-y-2">
             <div className="inline-block px-3 py-1 rounded-full bg-corporate-100 text-corporate-700 text-sm font-medium mb-2">
               Veilig werken met klantgegevens
@@ -14,29 +14,31 @@ export function IntermediairPrivacySection() {
               Privacy Gegarandeerd
             </h2>
             <div className="w-20 h-1 bg-corporate-500 mx-auto rounded-full"></div>
+            <p className="text-gray-500 text-lg md:text-xl">
+              Bescherm de innovaties van uw klanten met onze EU-gecertificeerde beveiliging
+            </p>
           </div>
         </div>
-        <div className="flex flex-col gap-4 mx-auto max-w-4xl">
-          <p className="max-w-[600px] text-gray-700 md:text-xl font-medium">
-            Bescherm de innovaties van uw klanten met onze EU-gecertificeerde
-            beveiliging
-          </p>
-          <p className="max-w-[600px] text-gray-500">
-            Als intermediair werkt u met vertrouwelijke informatie van uw
-            klanten. Subrise is gebouwd met &quot;
-            <Link
-              href="https://madewithsunrise.com"
-              target="_blank"
-              className="text-indigo-600 hover:underline"
-            >
-              Made With Sunrise
-            </Link>
-            &quot;, waardoor u met een gerust hart WBSO-aanvragen kunt verwerken
-            in een veilige en afgeschermde AI-omgeving.
-          </p>
 
-          <div className="grid md:grid-cols-2 gap-6 mt-4">
-            <div className="bg-gray-50 p-5 rounded-lg border border-gray-100 shadow-sm">
+        <div className="max-w-4xl mx-auto">
+          <div className="max-w-xl md:text-center mx-auto mb-8">
+            <p className="text-gray-600">
+              Als intermediair werkt u met vertrouwelijke informatie van uw
+              klanten. Subrise is gebouwd met &quot;
+              <Link
+                href="https://madewithsunrise.com"
+                target="_blank"
+                className="text-indigo-600 hover:underline"
+              >
+                Made With Sunrise
+              </Link>
+              &quot;, waardoor u met een gerust hart WBSO-aanvragen kunt verwerken
+              in een veilige en afgeschermde AI-omgeving.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 mt-2">
+            <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm transition-all hover:shadow-md">
               <div className="flex items-start mb-3">
                 <CheckCircle className="text-corporate-500 h-6 w-6 mr-2" />
                 <h3 className="font-semibold text-gray-800">
@@ -50,7 +52,7 @@ export function IntermediairPrivacySection() {
               </p>
             </div>
 
-            <div className="bg-gray-50 p-5 rounded-lg border border-gray-100 shadow-sm">
+            <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm transition-all hover:shadow-md">
               <div className="flex items-start mb-3">
                 <CheckCircle className="text-corporate-500 h-6 w-6 mr-2" />
                 <h3 className="font-semibold text-gray-800">
@@ -64,7 +66,7 @@ export function IntermediairPrivacySection() {
               </p>
             </div>
 
-            <div className="bg-gray-50 p-5 rounded-lg border border-gray-100 shadow-sm">
+            <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm transition-all hover:shadow-md">
               <div className="flex items-start mb-3">
                 <CheckCircle className="text-corporate-500 h-6 w-6 mr-2" />
                 <h3 className="font-semibold text-gray-800">
@@ -78,7 +80,7 @@ export function IntermediairPrivacySection() {
               </p>
             </div>
 
-            <div className="bg-gray-50 p-5 rounded-lg border border-gray-100 shadow-sm">
+            <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm transition-all hover:shadow-md">
               <div className="flex items-start mb-3">
                 <CheckCircle className="text-corporate-500 h-6 w-6 mr-2" />
                 <h3 className="font-semibold text-gray-800">
@@ -92,11 +94,13 @@ export function IntermediairPrivacySection() {
             </div>
           </div>
 
-          <p className="max-w-[600px] text-gray-500 mt-4">
-            Met Subrise kunt u uw klanten verzekeren dat hun innovaties en
-            bedrijfsgeheimen in veilige handen zijn, terwijl u efficiënt
-            WBSO-aanvragen kunt verwerken.
-          </p>
+          <div className="mt-12 max-w-xl mx-auto text-center">
+            <p className="text-gray-700 text-xl leading-relaxed italic">
+              Met Subrise kunt u uw klanten verzekeren dat hun innovaties en
+              bedrijfsgeheimen in veilige handen zijn, terwijl u efficiënt
+              WBSO-aanvragen kunt verwerken.
+            </p>
+          </div>
         </div>
       </div>
     </section>

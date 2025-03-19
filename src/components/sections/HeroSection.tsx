@@ -14,7 +14,7 @@ export function HeroSection() {
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-gray-900">
               WBSO-aanvragen eenvoudiger dan ooit
             </h1>
-            <p className="max-w-[600px] text-gray-700 md:text-xl font-medium">
+            <p className="max-w-[600px] text-gray-700 text-lg md:text-xl font-medium">
               Bespaar tijd. Houd 100% van je subsidie. Alles in eigen beheer.
             </p>
             <p className="text-gray-500">
