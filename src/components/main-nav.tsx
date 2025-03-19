@@ -29,14 +29,21 @@ export function MainNav() {
   const navRef = useRef<HTMLDivElement>(null)
   const itemsRef = useRef<Map<string, HTMLAnchorElement>>(new Map())
 
-  const navItems: NavItem[] = [
-    { href: `${basePath}#voordelen`, label: "Voordelen" },
-    { href: `${basePath}#uitdagingen`, label: "Uitdagingen" },
-    { href: `${basePath}#hoe-werkt-het`, label: "Hoe werkt het" },
-    { href: `${basePath}#privacy`, label: "Privacy" },
-    { href: `${basePath}#wachtlijst`, label: "Wachtlijst" },
-    { href: `${basePath}#contact`, label: "Contact" },
-  ]
+    const navItems: NavItem[] = isIntermediairPage ?[
+      { href: `${basePath}#voordelen`, label: "Voordelen" },
+      { href: `${basePath}#privacy`, label: "Privacy" },
+      { href: `${basePath}#uitdagingen`, label: "Uitdagingen" },
+      { href: `${basePath}#hoe-werkt-het`, label: "Hoe werkt het" },
+      { href: `${basePath}#wachtlijst`, label: "Wachtlijst" },
+      { href: `${basePath}#contact`, label: "Contact" },
+    ] : [
+      { href: `${basePath}#voordelen`, label: "Voordelen" },
+      { href: `${basePath}#uitdagingen`, label: "Uitdagingen" },
+      { href: `${basePath}#hoe-werkt-het`, label: "Hoe werkt het" },
+      { href: `${basePath}#privacy`, label: "Privacy" },
+      { href: `${basePath}#wachtlijst`, label: "Wachtlijst" },
+      { href: `${basePath}#contact`, label: "Contact" },
+    ]
 
   // Update indicator position when active section changes
   useEffect(() => {
@@ -122,7 +129,7 @@ export function MainNav() {
   }, [isLoginPage])
 
   return (
-    <nav className="relative flex gap-8" ref={navRef}>
+    <nav className="relative flex gap-5 xl:gap-8" ref={navRef}>
       {navItems.map((item) => (
         <Link
           key={item.href}
