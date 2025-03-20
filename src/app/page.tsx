@@ -13,14 +13,14 @@ import { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: 'Zelf WBSO aanvragen, eenvoudiger dan ooit | Subrise',
-  description: 'Bespaar tijd en geld op uw WBSO-aanvragen met ons AI-platform. Behoud 100% van uw subsidie, geen tussenpersonen nodig. Simpele administratie voor innovatieprojecten.',
+  description: 'Bespaar tijd en geld op uw WBSO-aanvragen met ons AI-platform. Behoud 100% van uw subsidie, geen tussenpersoon nodig. Simpele administratie voor innovatieprojecten.',
   keywords: 'WBSO aanvraag indienen, WBSO subsidie aanvragen, innovatie subsidie, R&D belastingvoordeel, WBSO administratie vereenvoudigen, technologische innovatie, onderzoek en ontwikkeling subsidie',
   alternates: {
     canonical: 'https://www.subrise.eu',
   },
   openGraph: {
     title: 'Zelf WBSO aanvragen, eenvoudiger dan ooit | Subrise',
-    description: 'Bespaar tijd en geld op uw WBSO-aanvragen met ons AI-platform. Behoud 100% van uw subsidie zonder tussenpersonen.',
+    description: 'Bespaar tijd en geld op uw WBSO-aanvragen met ons AI-platform. Behoud 100% van uw subsidie zonder tussenpersoon.',
     url: 'https://www.subrise.eu',
     type: 'website',
   },
