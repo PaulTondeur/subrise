@@ -25,15 +25,15 @@ export function PrivacySection() {
             <p className="text-gray-600">
               Bij Subrise begrijpen we dat innovatieve bedrijven maximale controle
               en veiligheid over hun gegevens willen. Daarom is Subrise
-              gemaakt met &quot;
+              gemaakt met{" "}
               <Link
                 href="https://madewithsunrise.com"
                 target="_blank"
                 className="text-indigo-600 hover:underline"
               >
                 Made With Sunrise
-              </Link>
-              &quot;, dat zorgt voor een veilige en afgeschermde AI-omgeving. Dit
+              </Link>{" "}
+              dat zorgt voor een veilige en afgeschermde AI-omgeving. Dit
               biedt de volgende voordelen:
             </p>
           </div>
