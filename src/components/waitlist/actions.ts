@@ -16,13 +16,13 @@ const TELEGRAM_CHAT_ID = parseInt(process.env.TELEGRAM_CHAT_ID)
 const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN)
 
 function formatTelegramMessage(formData: Record<string, unknown>, notionId: string, isUpdate = false) {
-    const { firstName, lastName, email, companyName, phoneNumber, isIntermediary, ...cleanFormData } = formData
+    const { Name, Bedrijfsnaam, Telefoonnummer, Intermediair, Email, ...cleanFormData } = formData
     return `${isUpdate ? '📝' : '🎉'} ${isUpdate ? 'Update van wachtlijst aanmelding' : 'Nieuwe aanmelding voor de wachtlijst'}!\n\n` +
-      `👤 Naam: ${String(firstName || '').trim()} ${String(lastName || '').trim()}\n` +
-      `📧 Email: ${String(email || '')}\n` +
-      `🏢 Bedrijf: ${String(companyName || '')}\n` +
-      `📱 Telefoon: ${String(phoneNumber || '')}\n` +
-      `🤝 Intermediair: ${Boolean(isIntermediary) ? 'Ja' : 'Nee'}\n\n` +
+      `👤 Naam: ${String(Name || '').trim()}}\n` +
+      `📧 Email: ${String(Email || '')}\n` +
+        `🏢 Bedrijf: ${String(Bedrijfsnaam || '')}\n` +
+      `📱 Telefoon: ${String(Telefoonnummer || '')}\n` +
+      `🤝 Intermediair: ${Boolean(Intermediair) ? 'Ja' : 'Nee'}\n\n` +
       `📝 [Bekijk in Notion](https://www.notion.so/${notionId.replace(/-/g, '')})\n\n` +
       `🔍 Metadata:\n\`\`\`\n${JSON.stringify(cleanFormData, null, 2)}\n\`\`\`\n\n`
 }
@@ -78,7 +78,13 @@ export async function submitToWaitlist(formData: Record<string, unknown>) {
     const response = await notion.pages.create(notionData)
     
     // Stuur een bericht naar Telegram
-    const message = formatTelegramMessage(formData, response.id)
+    const message = formatTelegramMessage({
+      Name: formData.firstName + ' ' + formData.lastName,
+      Bedrijfsnaam: formData.companyName,
+      Telefoonnummer: formData.phoneNumber,
+      Intermediair: formData.isIntermediary,
+      Email: formData.email
+    }, response.id)
     const telegramResponse = await bot.sendMessage(TELEGRAM_CHAT_ID, message, { parse_mode: 'Markdown' })
 
     // Update de metadata met het Telegram message ID
@@ -110,6 +116,10 @@ export async function updateWaitlistSubmission(submissionId: string, email: stri
     
     type NotionPage = { 
         properties: { 
+            Name: { title: Array<{ text: { content: string } }> },
+            Bedrijfsnaam: { rich_text: Array<{ text: { content: string } }> },
+            Telefoonnummer: { phone_number: string },
+            Intermediair: { checkbox: boolean },
             Email: { email: string },
             Metadata: { rich_text: Array<{ text: { content: string } }> },
             telegramMessageId: { rich_text: Array<{ text: { content: string } }> }
@@ -127,7 +137,14 @@ export async function updateWaitlistSubmission(submissionId: string, email: stri
     const updatedMetadata = {...parsedMetadata, ...formData}
 
     // Update het Telegram bericht als we een message ID hebben
-    const message = formatTelegramMessage(updatedMetadata, submissionId, true)
+    const message = formatTelegramMessage({
+      ...updatedMetadata,
+      Name: notionPage.properties.Name.title[0].text.content,
+      Bedrijfsnaam: notionPage.properties.Bedrijfsnaam.rich_text[0].text.content,
+      Telefoonnummer: notionPage.properties.Telefoonnummer.phone_number,
+      Intermediair: notionPage.properties.Intermediair.checkbox,
+      Email: notionPage.properties.Email.email
+    }, submissionId, true)
     const existingMessageId = parseInt(notionPage.properties.telegramMessageId.rich_text?.[0]?.text?.content)
 
     console.log('existingMessageId', existingMessageId, notionPage.properties.Email.email, updatedMetadata)
