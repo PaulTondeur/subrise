@@ -236,13 +236,7 @@ export function WaitlistForm({ isIntermediary = false }: WaitlistFormProps) {
       setIsFinalSubmitting(true)
       handleStepSubmit("complete")
       
-      // Direct submission for final step to ensure completion before showing thank you
-      const cleanData = getCleanDataToSubmit({...formData, comments: formData.comments}, submissionId !== null)
       try {
-        if (submissionId) {
-          await updateWaitlistSubmission(submissionId, formData.email, cleanData)
-        }
-        // After successful submission, move to thank you
         setCurrentStep("complete")
       } catch (error) {
         console.error("Error finalizing form submission:", error)

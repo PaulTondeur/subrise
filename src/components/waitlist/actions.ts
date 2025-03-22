@@ -15,18 +15,14 @@ if (!process.env.TELEGRAM_BOT_TOKEN || !process.env.TELEGRAM_CHAT_ID) {
 const TELEGRAM_CHAT_ID = parseInt(process.env.TELEGRAM_CHAT_ID)
 const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN)
 
-// Hou het laatste message ID bij in memory
-let lastMessageId: number | null = null
-
 function formatTelegramMessage(formData: Record<string, unknown>, notionId: string, isUpdate = false) {
-    // Verwijder het telegramMessageId uit de metadata in het bericht
-    const { telegramMessageId, ...cleanFormData } = formData
+    const { firstName, lastName, email, companyName, phoneNumber, isIntermediary, ...cleanFormData } = formData
     return `${isUpdate ? '📝' : '🎉'} ${isUpdate ? 'Update van wachtlijst aanmelding' : 'Nieuwe aanmelding voor de wachtlijst'}!\n\n` +
-      `👤 Naam: ${String(formData.firstName || '').trim()} ${String(formData.lastName || '').trim()}\n` +
-      `📧 Email: ${String(formData.email || '')}\n` +
-      `🏢 Bedrijf: ${String(formData.companyName || '')}\n` +
-      `📱 Telefoon: ${String(formData.phoneNumber || '')}\n` +
-      `🤝 Intermediair: ${Boolean(formData.isIntermediary) ? 'Ja' : 'Nee'}\n\n` +
+      `👤 Naam: ${String(firstName || '').trim()} ${String(lastName || '').trim()}\n` +
+      `📧 Email: ${String(email || '')}\n` +
+      `🏢 Bedrijf: ${String(companyName || '')}\n` +
+      `📱 Telefoon: ${String(phoneNumber || '')}\n` +
+      `🤝 Intermediair: ${Boolean(isIntermediary) ? 'Ja' : 'Nee'}\n\n` +
       `📝 [Bekijk in Notion](https://www.notion.so/${notionId.replace(/-/g, '')})\n\n` +
       `🔍 Metadata:\n\`\`\`\n${JSON.stringify(cleanFormData, null, 2)}\n\`\`\`\n\n`
 }
@@ -75,13 +71,6 @@ export async function submitToWaitlist(formData: Record<string, unknown>) {
             date: {
               start: new Date().toISOString(),
             },
-          },
-          Metadata: {
-            rich_text: [{ 
-              text: { 
-                content: JSON.stringify(formData, null, 2)
-              } 
-            }]
           }
         },
     }
@@ -96,12 +85,12 @@ export async function submitToWaitlist(formData: Record<string, unknown>) {
     await notion.pages.update({
         page_id: response.id,
         properties: {
-            Metadata: {
-                rich_text: [{ 
-                    text: { 
-                        content: JSON.stringify({ ...formData, telegramMessageId: telegramResponse.message_id }, null, 2)
-                    } 
-                }]
+            telegramMessageId: {
+              rich_text: [{
+                text: {
+                  content: telegramResponse.message_id.toString()
+                }
+              }]
             }
         }
     })
@@ -122,7 +111,8 @@ export async function updateWaitlistSubmission(submissionId: string, email: stri
     type NotionPage = { 
         properties: { 
             Email: { email: string },
-            Metadata: { rich_text: Array<{ text: { content: string } }> }
+            Metadata: { rich_text: Array<{ text: { content: string } }> },
+            telegramMessageId: { rich_text: Array<{ text: { content: string } }> }
         } 
     }
     
@@ -138,9 +128,10 @@ export async function updateWaitlistSubmission(submissionId: string, email: stri
 
     // Update het Telegram bericht als we een message ID hebben
     const message = formatTelegramMessage(updatedMetadata, submissionId, true)
-    const existingMessageId = parsedMetadata.telegramMessageId
+    const existingMessageId = parseInt(notionPage.properties.telegramMessageId.rich_text?.[0]?.text?.content)
 
-    if (existingMessageId) {
+    console.log('existingMessageId', existingMessageId, notionPage.properties.Email.email, updatedMetadata)
+    if (!isNaN(existingMessageId)) {
         try {
             await bot.editMessageText(message, {
                 chat_id: TELEGRAM_CHAT_ID,
@@ -148,6 +139,7 @@ export async function updateWaitlistSubmission(submissionId: string, email: stri
                 parse_mode: 'Markdown'
             })
         } catch (error) {
+            console.error('Error editing Telegram message:', error)
             // Als het bewerken niet lukt (bijvoorbeeld omdat het bericht te oud is),
             // sturen we een nieuw bericht
             const telegramResponse = await bot.sendMessage(TELEGRAM_CHAT_ID, message, { parse_mode: 'Markdown' })
