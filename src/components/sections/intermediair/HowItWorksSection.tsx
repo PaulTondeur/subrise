@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image from "next/image";
 
 export function IntermediairHowItWorksSection() {
   return (
@@ -9,7 +9,9 @@ export function IntermediairHowItWorksSection() {
             <div className="inline-block px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-sm font-medium mb-2">
               In vier stappen
             </div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-gray-900">Zo werkt Subrise voor jou als intermediair</h2>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-gray-900">
+              Zo werkt Subrise voor jou als intermediair
+            </h2>
             <div className="w-20 h-1 bg-indigo-500 mx-auto rounded-full"></div>
           </div>
         </div>
@@ -52,32 +54,34 @@ export function IntermediairHowItWorksSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 interface StepItemProps {
-  number: number
-  title: string
-  description: string
-  imageSrc: string
-  imageAlt: string
-  imageRight: boolean
+  number: number;
+  title: string;
+  description: string;
+  imageSrc: string;
+  imageAlt: string;
+  imageRight: boolean;
 }
 
 function StepItem({ number, title, description, imageSrc, imageAlt, imageRight }: StepItemProps) {
   return (
     <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
-      <div className={`order-2 ${imageRight ? 'lg:order-1' : ''}`}>
+      <div className={`order-2 ${imageRight ? "lg:order-1" : ""}`}>
         <div className="flex items-center mb-6">
           <div className="flex h-12 w-12 min-w-[3rem] flex-shrink-0 items-center justify-center rounded-full bg-indigo-600 text-white text-xl shadow-md ring-2 ring-indigo-500/20">
             {number}
           </div>
           <h3 className="ml-4 text-2xl font-bold text-gray-900">{title}</h3>
         </div>
-        <p className="text-gray-500 bg-indigo-50 p-6 rounded-xl text-lg" dangerouslySetInnerHTML={{ __html: description }}>
-        </p>
+        <p
+          className="text-gray-500 bg-indigo-50 p-6 rounded-xl text-lg"
+          dangerouslySetInnerHTML={{ __html: description }}
+        ></p>
       </div>
-      <div className={`order-1 ${imageRight ? 'lg:order-2' : ''} flex justify-center`}>
+      <div className={`order-1 ${imageRight ? "lg:order-2" : ""} flex justify-center`}>
         <div className="relative">
           <div className="absolute -inset-1 bg-gradient-to-r from-indigo-400 to-amber-400 rounded-3xl blur opacity-30"></div>
           <div className="relative bg-white rounded-3xl shadow-xl overflow-hidden">
@@ -92,5 +96,5 @@ function StepItem({ number, title, description, imageSrc, imageAlt, imageRight }
         </div>
       </div>
     </div>
-  )
-} 
+  );
+}

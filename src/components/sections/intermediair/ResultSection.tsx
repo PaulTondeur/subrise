@@ -5,7 +5,8 @@ export function IntermediairResultSection() {
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-6">Het resultaat</h2>
           <p className="text-xl md:text-2xl font-medium mb-8">
-            Meer klanten persoonlijk ondersteunen met minder inspanning, betere resultaten, tevreden klanten en meer innovatie.
+            Meer klanten persoonlijk ondersteunen met minder inspanning, betere resultaten, tevreden
+            klanten en meer innovatie.
           </p>
           <div className="grid md:grid-cols-3 gap-8 mt-12">
             <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
@@ -24,5 +25,5 @@ export function IntermediairResultSection() {
         </div>
       </div>
     </section>
-  )
-} 
+  );
+}

@@ -1,22 +1,25 @@
-import { Header } from "@/components/layout/Header"
-import { Footer } from "@/components/layout/Footer"
-import { LoginForm } from "@/components/login-form"
-import { WaitlistForm } from "@/components/waitlist"
-import { Metadata } from "next"
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { LoginForm } from "@/components/login-form";
+import { WaitlistForm } from "@/components/waitlist";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'WBSO Dashboard Inloggen | Voor ondernemers | Subrise',
-  description: 'Log direct in op het WBSO-dashboard voor ondernemers. Beheer uw innovatieprojecten, administratie en WBSO-aanvragen online.',
-  keywords: 'WBSO dashboard login, WBSO projecten beheren, innovatie administratie, WBSO online platform, inloggen WBSO portal, innovatiesubsidie aanvragen',
+  title: "WBSO Dashboard Inloggen | Voor ondernemers | Subrise",
+  description:
+    "Log direct in op het WBSO-dashboard voor ondernemers. Beheer uw innovatieprojecten, administratie en WBSO-aanvragen online.",
+  keywords:
+    "WBSO dashboard login, WBSO projecten beheren, innovatie administratie, WBSO online platform, inloggen WBSO portal, innovatiesubsidie aanvragen",
   alternates: {
-    canonical: 'https://www.subrise.eu/login',
+    canonical: "https://www.subrise.eu/login",
   },
   openGraph: {
-    title: 'WBSO Dashboard Inloggen | Voor ondernemers | Subrise',
-    description: 'Log direct in op het WBSO-dashboard voor ondernemers. Beheer uw innovatieprojecten en WBSO-aanvragen online.',
-    url: 'https://www.subrise.eu/login',
+    title: "WBSO Dashboard Inloggen | Voor ondernemers | Subrise",
+    description:
+      "Log direct in op het WBSO-dashboard voor ondernemers. Beheer uw innovatieprojecten en WBSO-aanvragen online.",
+    url: "https://www.subrise.eu/login",
   },
-}
+};
 
 export default function LoginPage() {
   return (
@@ -27,22 +30,21 @@ export default function LoginPage() {
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                  Inloggen als ondernemer
-                </h1>
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">Inloggen als ondernemer</h1>
                 <div className="w-20 h-1 bg-corporate-500 mx-auto rounded-full mb-4"></div>
                 <p className="text-gray-600 max-w-2xl mx-auto">
-                  Heeft u al een account? Log hieronder in om toegang te krijgen tot uw Subrise dashboard.
+                  Heeft u al een account? Log hieronder in om toegang te krijgen tot uw Subrise
+                  dashboard.
                 </p>
               </div>
-              
+
               <div className="mb-12">
                 <LoginForm />
               </div>
             </div>
           </div>
         </section>
-        
+
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
@@ -55,7 +57,8 @@ export default function LoginPage() {
                 </h2>
                 <div className="w-20 h-1 bg-corporate-500 mx-auto rounded-full mb-4"></div>
                 <p className="text-gray-600 mt-2 max-w-2xl mx-auto">
-                  We laten mondjesmaat bedrijven toe om Subrise als eerste te gebruiken. Wil jij als een van de eersten profiteren? Meld je dan nu aan voor de wachtlijst!
+                  We laten mondjesmaat bedrijven toe om Subrise als eerste te gebruiken. Wil jij als
+                  een van de eersten profiteren? Meld je dan nu aan voor de wachtlijst!
                 </p>
               </div>
               <div className="flex justify-center">
@@ -69,5 +72,5 @@ export default function LoginPage() {
       </main>
       <Footer />
     </div>
-  )
-} 
+  );
+}

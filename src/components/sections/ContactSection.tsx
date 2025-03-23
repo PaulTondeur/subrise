@@ -7,16 +7,20 @@ export function ContactSection() {
             <div className="inline-block px-3 py-1 rounded-full bg-corporate-100 text-corporate-700 text-sm font-medium mb-2">
               Hulp nodig?
             </div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-gray-900">Heb je vragen?</h2>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-gray-900">
+              Heb je vragen?
+            </h2>
             <div className="w-20 h-1 bg-corporate-500 mx-auto rounded-full"></div>
-            <p className="text-gray-500 text-lg md:text-xl mt-4">Neem contact met ons op en we helpen je graag verder.</p>
+            <p className="text-gray-500 text-lg md:text-xl mt-4">
+              Neem contact met ons op en we helpen je graag verder.
+            </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 mt-6">
             <a
               href="mailto:info@subrise.eu"
               className="inline-flex items-center justify-center px-6 py-3 border border-corporate-300 hover:bg-corporate-50 text-corporate-700 rounded-full"
             >
-                            <svg
+              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
                 height="16"
@@ -37,5 +41,5 @@ export function ContactSection() {
         </div>
       </div>
     </section>
-  )
-} 
+  );
+}

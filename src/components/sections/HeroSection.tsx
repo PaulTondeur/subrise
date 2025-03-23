@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image from "next/image";
 
 export function HeroSection() {
   return (
@@ -18,9 +18,9 @@ export function HeroSection() {
               Bespaar tijd. Houd 100% van je subsidie. Alles in eigen beheer.
             </p>
             <p className="text-gray-500">
-              Innovatie stimuleren zou eenvoudig moeten zijn. Toch worstelen veel bedrijven met de administratieve
-              last van WBSO-aanvragen en rapportages. Uren aan papierwerk, complexe voorwaarden en hoge kosten voor
-              externe bemiddelaars? Dat kan anders.
+              Innovatie stimuleren zou eenvoudig moeten zijn. Toch worstelen veel bedrijven met de
+              administratieve last van WBSO-aanvragen en rapportages. Uren aan papierwerk, complexe
+              voorwaarden en hoge kosten voor externe bemiddelaars? Dat kan anders.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <a
@@ -84,5 +84,5 @@ export function HeroSection() {
         </div>
       </div>
     </section>
-  )
-} 
+  );
+}

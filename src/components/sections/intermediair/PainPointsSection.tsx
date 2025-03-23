@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image from "next/image";
 
 export function IntermediairPainPointsSection() {
   return (
@@ -43,21 +43,22 @@ export function IntermediairPainPointsSection() {
             </div>
           </div>
         </div>
-        
+
         <div className="mt-16 max-w-3xl mx-auto text-center">
           <p className="text-gray-700 text-xl leading-relaxed italic">
-            Precies daarom ontwikkelden wij Subrise speciaal voor intermediairs. Het platform stroomlijnt jouw processen 
-            en verhoogt de kwaliteit van je dienstverlening, zodat jij en je klanten zich volledig op 
+            Precies daarom ontwikkelden wij Subrise speciaal voor intermediairs. Het platform
+            stroomlijnt jouw processen en verhoogt de kwaliteit van je dienstverlening, zodat jij en
+            je klanten zich volledig op
             <span className="font-semibold text-indigo-600"> innovatie</span> kunnen richten.
           </p>
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 interface PainPointProps {
-  text: string
+  text: string;
 }
 
 function PainPoint({ text }: PainPointProps) {
@@ -80,5 +81,5 @@ function PainPoint({ text }: PainPointProps) {
       </svg>
       <span>&ldquo;{text}&rdquo;</span>
     </li>
-  )
-} 
+  );
+}

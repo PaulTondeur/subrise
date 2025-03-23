@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
-import { usePathname } from "next/navigation"
-import Link from "next/link"
-import Image from "next/image"
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function Footer() {
-  const pathname = usePathname()
-  const isIntermediairPage = pathname.startsWith("/intermediair")
-  
-  const bgColor = isIntermediairPage ? "bg-indigo-900" : "bg-corporate-900"
-  const textLightColor = isIntermediairPage ? "text-indigo-200" : "text-corporate-200"
-  const textHoverColor = isIntermediairPage ? "hover:text-indigo-50" : "hover:text-white"
-  const borderColor = isIntermediairPage ? "border-indigo-700" : "border-corporate-700"
-  const iconColor = isIntermediairPage ? "text-indigo-300" : "text-corporate-300"
-  
+  const pathname = usePathname();
+  const isIntermediairPage = pathname.startsWith("/intermediair");
+
+  const bgColor = isIntermediairPage ? "bg-indigo-900" : "bg-corporate-900";
+  const textLightColor = isIntermediairPage ? "text-indigo-200" : "text-corporate-200";
+  const textHoverColor = isIntermediairPage ? "hover:text-indigo-50" : "hover:text-white";
+  const borderColor = isIntermediairPage ? "border-indigo-700" : "border-corporate-700";
+  const iconColor = isIntermediairPage ? "text-indigo-300" : "text-corporate-300";
+
   // Link items for both columns
   const linkItems = [
     { href: "#voordelen", label: "Voordelen" },
@@ -21,36 +21,39 @@ export function Footer() {
     { href: "#hoe-werkt-het", label: "Hoe werkt het" },
     { href: "#privacy", label: "Privacy" },
     { href: "#wachtlijst", label: "Wachtlijst" },
-    { href: "#contact", label: "Contact" }
-  ]
-  
+    { href: "#contact", label: "Contact" },
+  ];
+
   // Function to handle link clicks - only needed for cross-page navigation
   const handleCrossPageNavigation = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
     // If the link is for the current page type (intermediair or not), let SmoothScrollProvider handle it
-    const isIntermediairLink = path.startsWith('/intermediair')
-    if ((isIntermediairPage && isIntermediairLink) || (!isIntermediairPage && !isIntermediairLink)) {
+    const isIntermediairLink = path.startsWith("/intermediair");
+    if (
+      (isIntermediairPage && isIntermediairLink) ||
+      (!isIntermediairPage && !isIntermediairLink)
+    ) {
       // Let the default behavior happen for same-page hash links
-      return
+      return;
     }
-    
+
     // For links to different page types, prevent default and navigate programmatically
     e.preventDefault();
-    
+
     // Use window.location.href to navigate to the new page
     // This ensures that when the new page loads, the hash will be handled by the initialHash check
     // in the useSmoothScroll hook
-    window.location.href = path
-  }
-  
+    window.location.href = path;
+  };
+
   return (
     <footer className={`pt-12 pb-6 ${bgColor} text-white`}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <Image 
-                src="/logo-white.png" 
-                alt="Subrise Logo" 
+              <Image
+                src="/logo-white.png"
+                alt="Subrise Logo"
                 width={120}
                 height={32}
                 className="h-8 w-auto"
@@ -60,12 +63,12 @@ export function Footer() {
               Maak WBSO-aanvragen eenvoudiger dan ooit met ons AI-ondersteund platform.
             </p>
           </div>
-          
+
           {/* Ondernemers Links Column */}
           <div>
             <h3 className="text-lg font-semibold mb-4">
-              <Link 
-                href="/" 
+              <Link
+                href="/"
                 className={`opacity-100 hover:opacity-90 ${textHoverColor} transition-all`}
               >
                 Voor Ondernemers
@@ -74,8 +77,8 @@ export function Footer() {
             <ul className="space-y-2">
               {linkItems.map((item, index) => (
                 <li key={`ondernemer-${index}`}>
-                  <a 
-                    href={`/${item.href}`} 
+                  <a
+                    href={`/${item.href}`}
                     className={`${textLightColor} ${textHoverColor} opacity-80 hover:opacity-100 transition-all`}
                     onClick={(e) => handleCrossPageNavigation(e, `/${item.href}`)}
                   >
@@ -84,8 +87,8 @@ export function Footer() {
                 </li>
               ))}
               <li>
-                <Link 
-                  href="/login" 
+                <Link
+                  href="/login"
                   className={`${textLightColor} ${textHoverColor} opacity-80 hover:opacity-100 transition-all`}
                 >
                   Inloggen
@@ -93,12 +96,12 @@ export function Footer() {
               </li>
             </ul>
           </div>
-          
+
           {/* Intermediairs Links Column */}
           <div>
             <h3 className="text-lg font-semibold mb-4">
-              <Link 
-                href="/intermediair" 
+              <Link
+                href="/intermediair"
                 className={`opacity-100 hover:opacity-90 ${textHoverColor} transition-all`}
               >
                 Voor Intermediairs
@@ -107,8 +110,8 @@ export function Footer() {
             <ul className="space-y-2">
               {linkItems.map((item, index) => (
                 <li key={`intermediair-${index}`}>
-                  <a 
-                    href={`/intermediair${item.href}`} 
+                  <a
+                    href={`/intermediair${item.href}`}
                     className={`${textLightColor} ${textHoverColor} opacity-80 hover:opacity-100 transition-all`}
                     onClick={(e) => handleCrossPageNavigation(e, `/intermediair${item.href}`)}
                   >
@@ -117,8 +120,8 @@ export function Footer() {
                 </li>
               ))}
               <li>
-                <Link 
-                  href="/intermediair/login" 
+                <Link
+                  href="/intermediair/login"
                   className={`${textLightColor} ${textHoverColor} opacity-80 hover:opacity-100 transition-all`}
                 >
                   Inloggen
@@ -126,7 +129,7 @@ export function Footer() {
               </li>
             </ul>
           </div>
-          
+
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact</h3>
             <ul className="space-y-2">
@@ -146,7 +149,10 @@ export function Footer() {
                   <rect width="20" height="16" x="2" y="4" rx="2" />
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                 </svg>
-                <a href="mailto:info@subrise.eu" className={`${textLightColor} ${textHoverColor} opacity-80 hover:opacity-100 transition-all`}>
+                <a
+                  href="mailto:info@subrise.eu"
+                  className={`${textLightColor} ${textHoverColor} opacity-80 hover:opacity-100 transition-all`}
+                >
                   info@subrise.eu
                 </a>
               </li>
@@ -160,5 +166,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  )
-} 
+  );
+}

@@ -7,7 +7,9 @@ export function IntermediairFeaturesSection() {
             <div className="inline-block px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-sm font-medium mb-2">
               Voor intermediairs
             </div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-gray-900">Waarom kiezen WBSO intermediairs voor Subrise?</h2>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-gray-900">
+              Waarom kiezen WBSO intermediairs voor Subrise?
+            </h2>
             <div className="w-20 h-1 bg-indigo-500 mx-auto rounded-full"></div>
           </div>
         </div>
@@ -136,13 +138,13 @@ export function IntermediairFeaturesSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 interface FeatureCardProps {
-  icon: React.ReactNode
-  title: string
-  description: string
+  icon: React.ReactNode;
+  title: string;
+  description: string;
 }
 
 function FeatureCard({ icon, title, description }: FeatureCardProps) {
@@ -154,5 +156,5 @@ function FeatureCard({ icon, title, description }: FeatureCardProps) {
       <h3 className="text-xl font-bold text-gray-900 text-center w-full">{title}</h3>
       <p className="text-gray-500 text-center">{description}</p>
     </div>
-  )
-} 
+  );
+}

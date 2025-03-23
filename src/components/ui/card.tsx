@@ -1,12 +1,7 @@
-import { HTMLAttributes } from "react"
+import { HTMLAttributes } from "react";
 
-interface CardProps extends HTMLAttributes<HTMLDivElement> {}
+type CardProps = HTMLAttributes<HTMLDivElement>;
 
 export function Card({ className, ...props }: CardProps) {
-  return (
-    <div
-      className={`bg-white rounded-lg shadow-sm ${className || ""}`}
-      {...props}
-    />
-  )
-} 
+  return <div className={`bg-white rounded-lg shadow-sm ${className || ""}`} {...props} />;
+}

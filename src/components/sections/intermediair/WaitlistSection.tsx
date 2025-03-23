@@ -1,4 +1,4 @@
-import { WaitlistForm } from "@/components/waitlist"
+import { WaitlistForm } from "@/components/waitlist";
 
 export function IntermediairWaitlistSection() {
   return (
@@ -19,7 +19,8 @@ export function IntermediairWaitlistSection() {
             </h2>
             <div className="w-20 h-1 bg-indigo-500 mx-auto rounded-full"></div>
             <p className="text-gray-500 md:text-xl mt-4">
-              We laten mondjesmaat bedrijven toe om Subrise als eerste te gebruiken. Wil jij als een van de eersten profiteren? Meld je dan nu aan voor de wachtlijst!
+              We laten mondjesmaat bedrijven toe om Subrise als eerste te gebruiken. Wil jij als een
+              van de eersten profiteren? Meld je dan nu aan voor de wachtlijst!
             </p>
           </div>
           <div className="w-full max-w-md space-y-4 mt-6">
@@ -28,5 +29,5 @@ export function IntermediairWaitlistSection() {
         </div>
       </div>
     </section>
-  )
-} 
+  );
+}

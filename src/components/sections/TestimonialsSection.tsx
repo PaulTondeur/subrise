@@ -1,5 +1,5 @@
-import { Card } from "@/components/ui/card"
-import { User, Users } from "lucide-react"
+import { Card } from "@/components/ui/card";
+import { User, Users } from "lucide-react";
 
 export function TestimonialsSection() {
   return (
@@ -11,7 +11,10 @@ export function TestimonialsSection() {
             <div className="flex flex-col h-full">
               <div className="flex-1">
                 <p className="text-gray-600 mb-6">
-                  "Ik heb jarenlang de WBSO via een bemiddelaar geregeld. Maar eigenlijk deed ik zelf het meeste werk, inclusief het schrijven. Uiteindelijk ben ik het zelf gaan doen, met hulp van AI. Toch vorig jaar weer met een bureau in zee gegaan – 8% fee – en alsnog moest ik zelf de RVO-vragen beantwoorden."
+                  &quot;Ik heb jarenlang de WBSO via een bemiddelaar geregeld. Maar eigenlijk deed
+                  ik zelf het meeste werk, inclusief het schrijven. Uiteindelijk ben ik het zelf
+                  gaan doen, met hulp van AI. Toch vorig jaar weer met een bureau in zee gegaan – 8%
+                  fee – en alsnog moest ik zelf de RVO-vragen beantwoorden.&quot;
                 </p>
                 <div className="flex items-center">
                   <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-4">
@@ -29,7 +32,9 @@ export function TestimonialsSection() {
             <div className="flex flex-col h-full">
               <div className="flex-1">
                 <p className="text-gray-600 mb-6">
-                  "We wilden de WBSO zelf doen, maar twijfelden of we het goed genoeg zouden aanpakken. Uiteindelijk toch een adviseur ingeschakeld, maar dat voelde omslachtig en duur."
+                  &quot;We wilden de WBSO zelf doen, maar twijfelden of we het goed genoeg zouden
+                  aanpakken. Uiteindelijk toch een adviseur ingeschakeld, maar dat voelde omslachtig
+                  en duur.&quot;
                 </p>
                 <div className="flex items-center">
                   <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-4">
@@ -46,5 +51,5 @@ export function TestimonialsSection() {
         </div>
       </div>
     </section>
-  )
-} 
+  );
+}

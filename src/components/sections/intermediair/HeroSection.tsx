@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image from "next/image";
 
 export function IntermediairHeroSection() {
   return (
@@ -18,7 +18,10 @@ export function IntermediairHeroSection() {
               Bespaar tijd. Investeer meer in je klanten.
             </p>
             <p className="text-gray-500">
-              WBSO aanvragen is meer dan aanvragen indienen. Het draait om sterke klantrelaties en een diep begrip van hun innovaties. Subrise automatiseert het repetitieve werk, zodat jij je kunt focussen op wat écht telt: vanuit een vertrouwensrelatie je klanten adviseren.
+              WBSO aanvragen is meer dan aanvragen indienen. Het draait om sterke klantrelaties en
+              een diep begrip van hun innovaties. Subrise automatiseert het repetitieve werk, zodat
+              jij je kunt focussen op wat écht telt: vanuit een vertrouwensrelatie je klanten
+              adviseren.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <a
@@ -82,5 +85,5 @@ export function IntermediairHeroSection() {
         </div>
       </div>
     </section>
-  )
-} 
+  );
+}

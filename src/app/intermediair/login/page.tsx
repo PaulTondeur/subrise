@@ -1,22 +1,24 @@
-import { Header } from "@/components/layout/Header"
-import { Footer } from "@/components/layout/Footer"
-import { LoginForm } from "@/components/login-form"
-import { WaitlistForm } from "@/components/waitlist"
-import { Metadata } from "next"
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { LoginForm } from "@/components/login-form";
+import { WaitlistForm } from "@/components/waitlist";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'WBSO Adviseur Dashboard Login | Voor intermediairs | Subrise',
-  description: 'Log in op het WBSO adviseur dashboard en beheer efficiënt uw klantenportfolio.',
-  keywords: 'WBSO adviseur login, WBSO intermediair dashboard, WBSO adviesbureau portal, WBSO klantenbeheer, WBSO dienstverlening software, WBSO expert platform',
+  title: "WBSO Adviseur Dashboard Login | Voor intermediairs | Subrise",
+  description: "Log in op het WBSO adviseur dashboard en beheer efficiënt uw klantenportfolio.",
+  keywords:
+    "WBSO adviseur login, WBSO intermediair dashboard, WBSO adviesbureau portal, WBSO klantenbeheer, WBSO dienstverlening software, WBSO expert platform",
   alternates: {
-    canonical: 'https://www.subrise.eu/intermediair/login',
+    canonical: "https://www.subrise.eu/intermediair/login",
   },
   openGraph: {
-    title: 'WBSO Adviseur Dashboard Login | Voor intermediairs | Subrise',
-    description: 'Log in op het WBSO adviseur dashboard en beheer efficiënt uw klantenportfolio met ons geavanceerde platform.',
-    url: 'https://www.subrise.eu/intermediair/login',
+    title: "WBSO Adviseur Dashboard Login | Voor intermediairs | Subrise",
+    description:
+      "Log in op het WBSO adviseur dashboard en beheer efficiënt uw klantenportfolio met ons geavanceerde platform.",
+    url: "https://www.subrise.eu/intermediair/login",
   },
-}
+};
 
 export default function IntermediairLoginPage() {
   return (
@@ -27,22 +29,21 @@ export default function IntermediairLoginPage() {
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                  Inloggen als intermediair
-                </h1>
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">Inloggen als intermediair</h1>
                 <div className="w-20 h-1 bg-indigo-500 mx-auto rounded-full mb-4"></div>
                 <p className="text-gray-600 max-w-2xl mx-auto">
-                  Heeft u al een account? Log hieronder in om toegang te krijgen tot uw Subrise dashboard.
+                  Heeft u al een account? Log hieronder in om toegang te krijgen tot uw Subrise
+                  dashboard.
                 </p>
               </div>
-              
+
               <div className="mb-12">
                 <LoginForm isIntermediary={true} />
               </div>
             </div>
           </div>
         </section>
-        
+
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
@@ -55,7 +56,8 @@ export default function IntermediairLoginPage() {
                 </h2>
                 <div className="w-20 h-1 bg-indigo-500 mx-auto rounded-full mb-4"></div>
                 <p className="text-gray-600 mt-2 max-w-2xl mx-auto">
-                  We laten mondjesmaat intermediairs toe om Subrise als eerste te gebruiken. Wil jij als een van de eersten profiteren? Meld je dan nu aan voor de wachtlijst!
+                  We laten mondjesmaat intermediairs toe om Subrise als eerste te gebruiken. Wil jij
+                  als een van de eersten profiteren? Meld je dan nu aan voor de wachtlijst!
                 </p>
               </div>
               <div className="flex justify-center">
@@ -69,5 +71,5 @@ export default function IntermediairLoginPage() {
       </main>
       <Footer />
     </div>
-  )
-} 
+  );
+}
