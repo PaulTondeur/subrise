@@ -9,6 +9,7 @@ import { ResultSection } from "@/components/sections/ResultSection"
 import { PrivacySection } from "@/components/sections/PrivacySection"
 import { WaitlistSection } from "@/components/sections/WaitlistSection"
 import { ContactSection } from "@/components/sections/ContactSection"
+import { TestimonialsSection } from "@/components/sections/TestimonialsSection"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -33,6 +34,7 @@ export default function LandingPage() {
       <main className="flex-1">
         <HeroSection />
         <ValuePropositionSection />
+        <TestimonialsSection />
         <FeaturesSection />
         <PainPointsSection />
         <HowItWorksSection />
