@@ -85,7 +85,7 @@ export async function submitToWaitlist(formData: Record<string, unknown>) {
       Intermediair: formData.isIntermediary,
       Email: formData.email
     }, response.id)
-    const telegramResponse = await bot.sendMessage(TELEGRAM_CHAT_ID, message, { parse_mode: 'Markdown' })
+    const telegramResponse = await bot.sendMessage(process.env.TELEGRAM_CHAT_ID, message, { parse_mode: 'Markdown', message_thread_id: Number(process.env.MESSAGE_THREAD_ID) })
 
     // Update de metadata met het Telegram message ID
     await notion.pages.update({
