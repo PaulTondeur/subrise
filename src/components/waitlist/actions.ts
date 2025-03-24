@@ -78,28 +78,28 @@ export async function submitToWaitlist(formData: Record<string, unknown>) {
     const response = await notion.pages.create(notionData)
     
     // Stuur een bericht naar Telegram
-    const message = formatTelegramMessage({
-      Name: formData.firstName + ' ' + formData.lastName,
-      Bedrijfsnaam: formData.companyName,
-      Telefoonnummer: formData.phoneNumber,
-      Intermediair: formData.isIntermediary,
-      Email: formData.email
-    }, response.id)
-    const telegramResponse = await bot.sendMessage(process.env.TELEGRAM_CHAT_ID, message, { parse_mode: 'Markdown', message_thread_id: 2 })
+    // const message = formatTelegramMessage({
+    //   Name: formData.firstName + ' ' + formData.lastName,
+    //   Bedrijfsnaam: formData.companyName,
+    //   Telefoonnummer: formData.phoneNumber,
+    //   Intermediair: formData.isIntermediary,
+    //   Email: formData.email
+    // }, response.id)
+    // const telegramResponse = await bot.sendMessage(process.env.TELEGRAM_CHAT_ID, message, { parse_mode: 'Markdown', message_thread_id: 2 })
 
-    // Update de metadata met het Telegram message ID
-    await notion.pages.update({
-        page_id: response.id,
-        properties: {
-            telegramMessageId: {
-              rich_text: [{
-                text: {
-                  content: telegramResponse.message_id.toString()
-                }
-              }]
-            }
-        }
-    })
+    // // Update de metadata met het Telegram message ID
+    // await notion.pages.update({
+    //     page_id: response.id,
+    //     properties: {
+    //         telegramMessageId: {
+    //           rich_text: [{
+    //             text: {
+    //               content: telegramResponse.message_id.toString()
+    //             }
+    //           }]
+    //         }
+    //     }
+    // })
 
     return { success: true, id: response.id }
 }
@@ -137,36 +137,36 @@ export async function updateWaitlistSubmission(submissionId: string, email: stri
     const updatedMetadata = {...parsedMetadata, ...formData}
 
     // Update het Telegram bericht als we een message ID hebben
-    const message = formatTelegramMessage({
-      ...updatedMetadata,
-      Name: notionPage.properties.Name.title[0].text.content,
-      Bedrijfsnaam: notionPage.properties.Bedrijfsnaam.rich_text[0].text.content,
-      Telefoonnummer: notionPage.properties.Telefoonnummer.phone_number,
-      Intermediair: notionPage.properties.Intermediair.checkbox,
-      Email: notionPage.properties.Email.email
-    }, submissionId, true)
-    const existingMessageId = parseInt(notionPage.properties.telegramMessageId.rich_text?.[0]?.text?.content)
+    // const message = formatTelegramMessage({
+    //   ...updatedMetadata,
+    //   Name: notionPage.properties.Name.title[0].text.content,
+    //   Bedrijfsnaam: notionPage.properties.Bedrijfsnaam.rich_text[0].text.content,
+    //   Telefoonnummer: notionPage.properties.Telefoonnummer.phone_number,
+    //   Intermediair: notionPage.properties.Intermediair.checkbox,
+    //   Email: notionPage.properties.Email.email
+    // }, submissionId, true)
+    // const existingMessageId = parseInt(notionPage.properties.telegramMessageId.rich_text?.[0]?.text?.content)
 
-    console.log('existingMessageId', existingMessageId, notionPage.properties.Email.email, updatedMetadata)
-    if (!isNaN(existingMessageId)) {
-        try {
-            await bot.editMessageText(message, {
-                chat_id: TELEGRAM_CHAT_ID,
-                message_id: existingMessageId,
-                parse_mode: 'Markdown'
-            })
-        } catch (error) {
-            console.error('Error editing Telegram message:', error)
-            // Als het bewerken niet lukt (bijvoorbeeld omdat het bericht te oud is),
-            // sturen we een nieuw bericht
-            const telegramResponse = await bot.sendMessage(TELEGRAM_CHAT_ID, message, { parse_mode: 'Markdown' })
-            updatedMetadata.telegramMessageId = telegramResponse.message_id
-        }
-    } else {
-        // Als we geen message ID hebben, stuur een nieuw bericht
-        const telegramResponse = await bot.sendMessage(TELEGRAM_CHAT_ID, message, { parse_mode: 'Markdown' })
-        updatedMetadata.telegramMessageId = telegramResponse.message_id
-    }
+    // console.log('existingMessageId', existingMessageId, notionPage.properties.Email.email, updatedMetadata)
+    // if (!isNaN(existingMessageId)) {
+    //     try {
+    //         await bot.editMessageText(message, {
+    //             chat_id: TELEGRAM_CHAT_ID,
+    //             message_id: existingMessageId,
+    //             parse_mode: 'Markdown'
+    //         })
+    //     } catch (error) {
+    //         console.error('Error editing Telegram message:', error)
+    //         // Als het bewerken niet lukt (bijvoorbeeld omdat het bericht te oud is),
+    //         // sturen we een nieuw bericht
+    //         const telegramResponse = await bot.sendMessage(TELEGRAM_CHAT_ID, message, { parse_mode: 'Markdown' })
+    //         updatedMetadata.telegramMessageId = telegramResponse.message_id
+    //     }
+    // } else {
+    //     // Als we geen message ID hebben, stuur een nieuw bericht
+    //     const telegramResponse = await bot.sendMessage(TELEGRAM_CHAT_ID, message, { parse_mode: 'Markdown' })
+    //     updatedMetadata.telegramMessageId = telegramResponse.message_id
+    // }
 
     // Update Notion met de nieuwe metadata
     await notion.pages.update({
